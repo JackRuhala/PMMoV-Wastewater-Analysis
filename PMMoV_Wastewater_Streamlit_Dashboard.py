@@ -22,13 +22,11 @@ WW_df = pd.read_csv(r'Wastewater data sheet')
 ###-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------###
 
 st.title('Analysis of Sewer System Variables That Affect Sewer Based Epidemiology')
-st.write('Abstract: Tracking the origin of vectors of disease is one of the key roll's public health offcials are tasked with.'
+st.write('Abstract: Tracking the origin of vectors of disease is one of the key rolls public health offcials are tasked with.'
          'Wastewater epidemiology is a resent method used to track disease through non-confrontational means'
          'The main pitfall of wastewater disease tracking is the volatility of the sewer environment'
          'Here we look at data collected from the Grand Valley wastewater lab as well as data from Kent county weather,' 
-         'and geological stations, to better understand how the environment affects viral detection counts'
-
-)
+         'and geological stations, to better understand how the environment affects viral detection counts.')
 
 # BEER_df = BEER_df.rename(columns={'Name': 'Name of Beer', 'Style_x':'Brewing Style', 'Style Color Mean': 'Style Color Mean (SRM)', 'Style Color Var':'Style Color Var (SRM)'})
 
