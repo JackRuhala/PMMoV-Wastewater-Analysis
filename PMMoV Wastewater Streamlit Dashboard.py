@@ -1,5 +1,15 @@
 # packages
-
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import plotly.express as px
+import seaborn as sns
+import streamlit as st
+from scipy import stats
+from sklearn.preprocessing import LabelEncoder
+from sklearn.preprocessing import StandardScaler
+from sklearn.linear_model import LinearRegression
+from statsmodels.tsa.seasonal import seasonal_decompose
 ###-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------###
 
 st.set_page_config(page_title='Single Beer Analysis')
