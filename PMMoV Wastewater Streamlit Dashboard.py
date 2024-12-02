@@ -1,10 +1,10 @@
 # packages
+import streamlit as st
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 import plotly.express as px
 import seaborn as sns
-import streamlit as st
 from scipy import stats
 from sklearn.preprocessing import LabelEncoder
 from sklearn.preprocessing import StandardScaler
@@ -12,18 +12,12 @@ from sklearn.linear_model import LinearRegression
 from statsmodels.tsa.seasonal import seasonal_decompose
 ###-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------###
 
-st.set_page_config(page_title='Single Beer Analysis')
+st.set_page_config(page_title='Kent County Michigan Viral Wastewater Analysis')
 
 ###-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------###
 # Load in data
 
-# Desktop file locations
-# BEER_df = pd.read_csv(r'C:\Users\jrruh\OneDrive\Documents\Homework\Data Sciance\CSME 830\Project 1\Streamlit Beer Page files\Beer_df')
-# BEER_TSNE_df = pd.read_csv(r'C:\Users\jrruh\OneDrive\Documents\Homework\Data Sciance\CSME 830\Project 1\Streamlit Beer Page files\BEER_TSNE_df')
-
-# laptop file locations
-BEER_df = pd.read_csv(r'C:\Users\jackz\Documents\Homework\Data Sciance\830\Project 1\Streamlit Beer Page files\Beer_df')
-BEER_TSNE_df = pd.read_csv(r'C:\Users\jackz\Documents\Homework\Data Sciance\830\Project 1\Streamlit Beer Page files\BEER_TSNE_df')
+WW_df = pd.read_csv(r'Wastewater data sheet')
 
 ###-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------###
 
@@ -36,11 +30,11 @@ st.write('Abstract: Tracking the origen of vectors of disease is one of the key 
 
 )
 
-BEER_df = BEER_df.rename(columns={'Name': 'Name of Beer', 'Style_x':'Brewing Style', 'Style Color Mean': 'Style Color Mean (SRM)', 'Style Color Var':'Style Color Var (SRM)'})
+# BEER_df = BEER_df.rename(columns={'Name': 'Name of Beer', 'Style_x':'Brewing Style', 'Style Color Mean': 'Style Color Mean (SRM)', 'Style Color Var':'Style Color Var (SRM)'})
 
-BEER_df = BEER_df.iloc[:,[19, 0, 3, 1, 2, 30, 5, 4, 26, 27, 6, 7, 28, 29, 20, 21, 22, 23, 24, 25, 9, 8, 10, 11, 12, 13, 14, 15, 16, 17, 18, 31]]
+# BEER_df = BEER_df.iloc[:,[19, 0, 3, 1, 2, 30, 5, 4, 26, 27, 6, 7, 28, 29, 20, 21, 22, 23, 24, 25, 9, 8, 10, 11, 12, 13, 14, 15, 16, 17, 18, 31]]
 
-st.dataframe(BEER_df, use_container_width=True)
+st.dataframe(WW_df, use_container_width=True)
 
 ###-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------###
 # Introduction to wastewater epidemiology data
