@@ -11,3 +11,12 @@ I would like to thank the Grand Valley State University Molecular monitoring tea
 
 * viral detection data N1, N2, PMMoV
   - Grand Valley State University Molecular monitoring lab
+  - N1, N2 data can also be found on https://www.michigan.gov/coronavirus/stats/wastewater-surveillance/wastewater-surveillance-for-covid-19/dashboard but no download is avalible
+* Site spicifc envirmental perameters (Water Tempature, pH, Flowrate
+  - Grand Valley State University Molecular monitoring lab
+* Kent County wether information
+  -
+* Grand Rapids Grand River discharge data
+  -
+* National deaths due to COVID-19 data
+  - https://covid.cdc.gov/covid-data-tracker/#trends_weeklydeaths_select_00
