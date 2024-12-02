@@ -7,7 +7,7 @@ This data repository will only explore a small aspect of the work being done on 
 The conclusions of data made in this repository does not speak for the conclusions of the Grand Vally team, although some discussion has taken place to align our thoughts on the data.
 I would like to thank the Grand Valley State University Molecular monitoring team for permiting me to use thire data and I would encurage others intresid in this reserch to read the publication when it becomes avalible
 
-## sorece list of data
+## Sorece of Data
 
 * viral detection data N1, N2, PMMoV
   - Grand Valley State University Molecular monitoring lab
