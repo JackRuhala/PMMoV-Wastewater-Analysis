@@ -22,10 +22,10 @@ WW_df = pd.read_csv(r'Wastewater data sheet')
 ###-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------###
 
 st.title('Analysis of Sewer System Variables That Affect Sewer Based Epidemiology')
-st.write('Abstract: Tracking the origen of vectors of disease is one of the key rolls public health officals are tasked with.'
+st.write('Abstract: Tracking the origin of vectors of disease is one of the key roll's public health offcials are tasked with.'
          'Wastewater epidemiology is a resent method used to track disease through non-confrontational means'
          'The main pitfall of wastewater disease tracking is the volatility of the sewer environment'
-         'Here we look at data collected from the Grand Valley wastewater lab as well as data from kent county weather,' 
+         'Here we look at data collected from the Grand Valley wastewater lab as well as data from Kent county weather,' 
          'and geological stations, to better understand how the environment affects viral detection counts'
 
 )
@@ -38,16 +38,16 @@ st.dataframe(WW_df, use_container_width=True)
 
 ###-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------###
 # Introduction to wastewater epidemiology data
-st.title('A briefed introduction to wastewater epidemiology data')
-st.write('Wastewater epidemiology is a fairly new industry that aims to track vectors of disease through non-invasive means'
+st.title('A Briefed Introduction to Wastewater Epidemiology Data')
+st.write('Wastewater epidemiology is a new industry that aims to track vectors of disease through non-invasive means'
          'There are multiple methods of detecting disease through wastewater but the data we have uses a centrifugal extraction method with florescent PCR detection'
-         'The work flow of wastewater epidemiology is as follows.'
-         'The proses starts by collecting a sample of wastewater from a sewer.'
-         'A sample can be collecting is one of two ways, by a composite extractor or a direct grab collection.'
-         'A composite extractor is a collection tank that collects a small portion every few min, over the corse of a day, while a grab is just direct water collection out of a manhole'
+         'The workflow of wastewater epidemiology is as follows.'
+         'The prosess starts by collecting a sample of wastewater from a sewer.'
+         'A sample can be collected is one of two ways, by a composite extractor or a direct grab collection.'
+         'A composite extractor is a collection tank that collects a small portion every few min, over the course of a day, while a grab is just direct water collection out of a manhole'
          'Once the sample is collected it goes to a lab for processing.'
-         'The lab take a portion of the sample collected and concentrates the sample by separating the water from the vector of disease'
-         'Contention involves trapping virus in a net made of polyethylene glycol (PEG), removing as much water from the PEG as possible, then extracting the collected viruses from the PEG.'
+         'The lab takes a portion of the sample collected and concentrates the sample by separating the water from the vector of disease'
+         'Contention involves trapping viruses in a net made of polyethylene glycol (PEG), removing as much water from the PEG as possible, then extracting the collected viruses from the PEG.'
          'Once the viruses are extracted, a small portion of the extraction is used to count the number of viruses in a sample'
          'Viral detection counts are recorded in two different forms depending on the detection method used'
          'The qPCR method records viral count as cycles (CT).'
@@ -55,7 +55,7 @@ st.write('Wastewater epidemiology is a fairly new industry that aims to track ve
          'The other detection method id ddPCR which produces direct gc data'
          'There is more nuance and scientific reasoning behind the actual collection of data but knowing more than the basics should not be required for understanding the data.'
          'In short, from start to finish, sample collection and viral detection is very involved and volatile so making notes of all variables between collection to detection is important for accurate data presentation'
-         'The goal of this dashboad is to determine what factors impact viral detection in order to generate more accurate predictions of disease in a local population'
+         'The goal of this dashboard is to determine what factors impact viral detection in order to generate more accurate predictions of disease in a local population'
 )
 ###-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------###
 # The Key is PMMoV
