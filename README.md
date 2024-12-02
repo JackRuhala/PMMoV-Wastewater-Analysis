@@ -10,4 +10,4 @@ I would like to thank the Grand Valley State University Molecular monitoring tea
 ## sorece list of data
 
 * viral detection data N1, N2, PMMoV
-- Grand Valley State University Molecular monitoring lab
+  - Grand Valley State University Molecular monitoring lab
