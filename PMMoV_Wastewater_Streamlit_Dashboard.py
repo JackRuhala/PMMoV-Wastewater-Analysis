@@ -125,10 +125,10 @@ st.image('Imputed_GR_reggretion_map.png', caption= 'Example of how recoreded flo
 st.markdown(''' Sample stats of reggretion before imputaion
 
          - Slope w1 = 0.00228
-         - Intercept w0 = 28.275
-         - Pearson correlation coefficient r value = 0.871
-         - p-value = 8.071e-37
-         - Standard error value = 0.000121
+- Intercept w0 = 28.275
+- Pearson correlation coefficient r value = 0.871
+- p-value = 8.071e-37
+- Standard error value = 0.000121
          '''
 )
 
