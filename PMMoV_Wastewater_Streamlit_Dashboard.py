@@ -157,7 +157,7 @@ if user_input_1 in WW_df['Code'].values:
          st.write(user_input_1, ' : Code Not Found.')
 
     fig = px.scatter(Code_data, x='Discharge (ft^3/s)', y='FlowRate (MGD)', title=f"Discharge vs FlowRate for {user_input_1}")
-    fig.add_trace(go.Scatter(x=Code_dis, y=(Code_dis * w1 + w0), mode='lines', name='Regression Line'))
+    fig.add_trace(go.Scatter(x=Code_dis, y=(Code_dis * w1 + w0), mode='lines', name='Regression Line'),line=dict(color='red', width=2))
     st.plotly_chart(fig)
 else:
     st.write(user_input_1, ' : Code Not Found')
