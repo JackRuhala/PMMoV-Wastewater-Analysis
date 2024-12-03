@@ -73,6 +73,9 @@ st.write('A big part of this dashboard is understanding how the environment chan
          'If PMMoV counts change with environmental factors, then the suspected count of disease will positively corelate with the change in PMMoV'
          'The goal of this dashboard is to show the assumptions about PMMoVs direct positive correlation to disease are true.'
 )
+
+st.image('Extraction_Figure.png', caption="This is an image of the Tobaco Mosaic virus, a close ansester of PMMoV, PMMoV and TMV are both rod shaped virused. Image was taken from https://www.semanticscholar.org/paper/The-physics-of-tobacco-mosaic-virus-and-virus-based-Alonso-G%C3%B3rzny/3177b81019a98aa9c2a17be46f325d1033f96f13")
+
 ###-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------###
 st.title('Available Data')
 st.markdown('''
