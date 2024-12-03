@@ -5,7 +5,7 @@ import numpy as np
 # import matplotlib.pyplot as plt
 import plotly.express as px
 import seaborn as sns
-# import plotly.graph_objects as go
+import plotly.graph_objects as go
 from scipy import stats
 from sklearn.preprocessing import LabelEncoder
 from sklearn.preprocessing import StandardScaler
