@@ -123,12 +123,12 @@ st.write('Data that is available online for download and viewing is all complete
 
 st.image('Imputed_GR_reggretion_map.png', caption= 'Example of how recoreded flowrate of a system corrilates with discharge of the Grand River before imputaion. A small anount of noise was added to the imputed data so the imputed flow rate dose not completly corrilate with discharge')
 st.markdown(''' Sample stats of reggretion before imputaion
-         - Slope w1 = 0.00228
-         - Intercept w0 = 28.275
-         - Pearson correlation coefficient r value = 0.871
-         - p-value = 8.071e-37
-         - Standard error value = 0.000121
-         '''
+                  - Slope w1 = 0.00228
+                  - Intercept w0 = 28.275
+                  - Pearson correlation coefficient r value = 0.871
+                  - p-value = 8.071e-37
+                  - Standard error value = 0.000121
+                  '''
 )
 
 user_input_1 = st.text_input('Enter Site Code Name:', 'Site Code')
