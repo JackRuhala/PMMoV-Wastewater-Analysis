@@ -56,6 +56,7 @@ st.write('Wastewater epidemiology is a new industry that aims to track vectors o
          'The goal of this dashboard is to determine what factors impact viral detection in order to generate more accurate predictions of disease in a local population'
 )
 st.image('G_vs_C_sample_figure.png')
+st.image('')
 ###-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------###
 # The Key is PMMoV
 st.title('The Key is PMMoV')
