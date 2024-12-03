@@ -138,7 +138,7 @@ st.write('''
         The daily Discharge of the Grand River was found to closely match the flow rate of the local sewer systems.
         Because trends in flow rate closely followed trends in discharge, the discharge of the Grand river was used to model what the flow rate would be on any given day.
         The model values of discharge vs flow rate are presented below.
-         '''
+         ''')
 st.image('Imputed_GR_reggretion_map.png', caption= 'Example of how recoreded flowrate of a system corrilates with discharge of the Grand River before imputaion. A small anount of noise was added to the imputed data so the imputed flow rate dose not completly corrilate with discharge')
 st.markdown(''' Sample stats of reggretion before imputaion
 
