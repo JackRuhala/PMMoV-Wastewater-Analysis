@@ -152,57 +152,14 @@ if user_input_1 in WW_df['Code'].values:
          st.write(f"Predicted p-value ={p}")
          st.write(f"Predicted Standard error value ={err}")
 
-         px.scatter(x=Code_data['Discharge (ft^3/s)'], y=Code_data['FlowRate (MGD)'], data=Code_data)
-         px.line(x=Code_dis, y=(Code_dis*w1 + w0))
     else:
-        st.write(user_input_1, ' : Code Not Found.')
+         st.write(user_input_1, ' : Code Not Found.')
     
-    # Polar bar chart of Attributes (CHAT GPT 4 (10/13/2024) helped write the code for this)
-    st.write('Polar plot range can be adjusted by clicking center of the plot and drag the view window to size. Double click the plot to return to normal')
-    # Locate beer data associated with the beer name
-    beer_name_row = BEER_df[BEER_df['Name of Beer'] == user_input_1].iloc[0]
+    px.scatter(x=Code_data['Discharge (ft^3/s)'], y=Code_data['FlowRate (MGD)'], data=Code_data)
+    px.line(x=Code_dis, y=(Code_dis*w1 + w0))
 
-    # Set up attributes and their values
-    attributes = ['Alcohol', 'Astringency', 'Body', 'Bitter', 'Fruits', 'Hoppy', 'Malty', 'Salty', 'Sour', 'Spices']
-    values = [beer_name_row[attr] for attr in attributes]
-
-    # Normalize values by dividing by the maximum value in each attribute
-    normalized_values = [value / BEER_df[attr].max() for attr, value in zip(attributes, values)]
-
-    # Create a plot DataFrame with normalized values
-    polar_plot_data = pd.DataFrame({
-        'Attribute': attributes,
-        'Value': normalized_values
-    })
-
-    # Add angles for each attribute
-    num_attributes = len(attributes)
-    polar_plot_data['Angle'] = polar_plot_data['Attribute'].apply(lambda x: (attributes.index(x) / num_attributes) * 2 * np.pi)
-
-    # Create polar bar chart using Plotly Express
-    fig = px.bar_polar(polar_plot_data,
-                        r='Value',
-                        theta='Attribute',
-                        color='Attribute',
-                        template='plotly',
-                        title=f'Normalized Attributes of {user_input_1}',
-                        color_discrete_sequence= px.colors.sequential.Plasma_r,)
-    
-    # Update layout to change tick label color to black
-    fig.update_layout(
-        polar=dict(
-            angularaxis=dict(tickfont=dict(color='white')),  # Change angular axis tick font color
-            radialaxis=dict(showticklabels=False,
-                range=[0, 1])  # Change radial axis tick font color
-        ),
-    )
-    st.plotly_chart(fig)
-
-    # Print value in description column
-    beer_described = BEER_df.loc[BEER_df['Name of Beer'] == user_input_1, 'Description'].values[0]
-    st.write(user_input_1, f': {beer_described}')
 else:
-    st.write(user_input_1, ' : Beer Not Found in Data')
+    st.write(user_input_1, ' : Code Not Found')
 
 
 ###-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------###
