@@ -196,10 +196,10 @@ st.plotly_chart(fig2)
 fig3 = px.scatter(WW_df, title = 'Sewer Flow Rate by site', x='Date', y='FlowRate (MGD)', color ='Code', render_mode='svg')
 st.plotly_chart(fig3)
 # univariate graphs of pH of a system
-fig4 = px.scatter(WW_df, title = 'Sewer Water pH by site', x='Date', y='FlowRate (MGD)', color ='Code', render_mode='svg')
+fig4 = px.scatter(WW_df, title = 'Sewer Water pH by site', x='Date', y='pH', color ='Code', render_mode='svg')
 st.plotly_chart(fig4)
 # univariate graphs of PMMoV recorded in a system
-fig5 = px.scatter(WW_df, title = 'PMMoV Gene Copys recorded in 100ml Sewer Water sample', x='Date', y='PMMoV (gc/100ml)', color ='Code', render_mode='svg')
+fig5 = px.scatter(WW_df, title = 'PMMoV Gene Copys recorded in 100ml Sewer Water sample', x='Date', y='PMMoV (gc/ 100ml)', color ='Code', render_mode='svg')
 st.plotly_chart(fig5)
 
 ###-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------###
