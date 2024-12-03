@@ -84,6 +84,14 @@ st.markdown('''If you have not already please read the introduction on wastewate
             - Pi6 = Extraction control virus for N1 and N2
             - N1 = N2 = COVID-19 (no specific variant) '''
 )
+st.markdown('''
+<style>
+[data-testid="stMarkdownContainer"] ul{
+    padding-left:40px;
+}
+</style>
+''', unsafe_allow_html=True)
+
 
 # BEER_df = BEER_df.rename(columns={'Name': 'Name of Beer', 'Style_x':'Brewing Style', 'Style Color Mean': 'Style Color Mean (SRM)', 'Style Color Var':'Style Color Var (SRM)'})
 
