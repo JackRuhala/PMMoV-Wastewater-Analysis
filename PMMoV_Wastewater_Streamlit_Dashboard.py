@@ -56,19 +56,19 @@ st.image('Extraction_Figure.png')
 # The Key is PMMoV
 st.title('What is PMMoV?')
 st.write('A big part of this dashboard is understanding how the environment changes the detection of viruses in wastewater.'
-         'Studying the environments effect on the disease of interest in nearly imposable due to the true instance of a disease in a population is never truly known.'
-         'Instead of studying the effect of the environment on the disease directly, we can indirectly infer how the environment affects disease detection through a fecal matter variable.'
-         'Currently there are a number of proposed fecal matter controls in literature from detection of human genes in wastewater to caffein concentration of a sample.'
-         'The fecal matter control in our data is a plant virus called pepper mild monotilo virus or PMMoV for short.'
-         'PMMoV spreads from peppers, or processed pepper spices to human through consumption.'
-         'PMMoV endures the human digestive tract and is harmlessly expelled through our fecal matter where it enters the water and eventually infects more pepper plants.'
-         'Because PMMoV is expelled through human waste, PMMoV concentration is strongly positively correlated to human waste, and because pepper consumption is common in America most human waste contains PMMoV.'
-         'PMMoV also has the added benefit of being a virus.' 
-         'Although plant viruses have unique morphology compared to human viruses PMMoV is suspected of behaving similarly to viruses of interest during the collection, extraction and detection processes.'
-         'For all of the reasons listed above, PMMoV detection is interpreted as human fecal contamination data.'
-         'The higher the PMMoV counts, the more fecal matter in a sample, the higher the suspected count of disease.'
-         'If PMMoV counts change with environmental factors, then the suspected count of disease will positively corelate with the change in PMMoV.'
-         'The goal of this dashboard is to show the assumptions about PMMoVs direct positive correlation to disease are true.'
+         ' Studying the environments effect on the disease of interest in nearly imposable due to the true instance of a disease in a population is never truly known.'
+         ' Instead of studying the effect of the environment on the disease directly, we can indirectly infer how the environment affects disease detection through a fecal matter variable.'
+         ' Currently there are a number of proposed fecal matter controls in literature from detection of human genes in wastewater to caffein concentration of a sample.'
+         ' The fecal matter control in our data is a plant virus called pepper mild monotilo virus or PMMoV for short.'
+         ' PMMoV spreads from peppers, or processed pepper spices to human through consumption.'
+         ' PMMoV endures the human digestive tract and is harmlessly expelled through our fecal matter where it enters the water and eventually infects more pepper plants.'
+         ' Because PMMoV is expelled through human waste, PMMoV concentration is strongly positively correlated to human waste, and because pepper consumption is common in America most human waste contains PMMoV.'
+         ' PMMoV also has the added benefit of being a virus.' 
+         ' Although plant viruses have unique morphology compared to human viruses PMMoV is suspected of behaving similarly to viruses of interest during the collection, extraction and detection processes.'
+         ' For all of the reasons listed above, PMMoV detection is interpreted as human fecal contamination data.'
+         ' The higher the PMMoV counts, the more fecal matter in a sample, the higher the suspected count of disease.'
+         ' If PMMoV counts change with environmental factors, then the suspected count of disease will positively corelate with the change in PMMoV.'
+         ' The goal of this dashboard is to show the assumptions about PMMoVs direct positive correlation to disease are true.'
 )
 
 st.image('TMV.png', caption="This is an image of the Tobaco Mosaic virus, a close ansester of PMMoV, PMMoV and TMV are both rod shaped virused. Image was taken from https://www.semanticscholar.org/paper/The-physics-of-tobacco-mosaic-virus-and-virus-based-Alonso-G%C3%B3rzny/3177b81019a98aa9c2a17be46f325d1033f96f13")
@@ -114,13 +114,31 @@ st.markdown('''
 ###-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------###
 # Data cleaning of initial data
 st.title('Data cleaning of initial data')
-st.write('Data that is available online for download and viewing is all complete and requires no imputation.'
-         'Some of the weather pattern data was recorded in binary but never recorded the zero but instead reported Na, all Na in binary data was changed to 0'
-         'The lab data provided was not original presented as a complete df and had to be formatted into a CSV before imputation.'
-         'The names of individual lab members performing analysis was recoded in the data, to protect there identity there names were encoded into numbers'
-         'The remaining imputable factors are the temperature of the waste water, the flow rate of the sewer amd the pH of the waste water.'
+st.write('''
+         Data that is available online for download and viewing is all complete and requires no imputation.
+         Some of the weather pattern data was recorded in binary but never recorded the zero but instead reported as Na. 
+         All Na in binary data were changed to 0.
+         The lab data provided was not originaly presented as a df and had to be formatted into a CSV before imputation.
+         The names of individual lab members performing analysis was encoded in the data to protect there identity.
+         The remaining imputable factors are the temperature of the waste water, the flow rate of the sewer amd the pH of the waste water.
+         '''
 )
-
+st.write('''
+        Imputing flowrate and pH was done using the forward fill imputiontion method, where the reorded value of the day previous to the missing value replaces the missing value. 
+        For the tempature of the sewer water, only one site 'CS' had tempature recorded.
+        The assumption was made that because all sites share a close geological position to eachother, they would all have simmiler water tempatures, so the 'CS' tempature data was transferd over to the other sited and followed up with another forward fill.
+        pH can be affected by tempature or flowrate of the water, so before imputing pH corilations betwen pH, water tempature, and flowrate were considerd.
+        Assuming tempature to be a confounding variable, the effect of tempature on flow rate was removed from the flow rate data before comparing flow rate to pH.
+        It was found that pH remaind stable in the sites recoreded regarless of tempature or flowrate, so pH was considerd to be independent from other variables and was imputed using the forward fill method.
+        Not all sites had pH data recorded, and pH data can not be logicly transferd to other sites with no pH tempature.
+        Last, Imputed variable was sewer water flow rate.
+        For imputing flow rate, local ground water data was preferd but not found online.
+        The next best thing to ground water data was data on the Grand River that flows through the County.
+        The Discharge of the Grand River mesures how much water passess the ecological monitoring station per second per day.
+        The daily Discharge of the Grand River was found to closely match the flow rate of the local sewer systems.
+        Because trends in flow rate closely followed trends in discharge, the discharge of the Grand river was used to model what the flow rate would be on any given day.
+        The model values of discharge vs flow rate are presented below.
+         '''
 st.image('Imputed_GR_reggretion_map.png', caption= 'Example of how recoreded flowrate of a system corrilates with discharge of the Grand River before imputaion. A small anount of noise was added to the imputed data so the imputed flow rate dose not completly corrilate with discharge')
 st.markdown(''' Sample stats of reggretion before imputaion
 
@@ -158,9 +176,9 @@ if user_input_1 in WW_df['Code'].values:
     else:
          st.write(user_input_1, ' : Code Not Found.')
 
-    fig = px.scatter(Code_data, x='Discharge (ft^3/s)', y='FlowRate (MGD)', title=f"Discharge vs FlowRate for {user_input_1}")
-    fig.add_trace(go.Scatter(x=Code_dis, y=(Code_dis * w1 + w0), mode='lines', name='Regression Line', line=dict(color='red', width=2)))
-    st.plotly_chart(fig)
+    fig1 = px.scatter(Code_data, x='Discharge (ft^3/s)', y='FlowRate (MGD)', title=f"Discharge vs FlowRate for {user_input_1}")
+    fig1.add_trace(go.Scatter(x=Code_dis, y=(Code_dis * w1 + w0), mode='lines', name='Regression Line', line=dict(color='red', width=2)))
+    st.plotly_chart(fig1)
 else:
     st.write(user_input_1, ' : Code Not Found')
 
@@ -169,17 +187,20 @@ else:
 # Understanding the environment of Kent Countys sewers
 st.title('Understanding the Environment of Kent Countys sewers')
 st.write('A sewer system is not isolated from the outside world, the system experiences dramatic changes along with the environment outside the environment'
-         'Below, take some time to look at how the environment of a sewer system changes with the environment out side'
+         'Below, take some time to look at how the environment of a sewer system changes with the environment outside.'
 )
 
-# univariate graphs of temperature of the water vs temperature out side
-
+fig2 = px.scatter(WW_df, title = 'Kent County Sewer Water Tempature', x='Date', y='Temp', render_mode='svg')
+st.plotly_chart(fig2)
 # univariate graphs of grand river discharge vs flow rate vs precipitation and snow melt
-
+fig3 = px.scatter(WW_df, title = 'Sewer Flow Rate by site', x='Date', y='FlowRate (MGD)', color ='Code', render_mode='svg')
+st.plotly_chart(fig3)
 # univariate graphs of pH of a system
-
+fig4 = px.scatter(WW_df, title = 'Sewer Water pH by site', x='Date', y='FlowRate (MGD)', color ='Code', render_mode='svg')
+st.plotly_chart(fig4)
 # univariate graphs of PMMoV recorded in a system
-
+fig5 = px.scatter(WW_df, title = 'PMMoV Gene Copys recorded in 100ml Sewer Water sample', x='Date', y='PMMoV (gc/100ml)', color ='Code', render_mode='svg')
+st.plotly_chart(fig5)
 
 ###-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------###
 # Building and environmental model for PMMoV
