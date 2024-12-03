@@ -156,8 +156,7 @@ if user_input_1 in WW_df['Code'].values:
     else:
          st.write(user_input_1, ' : Code Not Found.')
 
-    fig = px.scatter(Code_data, x='Discharge (ft^3/s)', y='FlowRate (MGD)', title=f"Discharge vs FlowRate for {user_input_1}")
-    fig.show()
+    px.scatter(Code_data, x='Discharge (ft^3/s)', y='FlowRate (MGD)', title=f"Discharge vs FlowRate for {user_input_1}")
 
 else:
     st.write(user_input_1, ' : Code Not Found')
