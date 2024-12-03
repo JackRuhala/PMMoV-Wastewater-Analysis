@@ -32,8 +32,6 @@ st.write('Abstract: Tracking the origin of vectors of disease is one of the key 
 
 # BEER_df = BEER_df.iloc[:,[19, 0, 3, 1, 2, 30, 5, 4, 26, 27, 6, 7, 28, 29, 20, 21, 22, 23, 24, 25, 9, 8, 10, 11, 12, 13, 14, 15, 16, 17, 18, 31]]
 
-st.dataframe(WW_df, use_container_width=True)
-
 ###-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------###
 # Introduction to wastewater epidemiology data
 st.title('A Briefed Introduction to Wastewater Epidemiology Data')
@@ -59,37 +57,40 @@ st.image('G_vs_C_sample_figure.png')
 st.image('Extraction_Figure.png')
 ###-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------###
 # The Key is PMMoV
-st.title('The Key is PMMoV')
+st.title('What is PMMoV?')
 st.write('A big part of this dashboard is understanding how the environment changes the detection of viruses in wastewater.'
          'Studying the environments effect on the disease of interest in nearly imposable due to the true instance of a disease in a population is never truly known'
-         'instead of studying the effect of the environment on the disease directly, we can indirectly infer how the environment affects disease detection through a fecal matter variable'
-         'currently there are a number of proposed fecal matter controls in literature from detection of human genes in wastewater to caffein concentration of a sample.'
+         'Instead of studying the effect of the environment on the disease directly, we can indirectly infer how the environment affects disease detection through a fecal matter variable'
+         'Currently there are a number of proposed fecal matter controls in literature from detection of human genes in wastewater to caffein concentration of a sample.'
          'The fecal matter control in our data is a plant virus called pepper mild monotilo virus or PMMoV for short.'
          'PMMoV spreads from peppers, or processed pepper spices to human through consumption.'
-         'PMMoV endures the human digestive tract and is harmlessly expelled through our fecal mater where it enters the water and eventually, infects more pepper plants'
+         'PMMoV endures the human digestive tract and is harmlessly expelled through our fecal matter where it enters the water and eventually infects more pepper plants'
          'Because PMMoV is expelled through human waste, PMMoV concentration is strongly positively correlated to human waste, and because pepper consumption is common in America most human waste contains PMMoV'
-         'PMMoV is also has the added benefit of being a virus.' 
-         'Although plant viruses have unique morphology compared to human viruses PMMoV is suspected of behaving similar to viruses of interest during the collection, extraction and detection processes.'
+         'PMMoV also has the added benefit of being a virus.' 
+         'Although plant viruses have unique morphology compared to human viruses PMMoV is suspected of behaving similarly to viruses of interest during the collection, extraction and detection processes.'
          'For all of the reasons listed above, PMMoV detection is interpreted as human fecal contamination data.'
-         'The higher the PMMoV counts, the more fecal mater in a sample, the higher the suspected count of disease'
+         'The higher the PMMoV counts, the more fecal matter in a sample, the higher the suspected count of disease'
          'If PMMoV counts change with environmental factors, then the suspected count of disease will positively corelate with the change in PMMoV'
-         'The goal of this dashboard is to use show the assumptions about PMMoVs direct positive corelation to disease are true.'
+         'The goal of this dashboard is to show the assumptions about PMMoVs direct positive correlation to disease are true.'
 )
 ###-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------###
 st.title('Available Data')
-st.write('If you have not already please read the introduction on wastewater epidemiology and PMMoV.'
-         'If you dont have time to read the into or dont understand the context of what it means, here is a gross oversimplification of some of the more complicated data variables'
-         'PMMoV, Pi6, N1, N2, are all viruses'
-         'gc/100ml = number of viruses per 100ml of collected sample'
-         'gc/100ml = f(ct^-1)'
-         'PMMoV = Human fecal contamination'
-         'Pi6 = Extraction control virus for N1 and N2'
-         'N1 = N2 = COVID-19 (no specific variant)'
-         'The rest of the data should be more self explanatory'
+st.markdown('If you have not already please read the introduction on wastewater epidemiology and PMMoV.'
+            'If you dont have time to read the into or dont understand the context of what it means, here is a gross oversimplification of some of the more complicated data variables'
+            * 'PMMoV, Pi6, N1, N2, are all viruses'
+            * 'gc/100ml = number of viruses per 100ml of collected sample'
+            * 'gc/100ml = f(ct^-1)'
+            * 'PMMoV = Human fecal contamination'
+            * 'Pi6 = Extraction control virus for N1 and N2'
+            * 'N1 = N2 = COVID-19 (no specific variant)'
+            * 'The rest of the data should be more self explanatory'
 )
 
-# Insert df
+# BEER_df = BEER_df.rename(columns={'Name': 'Name of Beer', 'Style_x':'Brewing Style', 'Style Color Mean': 'Style Color Mean (SRM)', 'Style Color Var':'Style Color Var (SRM)'})
 
+# BEER_df = BEER_df.iloc[:,[19, 0, 3, 1, 2, 30, 5, 4, 26, 27, 6, 7, 28, 29, 20, 21, 22, 23, 24, 25, 9, 8, 10, 11, 12, 13, 14, 15, 16, 17, 18, 31]]
+
+st.dataframe(WW_df, use_container_width=True)
 
 
 st.write('Most of the data is publicly available online but all of the data is not available for download'
