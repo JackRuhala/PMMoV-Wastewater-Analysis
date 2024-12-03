@@ -77,8 +77,8 @@ st.title('Available Data')
 st.markdown('''
             If you have not already please read the introduction on wastewater epidemiology and PMMoV. If you dont have time to read the into or dont understand the context of what it means, here is a gross oversimplification of some of the more complicated data variables
             - PMMoV, Pi6, N1, N2, are all viruses
-            - $\frac{gc}{100ml} = number of viruses per 100ml of collected sample
-            - $$\frac{gc}{100ml} = f(ct^-1)$$
+            - gc/100ml = number of viruses per 100ml of collected sample
+            - gc/100ml = f(ct^-1)
             - PMMoV = Human fecal contamination
             - Pi6 = Extraction control virus for N1 and N2
             - N1 = N2 = COVID-19 (no specific variant) 
@@ -91,7 +91,6 @@ st.markdown('''
 # BEER_df = BEER_df.iloc[:,[19, 0, 3, 1, 2, 30, 5, 4, 26, 27, 6, 7, 28, 29, 20, 21, 22, 23, 24, 25, 9, 8, 10, 11, 12, 13, 14, 15, 16, 17, 18, 31]]
 
 st.dataframe(WW_df, use_container_width=True)
-
 
 st.markdown('''
          Most of the data is publicly available online but all of the data is not available for download
@@ -120,6 +119,10 @@ st.write('Data that is available online for download and viewing is all complete
          'The names of individual lab members performing analysis was recoded in the data, to protect there identity there names were encoded into numbers'
          'The remaining imputable factors are the temperature of the waste water, the flow rate of the sewer amd the pH of the waste water.'
 )
+
+st.image()
+
+
 ###-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------###
 # Understanding the environment of Kent Countys sewers
 st.title('Understanding the Environment of Kent Countys sewers')
