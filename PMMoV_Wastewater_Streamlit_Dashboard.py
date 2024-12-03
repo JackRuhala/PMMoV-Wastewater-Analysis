@@ -28,10 +28,6 @@ st.write('Abstract: Tracking the origin of vectors of disease is one of the key 
          'Here we look at data collected from the Grand Valley wastewater lab as well as data from Kent county weather,' 
          'and geological stations, to better understand how the environment affects viral detection counts.')
 
-# BEER_df = BEER_df.rename(columns={'Name': 'Name of Beer', 'Style_x':'Brewing Style', 'Style Color Mean': 'Style Color Mean (SRM)', 'Style Color Var':'Style Color Var (SRM)'})
-
-# BEER_df = BEER_df.iloc[:,[19, 0, 3, 1, 2, 30, 5, 4, 26, 27, 6, 7, 28, 29, 20, 21, 22, 23, 24, 25, 9, 8, 10, 11, 12, 13, 14, 15, 16, 17, 18, 31]]
-
 ###-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------###
 # Introduction to wastewater epidemiology data
 st.title('A Briefed Introduction to Wastewater Epidemiology Data')
@@ -81,8 +77,8 @@ st.title('Available Data')
 st.markdown('''
             If you have not already please read the introduction on wastewater epidemiology and PMMoV. If you dont have time to read the into or dont understand the context of what it means, here is a gross oversimplification of some of the more complicated data variables
             - PMMoV, Pi6, N1, N2, are all viruses
-            - gc/100ml = number of viruses per 100ml of collected sample
-            - gc/100ml = f(ct^-1)
+            - $\frac{gc}{100ml} = number of viruses per 100ml of collected sample
+            - $$\frac{gc}{100ml} = f(ct^-1)$$
             - PMMoV = Human fecal contamination
             - Pi6 = Extraction control virus for N1 and N2
             - N1 = N2 = COVID-19 (no specific variant) 
