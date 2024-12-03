@@ -155,8 +155,12 @@ if user_input_1 in WW_df['Code'].values:
     else:
          st.write(user_input_1, ' : Code Not Found.')
     
-    px.scatter(x=Code_data['Discharge (ft^3/s)'], y=Code_data['FlowRate (MGD)'], data=Code_data)
-    px.line(x=Code_dis, y=(Code_dis*w1 + w0))
+    
+    scatter_fig = px.scatter(Code_data, x='Discharge (ft^3/s)', y='FlowRate (MGD)', title=f"Discharge vs FlowRate for {user_input_1}")
+    st.plotly_chart(scatter_fig)
+
+    regression_line_fig = px.line(x=Code_dis, y=(Code_dis * w1 + w0), labels={'x': 'Discharge (ft^3/s)', 'y': 'FlowRate (MGD)'}, title=f"Linear Regression for {user_input_1}")
+    st.plotly_chart(regression_line_fig)
 
 else:
     st.write(user_input_1, ' : Code Not Found')
