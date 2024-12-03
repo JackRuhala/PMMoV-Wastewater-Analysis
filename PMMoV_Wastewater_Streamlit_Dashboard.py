@@ -156,8 +156,8 @@ if user_input_1 in WW_df['Code'].values:
     else:
          st.write(user_input_1, ' : Code Not Found.')
 
-    px.scatter(Code_data, x='Discharge (ft^3/s)', y='FlowRate (MGD)', title=f"Discharge vs FlowRate for {user_input_1}")
-
+    fig = px.scatter(Code_data, x='Discharge (ft^3/s)', y='FlowRate (MGD)', title=f"Discharge vs FlowRate for {user_input_1}")
+    st.plotly_chart(fig)
 else:
     st.write(user_input_1, ' : Code Not Found')
 
