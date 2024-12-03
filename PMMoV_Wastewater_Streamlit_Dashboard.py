@@ -144,7 +144,7 @@ if user_input_1 in WW_df['Code'].values:
     # Print value list
          Code_fr = np.array(Code_data['FlowRate (MGD)'])
          Code_dis = np.array(Code_data['Discharge (ft^3/s)'])
-
+         # Genrate stats for the liner regretion model after imputaion
          w1, w0, r, p, err = stats.linregress(Code_dis.astype(float),Code_fr.astype(float))
 
          st.write(f"Slope w1 ={w1}")
