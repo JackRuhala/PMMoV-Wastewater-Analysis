@@ -157,7 +157,7 @@ if user_input_1 in WW_df['Code'].values:
     
     
     fig = px.scatter(Code_data, x='Discharge (ft^3/s)', y='FlowRate (MGD)', title=f"Discharge vs FlowRate for {user_input_1}")
-    fig.add_line(x=Code_dis, y=(Code_dis * w1 + w0)
+    fig.add_line(x=Code_dis, y=(Code_dis * w1 + w0))
     fig.show()
                  
 else:
