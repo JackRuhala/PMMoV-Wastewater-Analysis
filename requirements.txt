@@ -16,9 +16,9 @@ markdown-it-py==3.0.0
 MarkupSafe==2.1.5
 mdurl==0.1.2
 narwhals==1.5.5
-numpy==2.1.0
+numpy==2.1.2
 packaging==24.1
-pandas==2.2.2
+pandas==2.2.3
 pillow==10.4.0
 protobuf==5.27.3
 pyarrow==17.0.0
@@ -26,10 +26,12 @@ pydeck==0.9.1
 Pygments==2.18.0
 python-dateutil==2.9.0.post0
 pytz==2024.1
+plotly==5.24.1
 referencing==0.35.1
 requests==2.32.3
 rich==13.8.0
 rpds-py==0.20.0
+scikit_learn==1.5.2
 six==1.16.0
 smmap==5.0.1
 streamlit==1.37.1
