@@ -22,7 +22,7 @@ WW_df = pd.read_csv(r'Wastewater data sheet')
 
 ###-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------###
 
-st.title('Analysis of Sewer System Variables That Affect Sewer Based Epidemiology')
+st.title('Analysis of Wastewater Epidemiology Variables')
 st.write('Abstract: Tracking the origin of vectors of disease is one of the key rolls public health offcials are tasked with.'
          'Wastewater epidemiology is a resent method used to track disease through non-confrontational means'
          'The main pitfall of wastewater disease tracking is the volatility of the sewer environment'
