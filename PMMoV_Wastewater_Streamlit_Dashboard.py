@@ -127,7 +127,8 @@ st.markdown(''' Sample stats of reggretion before imputaion
          - Intercept w0 = 28.275
          - Pearson correlation coefficient r value = 0.871
          - p-value = 8.071e-37
-         - Standard error value = 0.000121'''
+         - Standard error value = 0.000121
+         '''
 )
 
 user_input_1 = st.text_input('Enter Site Code Name:', 'Site Code')
