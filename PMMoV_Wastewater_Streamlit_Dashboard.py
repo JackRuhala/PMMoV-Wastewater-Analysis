@@ -97,20 +97,22 @@ st.markdown('''
 st.dataframe(WW_df, use_container_width=True)
 
 
-st.write('Most of the data is publicly available online but all of the data is not available for download'
-         'All of the data is geographic contained within Kent county MI'
-         'N1 N2 data is published on the Michigan COVID-19 Wastewater Dashboard but dose not have a link to download the data'
-         'https://www.michigan.gov/coronavirus/stats/wastewater-surveillance/wastewater-surveillance-for-covid-19/dashboard'
-         'The weather data was downloaded from NOAA, and collected from the Gerald ford weather station USC00202375,"EAST GRAND RAPIDS, MI US",'
-         'https://www.weather.gov/wrh/climate?wfo=GRR'
-         'Daily discharge data can be downloaded from USGS grand rapids grand river monitoring station'
-         'https://waterdata.usgs.gov/monitoring-location/04119000/#parameterCode=00065&period=P7D&showMedian=false'
-         'Publicly known COVID-19 data can be downloaded from USA facts'
-         'https://usafacts.org/visualizations/coronavirus-covid-19-spread-map/state/michigan/county/kent-county/'
-         'The remaining data presented in this dashboard was provided directly from the Grand Valley State University molecular monitoring lab.'
-         'The lab data Is not found online but a link to the data used for this dashboard will be available on github'
-         'This dashboard was given permission to use the data from the Grand Valley lab as well as make it public.'
-         'As of today (12/2024) a publication of the data is in the works and more detailed information on how the data was collected will be presented in the publication'
+st.markdown('''
+         Most of the data is publicly available online but all of the data is not available for download
+         All of the data is geographic contained within Kent county MI
+         - N1 N2 data is published on the Michigan COVID-19 Wastewater Dashboard but dose not have a link to download the data
+                  - https://www.michigan.gov/coronavirus/stats/wastewater-surveillance/wastewater-surveillance-for-covid-19/dashboard
+         - The weather data was downloaded from NOAA, and collected from the Gerald ford weather station USC00202375,"EAST GRAND RAPIDS, MI US",
+                  - https://www.weather.gov/wrh/climate?wfo=GRR
+         - Daily discharge data can be downloaded from USGS grand rapids grand river monitoring station
+                  - https://waterdata.usgs.gov/monitoring-location/04119000/#parameterCode=00065&period=P7D&showMedian=false
+         - Publicly known deaths due to COVID-19 are published on the CDC website
+                  - Place holder for link
+         The remaining data presented in this dashboard was provided directly from the Grand Valley State University molecular monitoring lab.
+         The lab data Is not found online but a link to the data used for this dashboard will be available on github
+         This dashboard was given permission to use the data from the Grand Valley lab as well as make it public.
+         As of today (12/2024) a publication of the data is in the works and more detailed information on how the data was collected will be presented in the publication
+         '''
 )
 ###-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------###
 # Data cleaning of initial data
