@@ -299,8 +299,8 @@ def best_fit_line_slope(df, columnx, columny):
     SSE_min = np.sum((Y - Y_predicted_min)**2)
          
     # Generate ranges for w0 and w1 to minimize SSE
-    w0_range = np.linspace(w0 * 0.25, w0 * 1.75, 20)
-    w1_range = np.linspace(w1 * -10, w1 * 10, 20)
+    w0_range = np.linspace(w0 * 0.25, w0 * 1.75, 100)
+    w1_range = np.linspace(w1 * -10, w1 * 10, 100)
 
     # Initialize grid to store the sum of least squares (SSE) values
     SLS_grid = np.zeros((len(w0_range), len(w1_range)))
@@ -332,7 +332,7 @@ def best_fit_line_slope(df, columnx, columny):
     selected_w1 = w1_range[indices[1]]
 
     if selected_w0.size == 0 or selected_w1.size == 0:
-        st.error(f"No valid w0 and w1 values found that satisfy the SSE condition.")
+        st.error(f"No valid slope (w1) and intersept (w0) values found that satisfy the SSE condition.")
         return None, None, None, None, None, None, None, None
     # Find the longest line (the endpoints with the smallest and largest w0/w1)
     min_w0, max_w0 = selected_w0.min(), selected_w0.max()
