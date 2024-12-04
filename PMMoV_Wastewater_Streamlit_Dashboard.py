@@ -295,7 +295,7 @@ def best_fit_line_slope(df, columnx, columny):
     # Initial linear regression to get w1 and w0
     w1, w0, r, p, err = stats.linregress(X, Y)
     Y_predicted_min = w1 * X + w0
-    SSE_mutiplyer = 2
+    SSE_mutiplyer = 2.1
     SSE_min = np.sum((Y - Y_predicted_min)**SSE_mutiplyer)
          
     # Generate ranges for w0 and w1 to minimize SSE
@@ -349,9 +349,9 @@ min_w0, max_w0, min_w1, max_w1, slope, intersept, w0, w1 = best_fit_line_slope(f
 
 st.write(f"The best-fit line parameters that minimize SSE are:")
 st.write(f"The best-fit line Intersept (w0) = {w0}")   
-st.write(f"Plosible w0 (Intercept) range (SSE*1.25 max): {min_w0} to {max_w0}")
+st.write(f"Plosible w0 (Intercept) range (SSE*2 max): {min_w0} to {max_w0}")
 st.write(f"The best-fit line Slpoe (w1) = {w1}")
-st.write(f"Plosible w1 (Slope) range (SSE*1.25 max): {min_w1} to {max_w1}")
+st.write(f"Plosible w1 (Slope) range (SSE*2 max): {min_w1} to {max_w1}")
 st.write(f"The slope and intersept of the surface plot for the reggretion line of variables x and y with endpoints of the surface plot SSE close to 2x minimum SSE is: {slope} {intersept}")
 
 if min_w0 is not None and min_w1 is not None:
