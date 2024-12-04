@@ -295,7 +295,7 @@ def best_fit_line_slope(df, columnx, columny):
     # Initial linear regression to get w1 and w0
     w1, w0, r, p, err = stats.linregress(X, Y)
     Y_predicted_min = w1 * X + w0
-    SSE_mutiplyer = 2
+    SSE_mutiplyer = 1.99
     SSE_min = np.sum((Y - Y_predicted_min)**SSE_mutiplyer)
          
     # Generate ranges for w0 and w1 to minimize SSE
@@ -321,7 +321,7 @@ def best_fit_line_slope(df, columnx, columny):
     target_SSE = SSE_mutiplyer * SSE_min
 
     # Find the indices in the grid where SSE is approximately 1.25 times the minimum SSE
-    tolerance = 0.1 * SSE_min  # Allow for small tolerance in SSE
+    tolerance = 0.5 * SSE_min  # Allow for small tolerance in SSE
     close_to_target_SSE = np.abs(SLS_grid - target_SSE) < tolerance
 
     # Get the coordinates of the points that are close to the target SSE
