@@ -279,9 +279,14 @@ def best_fit_line_slope(df, columnx, columny):
     if columnx not in df.columns or columny not in df.columns:
         st.error(f"Column {columnx} or {columny} not found in DataFrame.")
         return None, None
-    
+             
+    # Drop NaN values from specified columns
     temp_df = df.dropna(subset=[columnx, columny, 'Date'])
     
+    if temp_df.empty:
+        st.error(f"Data after removing NaN values is empty. Please check the data.")
+        return None, None
+             
     # Get the X and Y values as numpy arrays
     X = np.array(temp_df[columnx], dtype=float)
     Y = np.array(temp_df[columny], dtype=float)
