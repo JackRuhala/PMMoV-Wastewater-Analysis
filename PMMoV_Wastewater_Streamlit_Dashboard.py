@@ -267,70 +267,165 @@ WY_df = WY_df.drop(columns = ['index'])
 
 local_dfs = [CS_df,GG_df, GO_df, GR_df, WB_df, WK_df, WY_df]
 
-# log PMMoV reggretion code
-def liner_regretion_map(df, columnx, columny):
+
+site_code = st.selectbox("Select a Site Code", df['SiteCode'].unique())
+column_y = st.selectbox("Select a Column for Y-axis", df.columns[df.columns != 'Date'])
+column_x = st.selectbox("Select a Column for X-axis", df.columns[df.columns != 'Date'])
+
+# Display selected site code and column choices
+st.write(f"Selected Site Code: {site_code}")
+st.write(f"Y-axis Column: {column_y}")
+st.write(f"X-axis Column: {column_x}")
+
+# Filter the dataframe by selected site code
+filtered_df = df[df['SiteCode'] == site_code]
+
+# Function to perform linear regression and calculate the best-fit line (min SSE)
+def best_fit_line_slope(df, columnx, columny):
     if columnx not in df.columns or columny not in df.columns:
-        print(f"Column {columnx} or {columny} not found in DataFrame.")
-        return
+        st.error(f"Column {columnx} or {columny} not found in DataFrame.")
+        return None, None
     
-    temp_df = df.dropna(subset=[f'{columnx}', f'{columny}','Date'])
+    temp_df = df.dropna(subset=[columnx, columny, 'Date'])
     
-    # Transform data into an array
-    X = np.array(temp_df[f'{columnx}'], dtype=float)
-    Y = np.array(temp_df[f'{columny}'], dtype=float)
-    # Transform Y value into Y magnitude (Log10)
+    # Get the X and Y values as numpy arrays
+    X = np.array(temp_df[columnx], dtype=float)
+    Y = np.array(temp_df[columny], dtype=float)
     Y = np.log10(Y)
-    # Calculate the predicted Y values using reggretion model peramiters w1 and w0
+   
+    
+    # Initial linear regression to get w1 and w0
     w1, w0, r, p, err = stats.linregress(X, Y)
+    Y_predicted_min = w1 * X + w0
+    SSE_min = np.sum((Y - Y_predicted_min)**2)
 
-    # w0_range = np.linspace(w0*0.999, w0*1.001, 50)
-    # w1_range = np.linspace(w1*0.99, w1*1.01, 50)
-    return w1, w0, r, p, err, SSE, Y
-# Calculate the predicted Y values using reggretion model peramiters w1 and w0
-# w0_range = np.linspace(w0*0.999, w0*1.001, 50)
-# w1_range = np.linspace(w1*0.99, w1*1.01, 50)
-Y_predicted = w1 * temp_df[f'{columnx}'].astype(float) + w0
-# Provide an SSE reading
-SSE = np.sum((Y - Y_predicted) ** 2)
-# print stats
-print(f"Predicted vs Imputed results for {df['Code'].unique()}:")
-print(f"Predicted Slope w1 = {w1:.4e}")
-print(f"Predicted Intercept w0 = {w0:.4e}")
-print(f"Person correlation r {r:.4e}")
-print(f"p-value = {r:.4e}")
-print(f"Standerd Error = {r:.4e}")
-print(f"Square Sum Error = {SSE:.4e}")
+    # Generate ranges for w0 and w1 to minimize SSE
+    w0_range = np.linspace(w0 * 0.25, w0 * 1.75, 20)
+    w1_range = np.linspace(w1 * -10, w1 * 10, 20)
+
+    # Initialize grid to store the sum of least squares (SSE) values
+    SLS_grid = np.zeros((len(w0_range), len(w1_range)))
+
+    # Loop through the range of w0 and w1 values to calculate SSE for each pair
+    for i_idx, i in enumerate(w0_range):
+        for j_idx, j in enumerate(w1_range):
+            Y_predicted = j * X + i  # Predicted Y values based on current w0 and w1
+            Sum_of_least_squares = np.sum((Y - Y_predicted)**2)  # SSE for the current w0, w1 pair
+            SLS_grid[i_idx, j_idx] = Sum_of_least_squares
+
+    # Find the index of the minimum SSE in the grid
+    min_SSE_index = np.unravel_index(np.argmin(SLS_grid), SLS_grid.shape)
+    best_w0 = w0_range[min_SSE_index[0]]
+    best_w1 = w1_range[min_SSE_index[1]]
+
+    # The target SSE is 2 times the minimum SSE
+    target_SSE = 2 * SSE_min
+
+    # Find the indices in the grid where SSE is approximately 2 times the minimum SSE
+    tolerance = 0.05 * SSE_min  # Allow for small tolerance in SSE
+    close_to_target_SSE = np.abs(SLS_grid - target_SSE) < tolerance
+
+    # Get the coordinates of the points that are close to the target SSE
+    indices = np.where(close_to_target_SSE)
+
+    # Extract the corresponding w0 and w1 values
+    selected_w0 = w0_range[indices[0]]
+    selected_w1 = w1_range[indices[1]]
+
+    # Find the longest line (the endpoints with the smallest and largest w0/w1)
+    min_w0, max_w0 = selected_w0.min(), selected_w0.max()
+    min_w1, max_w1 = selected_w1.min(), selected_w1.max()
+
+    # Calculate the slope of the line connecting the endpoints with the target SSE
+    slope = (max_w1 - min_w1) / (max_w0 - min_w0)
+
+    return min_w0, max_w0, min_w1, max_w1, slope
+
+# Call the function to calculate the best-fit line parameters and slope
+min_w0, max_w0, min_w1, max_w1, slope = best_fit_line_slope(filtered_df, column_x, column_y)
+
+# Display the best-fit parameters and calculated slope
+if min_w0 is not None and min_w1 is not None:
+    st.write(f"The best-fit line parameters that minimize SSE are:")
+    st.write(f"w0 (Intercept): {min_w0} to {max_w0}")
+    st.write(f"w1 (Slope): {min_w1} to {max_w1}")
+    st.write(f"The slope of the line connecting the endpoints with the SSE close to 2x minimum SSE is: {slope}")
+else:
+    st.write("Please check the column selections and try again.")
+
+
+
+
+
+
+
+
+
+
+# # log PMMoV reggretion code
+# def liner_regretion_map(df, columnx, columny):
+#     if columnx not in df.columns or columny not in df.columns:
+#         print(f"Column {columnx} or {columny} not found in DataFrame.")
+#         return
+    
+#     temp_df = df.dropna(subset=[f'{columnx}', f'{columny}','Date'])
+    
+#     # Transform data into an array
+#     X = np.array(temp_df[f'{columnx}'], dtype=float)
+#     Y = np.array(temp_df[f'{columny}'], dtype=float)
+#     # Transform Y value into Y magnitude (Log10)
+#     Y = np.log10(Y)
+#     # Calculate the predicted Y values using reggretion model peramiters w1 and w0
+#     w1, w0, r, p, err = stats.linregress(X, Y)
+
+#     # w0_range = np.linspace(w0*0.999, w0*1.001, 50)
+#     # w1_range = np.linspace(w1*0.99, w1*1.01, 50)
+#     return w1, w0, r, p, err, SSE, Y
+# # Calculate the predicted Y values using reggretion model peramiters w1 and w0
+# # w0_range = np.linspace(w0*0.999, w0*1.001, 50)
+# # w1_range = np.linspace(w1*0.99, w1*1.01, 50)
+# Y_predicted = w1 * temp_df[f'{columnx}'].astype(float) + w0
+# # Provide an SSE reading
+# SSE = np.sum((Y - Y_predicted) ** 2)
+# # print stats
+# print(f"Predicted vs Imputed results for {df['Code'].unique()}:")
+# print(f"Predicted Slope w1 = {w1:.4e}")
+# print(f"Predicted Intercept w0 = {w0:.4e}")
+# print(f"Person correlation r {r:.4e}")
+# print(f"p-value = {r:.4e}")
+# print(f"Standerd Error = {r:.4e}")
+# print(f"Square Sum Error = {SSE:.4e}")
     
 
-user_input_2 = st.selectbox('Select A code', Codes)
+# user_input_2 = st.selectbox('Select A code', Codes)
+# user_input_3 = column_x = st.selectbox("Select a Column for X-axis", df.columns[df.columns != 'Date'])
+# user_input_4 = st.selectbox("Select a Column for Y-axis", df.columns[df.columns != 'Date'])
+# # Discharge vs flow rate chart
 
-user_input_3 = st.text_input('Enter one variable name as it appers on the table:', 'Variable')
-# Discharge vs flow rate chart
+# # Box for user input 1
+# if user_input_2 in WW_df['Code'].values:
+#     st.write(user_input_2, ': Found')
+#     # change site code an int for data location
+#     user_input_2 = {'CS': 0, 'GG': 1, 'GO': 2, 'GR': 3, 'WB': 4, 'WK': 5, 'WY': 6}
 
-# Box for user input 1
-if user_input_2 in WW_df['Code'].values:
-    st.write(user_input_2, ': Found')
-    # change site code an int for data location
-    user_input_2 = {'CS': 0, 'GG': 1, 'GO': 2, 'GR': 3, 'WB': 4, 'WK': 5, 'WY': 6}
-
-    if user_input_3 in WW_df_int.columns:
-         st.write(user_input_3, ': Found')
+#     if user_input_3 in WW_df_int.columns:
+#          st.write(user_input_3, ': Found')
          
-         X = np.array(Code_data[columnx])
-         Y = np.array(Code_data[columny])
-                  # Genrate stats for the liner regretion model after imputaion
-         w1, w0, r, p, err = stats.linregress(Code_dis.astype(float),Code_fr.astype(float))
+#          X = np.array(Code_data[columnx])
+#          Y = np.array(Code_data[columny])
+#                   # Genrate stats for the liner regretion model after imputaion
+#          w1, w0, r, p, err = stats.linregress(Code_dis.astype(float),Code_fr.astype(float))
 
-         st.write(f"Slope w1 ={w1}")
-         st.write(f"Predicted Intercept w0 ={w0}")
-         st.write(f"Predicted Pearson correlation coefficient r value ={r}")
-         st.write(f"Predicted p-value ={p}")
-         st.write(f"Predicted Standard error value ={err}")
+#          st.write(f"Slope w1 ={w1}")
+#          st.write(f"Predicted Intercept w0 ={w0}")
+#          st.write(f"Predicted Pearson correlation coefficient r value ={r}")
+#          st.write(f"Predicted p-value ={p}")
+#          st.write(f"Predicted Standard error value ={err}")
 
-    else:
-         st.write(user_input_3, ' : Variable.')
-else:
-    st.write(user_input_2, ' : Code Not Found')
+#     else:
+#          st.write(user_input_3, ' : Variable.')
+# else:
+#     st.write(user_input_2, ' : Code Not Found')
 
 # Log multivariate liner regression code here
 
