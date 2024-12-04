@@ -295,10 +295,10 @@ def best_fit_line_slope(df, columnx, columny):
     # Initial linear regression to get w1 and w0
     w1, w0, r, p, err = stats.linregress(X, Y)
     Y_predicted_min = w1 * X + w0
-    SSE_min = np.sum((Y - Y_predicted_min)**1.25)
+    SSE_min = np.sum((Y - Y_predicted_min)**1.5)
          
     # Generate ranges for w0 and w1 to minimize SSE
-    w0_range = np.linspace(w0 * 0.5, w0 * 1.5, 100)
+    w0_range = np.linspace(w0 * 0.4, w0 * 1.6, 100)
     w1_range = np.linspace(w1 * -10, w1 * 10, 100)
 
     # Initialize grid to store the sum of least squares (SSE) values
@@ -308,7 +308,7 @@ def best_fit_line_slope(df, columnx, columny):
     for i_idx, i in enumerate(w0_range):
         for j_idx, j in enumerate(w1_range):
             Y_predicted = j * X + i  # Predicted Y values based on current w0 and w1
-            Sum_of_least_squares = np.sum((Y - Y_predicted)**1.25)  # SSE for the current w0, w1 pair
+            Sum_of_least_squares = np.sum((Y - Y_predicted)**1.5)  # SSE for the current w0, w1 pair
             SLS_grid[i_idx, j_idx] = Sum_of_least_squares
 
     # Find the index of the minimum SSE in the grid
