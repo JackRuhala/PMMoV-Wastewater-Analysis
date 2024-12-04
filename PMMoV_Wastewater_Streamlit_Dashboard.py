@@ -260,7 +260,7 @@ st.write('''
 
 # local_dfs = [CS_df,GG_df, GO_df, GR_df, WB_df, WK_df, WY_df]
 
-WW_df_y = WW_df[['PMMoV (gc/ 100mL)', 'PMMoV Mean CT']]
+WW_df_y = WW_df['PMMoV (gc/ 100mL)']
 WW_df_x = WW_df[['Discharge (ft^3/s)', 'FlowRate (MGD)','Temp', 'pH', 'Pellet Volume (ml)', 'PRCP (Rain fall in)']]
 Code2 = st.selectbox("Select a Site Code", WW_df['Code'].unique())
 column_y1 = st.selectbox("Select a Column for Y-axis", WW_df_y.columns)
@@ -374,8 +374,8 @@ if min_w0 is not None and min_w1 is not None:
 else:
     st.write("Please check the column selections and try again.")
 
-fig6 = px.scatter(filtered_df, x=column_x1, y=column_y1, title=f"PMMoV liner regression model vs X {Code2}")
-fig7 = px.scatter(filtered_df, x='Date', y=column_y1, title=f"PMMoV liner regression model vs Time {Code2}")
+fig6 = px.scatter(filtered_df, x=column_x1, y=np.log(column_y1), title=f"PMMoV liner regression model vs X {Code2}")
+fig7 = px.scatter(filtered_df, x='Date', y=np.log(column_y1), title=f"PMMoV liner regression model vs Time {Code2}")
 # Get the x-values from the filtered dataframe for plotting the regression line
 x_values = filtered_df[column_x1]
 
