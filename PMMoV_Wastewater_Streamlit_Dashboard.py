@@ -311,10 +311,10 @@ min_w0, max_w0, min_w1, max_w1, slope, intersept, w0, w1 = best_fit_line_slope(f
 
 st.write(f"The best-fit line parameters that minimize SSE are:")
 st.write(f"The best-fit line Intersept (w0) = {w0}")   
-st.write(f"Plosible w0 (Intercept) range (SSE*2 max): {min_w0} to {max_w0}")
+# st.write(f"Plosible w0 (Intercept) range (SSE*2 max): {min_w0} to {max_w0}")
 st.write(f"The best-fit line Slpoe (w1) = {w1}")
-st.write(f"Plosible w1 (Slope) range (SSE*2 max): {min_w1} to {max_w1}")
-st.write(f"The slope and intersept of the surface plot for the reggretion line of variables x and y with endpoints of the surface plot SSE close to 2x minimum SSE is: {slope} {intersept}")
+# st.write(f"Plosible w1 (Slope) range (SSE*2 max): {min_w1} to {max_w1}")
+# st.write(f"The slope and intersept of the surface plot for the reggretion line of variables x and y with endpoints of the surface plot SSE close to 2x minimum SSE is: {slope} {intersept}")
 
 if min_w0 is not None and min_w1 is not None:
     # Create a single slider for both w0 and w1
@@ -379,11 +379,21 @@ st.write('''
          Although flow rate and precipitation affect sample collection differently the environmental variable that greatly affects one sample has very little effect on the other sample.
          The effect each variable has on a sample site is reflected by the weights of the model given.
          Because of the dominance one variable in a sample has over the other, depending on how the sample is collected, both variables are included in one model for simplification of the models used across different sites.
-'''
-)
+''')
 
 ###-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------###
 # Performance of laboratory extractions
+st.title('Variation of data explained by labritory factors')
+st.write('''
+         After an exploration of the PMMoV data, and possible environmental variables, it was found that a lot of “noise” was present.
+         The theory is that there is either an environmental variable that has yet to be found causing fluctuations in the data, or there is a correlation between how the sample was collected or who was collecting it. 
+         The given data has no information on environmental variables other than the variables recorded, could be causing a 10 fold change in PMMoV on a near daily basis. 
+         What is provided is who was in the lab performing the extraction and how the sample was collected.
+''')
+Extractor_Preformance_df = WW_df.groupby('Extractor')['Log Residuals'].apply(list)
+fig8 = px.box(Extractor_Preformance_df, x='Extractor', y='Log Residuals')
+fig8.show()
+
 
 ###-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------###
 # Time potential dependency of residuals
