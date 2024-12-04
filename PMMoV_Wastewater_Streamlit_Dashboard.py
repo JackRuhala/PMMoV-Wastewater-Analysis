@@ -260,8 +260,8 @@ st.write('''
 
 # local_dfs = [CS_df,GG_df, GO_df, GR_df, WB_df, WK_df, WY_df]
 
-WW_df_y = WW_df[['PMMoV (gc/ 100mL)', 'PMMoV Mean CT']]
-
+WW_df_y = WW_df[['PMMoV (gc/ 100mL)', 'PMMoV Mean CT', 'Temp', 'pH', 'PRCP (Rain fall in)', 'SNOW', 'SNWD (Snow Depth)', 'pellet volume ml']]
+WW_df_x = WW_df[['Discharge (ft^3/s)', 'FlowRate (MGD)', ]]
 Code2 = st.selectbox("Select a Site Code", WW_df['Code'].unique())
 column_y1 = st.selectbox("Select a Column for Y-axis", WW_df_y.columns)
 column_x1 = st.selectbox("Select a Column for X-axis", WW_df.columns[WW_df.columns != 'Date'])
