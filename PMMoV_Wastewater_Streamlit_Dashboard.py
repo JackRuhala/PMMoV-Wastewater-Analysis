@@ -298,8 +298,8 @@ def best_fit_line_slope(df, columnx, columny):
     SSE_min = np.sum((Y - Y_predicted_min)**1.5)
          
     # Generate ranges for w0 and w1 to minimize SSE
-    w0_range = np.linspace(w0 * 0.4, w0 * 1.6, 100)
-    w1_range = np.linspace(w1 * -10, w1 * 10, 100)
+    w0_range = np.linspace(w0 * 0.4, w0 * 1.6, 500)
+    w1_range = np.linspace(w1 * -10, w1 * 10, 500)
 
     # Initialize grid to store the sum of least squares (SSE) values
     SLS_grid = np.zeros((len(w0_range), len(w1_range)))
