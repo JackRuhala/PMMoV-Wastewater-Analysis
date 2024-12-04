@@ -263,17 +263,17 @@ st.write('''
 # local_dfs = [CS_df,GG_df, GO_df, GR_df, WB_df, WK_df, WY_df]
 
 
-site_code = st.selectbox("Select a Site Code", WW_df['SiteCode'].unique())
-column_y = st.selectbox("Select a Column for Y-axis", WW_df.columns[WW_df.columns != 'Date'])
-column_x = st.selectbox("Select a Column for X-axis", WW_df.columns[WW_df.columns != 'Date'])
+Code2 = st.selectbox("Select a Site Code", WW_df['Code'].unique())
+column_y1 = st.selectbox("Select a Column for Y-axis", WW_df.columns[WW_df.columns != 'Date'])
+column_x2 = st.selectbox("Select a Column for X-axis", WW_df.columns[WW_df.columns != 'Date'])
 
 # Display selected site code and column choices
-st.write(f"Selected Site Code: {site_code}")
-st.write(f"Y-axis Column: {column_y}")
-st.write(f"X-axis Column: {column_x}")
+st.write(f"Selected Site Code: {Code2}")
+st.write(f"Y-axis Column: {column_y1}")
+st.write(f"X-axis Column: {column_x2}")
 
 # Filter the dataframe by selected site code
-filtered_df = df[df['SiteCode'] == site_code]
+filtered_df = WW_df[WW_df['Code'] == Code2]
 
 # Function to perform linear regression and calculate the best-fit line (min SSE)
 def best_fit_line_slope(df, columnx, columny):
