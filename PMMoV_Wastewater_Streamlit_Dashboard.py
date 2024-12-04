@@ -391,7 +391,7 @@ st.write('''
          What is provided is who was in the lab performing the extraction and how the sample was collected.
 ''')
 Extractor_Preformance_df = WW_df.groupby('Extractor')['Log Residuals'].apply(list)
-fig8 = px.box(Extractor_Preformance_df, x='Extractor', y='Log Residuals')
+fig8 = px.box(WW_df, x='Extractor', y='Log Residuals')
 fig8.show()
 
 
