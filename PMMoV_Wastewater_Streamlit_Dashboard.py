@@ -22,7 +22,7 @@ WW_df = pd.read_csv(r'Wastewater data sheet')
 scaler = StandardScaler()
 WW_df_int = WW_df.select_dtypes(include=['int'])
 WW_df_Standard = WW_df_int
-WW_df_Standard = scaler.fit_transform(WW_df_Standard)
+# WW_df_Standard = scaler.fit_transform(WW_df_Standard)
 # WW_df_Standard['5'] = WW_df['Date']
 st.dataframe(WW_df_Standard)
 
