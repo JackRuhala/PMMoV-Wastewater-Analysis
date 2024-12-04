@@ -281,7 +281,7 @@ def best_fit_line_slope(df, columnx, columny):
         return None, None
              
     # Drop NaN values from specified columns
-    temp_df = WW_df.dropna(subset=[columnx, columny, 'Date'])
+    temp_df = df.dropna(subset=[columnx, columny, 'Date'])
     
     if temp_df.empty:
         st.error(f"Data after removing NaN values is empty. Please check the data.")
