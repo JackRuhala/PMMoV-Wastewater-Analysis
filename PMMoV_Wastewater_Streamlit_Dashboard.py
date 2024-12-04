@@ -377,17 +377,17 @@ else:
 fig6 = px.scatter(filtered_df, x=column_x1, y=np.log(column_y1), title=f"PMMoV liner regression model vs X {Code2}")
 fig7 = px.scatter(filtered_df, x='Date', y=np.log(column_y1), title=f"PMMoV liner regression model vs Time {Code2}")
 # Get the x-values from the filtered dataframe for plotting the regression line
-x_values = filtered_df[column_x1]
+x_values = filtered_df[column_x1].astype(float)
 
 # Ensure w1_adjusted and w0_adjusted are scalars (if they're arrays, take the first element)
 w1_adjusted = float(w1_adjusted)  # Ensure it's a scalar
 w0_adjusted = float(w0_adjusted)  # Ensure it's a scalar
 
-# Calculate the y-values of the regression line using the adjusted w1 and w0
-# y_values = (x_values * w1_adjusted) + w0_adjusted
+Calculate the y-values of the regression line using the adjusted w1 and w0
+y_values = (x_values * w1_adjusted) + w0_adjusted
 
-# # Add the regression line as a new trace to the plot
-# fig6.add_trace(go.Scatter(x=x_values, y=y_values, mode='lines', name='Regression Line', line=dict(color='red', width=2)))
+# Add the regression line as a new trace to the plot
+fig6.add_trace(go.Scatter(x=x_values, y=y_values, mode='lines', name='Regression Line', line=dict(color='red', width=2)))
 
 # # Display the plot using Streamlit
 st.plotly_chart(fig6)
