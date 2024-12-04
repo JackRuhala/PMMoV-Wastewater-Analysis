@@ -383,7 +383,7 @@ x_values = filtered_df[column_x1].astype(float)
 w1_adjusted = float(w1_adjusted)  # Ensure it's a scalar
 w0_adjusted = float(w0_adjusted)  # Ensure it's a scalar
 
-Calculate the y-values of the regression line using the adjusted w1 and w0
+# Calculate the y-values of the regression line using the adjusted w1 and w0
 y_values = (x_values * w1_adjusted) + w0_adjusted
 
 # Add the regression line as a new trace to the plot
