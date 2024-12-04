@@ -341,7 +341,7 @@ def best_fit_line_slope(df, columnx, columny):
     return min_w0, max_w0, min_w1, max_w1, slope, w0, w1
 
 # Call the function to calculate the best-fit line parameters and slope
-min_w0, max_w0, min_w1, max_w1, slope = best_fit_line_slope(filtered_df, column_x1, column_y1)
+min_w0, max_w0, min_w1, max_w1, slope, w0, w1 = best_fit_line_slope(filtered_df, column_x1, column_y1)
 
 # Display the best-fit parameters and calculated slope
 if min_w0 is not None and min_w1 is not None:
