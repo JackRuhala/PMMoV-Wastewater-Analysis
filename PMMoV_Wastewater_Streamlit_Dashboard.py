@@ -219,53 +219,53 @@ st.write('''
 '''
 )
 
-# split the data into groups for local analysis
-splits = list(WW_df.groupby("Code")) 
+# # split the data into groups for local analysis
+# splits = list(WW_df.groupby("Code")) 
   
-# # view splitted dataframe 
-# print(splits[5][1])
+# # # view splitted dataframe 
+# # print(splits[5][1])
 
-# CS
-CS_df = splits[0][1]
-CS_df = CS_df.reset_index()
-CS_df = CS_df.drop(columns = ['index'])
+# # CS
+# CS_df = splits[0][1]
+# CS_df = CS_df.reset_index()
+# CS_df = CS_df.drop(columns = ['index'])
 
-# GG
-GG_df = splits[1][1]
-GG_df = GG_df.reset_index()
-GG_df = GG_df.drop(columns = ['index'])
+# # GG
+# GG_df = splits[1][1]
+# GG_df = GG_df.reset_index()
+# GG_df = GG_df.drop(columns = ['index'])
 
-# GO
-GO_df = splits[2][1]
-GO_df = GO_df.reset_index()
-GO_df = GO_df.drop(columns = ['index'])
+# # GO
+# GO_df = splits[2][1]
+# GO_df = GO_df.reset_index()
+# GO_df = GO_df.drop(columns = ['index'])
 
-# GR
-GR_df = splits[3][1]
-GR_df = GR_df.reset_index()
-GR_df = GR_df.drop(columns = ['index'])
+# # GR
+# GR_df = splits[3][1]
+# GR_df = GR_df.reset_index()
+# GR_df = GR_df.drop(columns = ['index'])
 
-# WB
-WB_df = splits[4][1]
-WB_df = WB_df.reset_index()
-WB_df = WB_df.drop(columns = ['index'])
+# # WB
+# WB_df = splits[4][1]
+# WB_df = WB_df.reset_index()
+# WB_df = WB_df.drop(columns = ['index'])
 
-# WK
-WK_df = splits[5][1]
-WK_df = WK_df.reset_index()
-WK_df = WK_df.drop(columns = ['index'])
+# # WK
+# WK_df = splits[5][1]
+# WK_df = WK_df.reset_index()
+# WK_df = WK_df.drop(columns = ['index'])
 
-# WY
-WY_df = splits[6][1]
-WY_df = WY_df.reset_index()
-WY_df = WY_df.drop(columns = ['index'])
+# # WY
+# WY_df = splits[6][1]
+# WY_df = WY_df.reset_index()
+# WY_df = WY_df.drop(columns = ['index'])
 
-local_dfs = [CS_df,GG_df, GO_df, GR_df, WB_df, WK_df, WY_df]
+# local_dfs = [CS_df,GG_df, GO_df, GR_df, WB_df, WK_df, WY_df]
 
 
-site_code = st.selectbox("Select a Site Code", df['SiteCode'].unique())
-column_y = st.selectbox("Select a Column for Y-axis", df.columns[df.columns != 'Date'])
-column_x = st.selectbox("Select a Column for X-axis", df.columns[df.columns != 'Date'])
+site_code = st.selectbox("Select a Site Code", WW_df['SiteCode'].unique())
+column_y = st.selectbox("Select a Column for Y-axis", WW_df.columns[WW_df.columns != 'Date'])
+column_x = st.selectbox("Select a Column for X-axis", WW_df.columns[WW_df.columns != 'Date'])
 
 # Display selected site code and column choices
 st.write(f"Selected Site Code: {site_code}")
