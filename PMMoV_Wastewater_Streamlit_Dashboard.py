@@ -392,7 +392,7 @@ st.write('''
 ''')
 Extractor_Preformance_df = WW_df.groupby('Extractor')['Log Residuals'].apply(list)
 fig8 = px.box(WW_df, x='Extractor', y='Log Residuals')
-fig8.show()
+st.plotly_chart(fig8)
 
 
 ###-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------###
