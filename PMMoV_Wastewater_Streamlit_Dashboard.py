@@ -176,9 +176,6 @@ st.write(f"Predicted Pearson correlation coefficient r value ={r}")
 st.write(f"Predicted p-value ={p}")
 st.write(f"Predicted Standard error value ={err}")
 
-
-st.write(user_input_1, ' : Code Not Found.')
-
 fig1 = px.scatter(Code_data, x='Discharge (ft^3/s)', y='FlowRate (MGD)', title=f"Discharge vs FlowRate for {user_input_1}")
 fig1.add_trace(go.Scatter(x=Code_dis, y=(Code_dis * w1 + w0), mode='lines', name='Regression Line', line=dict(color='red', width=2)))
 st.plotly_chart(fig1)
