@@ -19,6 +19,7 @@ st.set_page_config(page_title='Kent County Michigan Viral Wastewater Analysis')
 # Load in data
 
 WW_df = pd.read_csv(r'Wastewater data sheet')
+WW_df = WW_df.drop(columns = 'Unnamed: 0')
 scaler = StandardScaler()
 WW_df_int = WW_df.select_dtypes(include=['int'])
 WW_df_Standard = WW_df_int
