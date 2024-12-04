@@ -217,48 +217,10 @@ st.write('''
 '''
 )
 
-# # split the data into groups for local analysis
-# splits = list(WW_df.groupby("Code")) 
-  
-# # # view splitted dataframe 
-# # print(splits[5][1])
-
-# # CS
-# CS_df = splits[0][1]
-# CS_df = CS_df.reset_index()
-# CS_df = CS_df.drop(columns = ['index'])
-
-# # GG
-# GG_df = splits[1][1]
-# GG_df = GG_df.reset_index()
-# GG_df = GG_df.drop(columns = ['index'])
-
-# # GO
-# GO_df = splits[2][1]
-# GO_df = GO_df.reset_index()
-# GO_df = GO_df.drop(columns = ['index'])
-
-# # GR
-# GR_df = splits[3][1]
-# GR_df = GR_df.reset_index()
-# GR_df = GR_df.drop(columns = ['index'])
-
-# # WB
-# WB_df = splits[4][1]
-# WB_df = WB_df.reset_index()
-# WB_df = WB_df.drop(columns = ['index'])
-
-# # WK
-# WK_df = splits[5][1]
-# WK_df = WK_df.reset_index()
-# WK_df = WK_df.drop(columns = ['index'])
-
-# # WY
-# WY_df = splits[6][1]
-# WY_df = WY_df.reset_index()
-# WY_df = WY_df.drop(columns = ['index'])
-
-# local_dfs = [CS_df,GG_df, GO_df, GR_df, WB_df, WK_df, WY_df]
+# Note The folowing code below calculates the optimal regretion line for the variables chosen.
+# A function was added to allow the user to change the weights of the reggretion line which was supported by code writen by ChatGPT4.0 mini (12/4/2024)
+# Appaun reveiew the code "works" but not as intended and any chage to the code will brake the whole streamlit page
+# As of this comment(12/4/2024) I do not have time spend trouble shooting the code and need to focus on including more data.
 
 WW_df_y = WW_df[['PMMoV (gc/ 100mL)', 'PMMoV Mean CT']]
 WW_df_x = WW_df[['Discharge (ft^3/s)', 'FlowRate (MGD)','Temp', 'pH', 'Pellet Volume (ml)', 'PRCP (Rain fall in)']]
@@ -384,7 +346,8 @@ w0_adjusted = float(w0_adjusted)  # Ensure it's a scalar
 
 # Calculate the y-values of the regression line using the adjusted w1 and w0
 y_values = (x_values * w1_adjusted) + w0_adjusted
-
+SSE_adjusted = filtered_df[column_y1] - y_values
+st.write(f"Adjusted SSE = {SSE_adjusted}")
 # Add the regression line as a new trace to the plot
 fig6.add_trace(go.Scatter(x=x_values, y=y_values, mode='lines', name='Regression Line', line=dict(color='red', width=2)))
 fig7.add_trace(go.Scatter(x=filtered_df['Date'], y=y_values, mode='lines', name='Regression Line', line=dict(color='red', width=2)))
