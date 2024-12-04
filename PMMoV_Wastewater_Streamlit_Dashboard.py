@@ -374,8 +374,8 @@ if min_w0 is not None and min_w1 is not None:
 else:
     st.write("Please check the column selections and try again.")
 
-fig6 = px.scatter(filtered_df, x=column_x1, y=column_y1, title=f"PMMoV liner regression model {Code2}")
-
+fig6 = px.scatter(filtered_df, x=column_x1, y=column_y1, title=f"PMMoV liner regression model vs X {Code2}")
+fig7 = px.scatter(filtered_df, x='Date', y=column_y1, title=f"PMMoV liner regression model vs Time {Code2}")
 # Get the x-values from the filtered dataframe for plotting the regression line
 x_values = filtered_df[column_x1]
 
@@ -391,7 +391,7 @@ w0_adjusted = float(w0_adjusted)  # Ensure it's a scalar
 
 # # Display the plot using Streamlit
 st.plotly_chart(fig6)
-
+st.plotly_chart(fig7)
 
 
 
