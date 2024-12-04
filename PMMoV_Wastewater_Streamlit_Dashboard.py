@@ -265,12 +265,12 @@ st.write('''
 
 Code2 = st.selectbox("Select a Site Code", WW_df['Code'].unique())
 column_y1 = st.selectbox("Select a Column for Y-axis", WW_df.columns[WW_df.columns != 'Date'])
-column_x2 = st.selectbox("Select a Column for X-axis", WW_df.columns[WW_df.columns != 'Date'])
+column_x1 = st.selectbox("Select a Column for X-axis", WW_df.columns[WW_df.columns != 'Date'])
 
 # Display selected site code and column choices
 st.write(f"Selected Site Code: {Code2}")
 st.write(f"Y-axis Column: {column_y1}")
-st.write(f"X-axis Column: {column_x2}")
+st.write(f"X-axis Column: {column_x1}")
 
 # Filter the dataframe by selected site code
 filtered_df = WW_df[WW_df['Code'] == Code2]
@@ -337,7 +337,7 @@ def best_fit_line_slope(df, columnx, columny):
     return min_w0, max_w0, min_w1, max_w1, slope
 
 # Call the function to calculate the best-fit line parameters and slope
-min_w0, max_w0, min_w1, max_w1, slope = best_fit_line_slope(filtered_df, column_x, column_y)
+min_w0, max_w0, min_w1, max_w1, slope = best_fit_line_slope(filtered_df, column_x1, column_y1)
 
 # Display the best-fit parameters and calculated slope
 if min_w0 is not None and min_w1 is not None:
