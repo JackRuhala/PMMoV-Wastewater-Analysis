@@ -22,7 +22,7 @@ WW_df = pd.read_csv(r'Wastewater data sheet')
 WW_df = WW_df.drop(columns = 'Unnamed: 0')
 scaler = StandardScaler()
 WW_df_Standard = WW_df
-WW_df_Standard[SNOW] = scaler.fit_transform(WW_df_Standard[SNOW])
+# WW_df_Standard[SNOW] = scaler.fit_transform(WW_df_Standard[SNOW])
 # WW_df_Standard['5'] = WW_df['Date']
 st.dataframe(WW_df_Standard)
 
