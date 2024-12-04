@@ -375,7 +375,17 @@ else:
     st.write("Please check the column selections and try again.")
 
 fig6 = px.scatter(filtered_df, x=column_x1, y=column_y1, title=f"PMMoV liner regression model {Code2}")
-fig6.add_trace(go.Scatter(x=column_x1, y=(column_x1 * w1_adjusted + w0_adjusted), mode='lines', name='Regression Line', line=dict(color='red', width=2)))
+
+# Get the x-values from the filtered dataframe for plotting the regression line
+x_values = filtered_df[column_x1]
+
+# Calculate the y-values of the regression line using the adjusted w1 and w0
+y_values = (x_values * w1_adjusted) + w0_adjusted
+
+# Add the regression line as a new trace to the plot
+fig6.add_trace(go.Scatter(x=x_values, y=y_values, mode='lines', name='Regression Line', line=dict(color='red', width=2)))
+
+# Display the plot using Streamlit
 st.plotly_chart(fig6)
 
 
