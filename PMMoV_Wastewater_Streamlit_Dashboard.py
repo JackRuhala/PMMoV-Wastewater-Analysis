@@ -387,7 +387,7 @@ y_values = (x_values * w1_adjusted) + w0_adjusted
 
 # Add the regression line as a new trace to the plot
 fig6.add_trace(go.Scatter(x=x_values, y=y_values, mode='lines', name='Regression Line', line=dict(color='red', width=2)))
-fig7.add_trace(go.Scatter(x=x_values, y=y_values, mode='lines', name='Regression Line', line=dict(color='red', width=2)))
+fig7.add_trace(go.Scatter(x='Date', y=y_values, mode='lines', name='Regression Line', line=dict(color='red', width=2)))
 # # Display the plot using Streamlit
 st.plotly_chart(fig6)
 st.plotly_chart(fig7)
