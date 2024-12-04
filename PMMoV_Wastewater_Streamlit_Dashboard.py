@@ -316,11 +316,11 @@ def best_fit_line_slope(df, columnx, columny):
     best_w0 = w0_range[min_SSE_index[0]]
     best_w1 = w1_range[min_SSE_index[1]]
 
-    # The target SSE is 1.25 times the minimum SSE
+    # The target SSE is 1.5 times the minimum SSE
     target_SSE = 1.5 * SSE_min
 
     # Find the indices in the grid where SSE is approximately 1.25 times the minimum SSE
-    tolerance = 0.2 * SSE_min  # Allow for small tolerance in SSE
+    tolerance = 0.5 * SSE_min  # Allow for small tolerance in SSE
     close_to_target_SSE = np.abs(SLS_grid - target_SSE) < tolerance
 
     # Get the coordinates of the points that are close to the target SSE
