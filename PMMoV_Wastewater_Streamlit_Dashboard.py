@@ -21,10 +21,12 @@ st.set_page_config(page_title='Kent County Michigan Viral Wastewater Analysis')
 WW_df = pd.read_csv(r'Wastewater data sheet')
 WW_df = WW_df.drop(columns = 'Unnamed: 0')
 scaler = StandardScaler()
-WW_df_Standard['SNOW'] = WW_df['SNOW']
-WW_df_Standard['SNOW'] = scaler.fit_transform(WW_df_Standard['SNOW'])
-# WW_df_Standard['5'] = WW_df['Date']
-st.dataframe(WW_df_Standard)
+
+# Adress these issues later.
+# WW_df_Standard['SNOW'] = WW_df['SNOW']
+# WW_df_Standard['SNOW'] = scaler.fit_transform(WW_df_Standard['SNOW'])
+# # WW_df_Standard['5'] = WW_df['Date']
+# st.dataframe(WW_df_Standard)
 
 ###-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------###
 
@@ -155,16 +157,13 @@ st.markdown(''' Sample stats of reggretion before imputaion
 - Standard error value = 0.000121
 '''
 )
-
-user_input_1 = st.text_input('Enter Site Code Name:', 'Site Code')
+Codes = WW_df['Code'].unique()
+user_input_1 = st.selectbox('Select A code', Codes)
 
 # Discharge vs flow rate chart
 
 # Box for user input 1
-if user_input_1 in WW_df['Code'].values:
-    st.write(user_input_1, ': Found')
-
-    Code_data = WW_df[WW_df['Code'] == user_input_1]
+Code_data = WW_df[WW_df['Code'] == user_input_1]
 
     if not Code_data.empty:
     # Print value list
@@ -185,8 +184,7 @@ if user_input_1 in WW_df['Code'].values:
     fig1 = px.scatter(Code_data, x='Discharge (ft^3/s)', y='FlowRate (MGD)', title=f"Discharge vs FlowRate for {user_input_1}")
     fig1.add_trace(go.Scatter(x=Code_dis, y=(Code_dis * w1 + w0), mode='lines', name='Regression Line', line=dict(color='red', width=2)))
     st.plotly_chart(fig1)
-else:
-    st.write(user_input_1, ' : Code Not Found')
+
 
 
 ###-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------###
@@ -203,9 +201,9 @@ st.plotly_chart(fig2)
 fig3 = px.scatter(WW_df, title = 'Sewer Flow Rate by site', x='Date', y='FlowRate (MGD)', color ='Code', render_mode='svg')
 st.plotly_chart(fig3)
 
-fig4 = px.scatter(WW_df_standerd, title = 'Sewer Flow Rate vs Enviroment', x='Date', y='FlowRate (MGD)')
-fig4.add_scatter(WW_df_standerd, x='Date',y='Discharge (ft^3/s)')
-st.plotly_chart(fig4)
+# fig4 = px.scatter(WW_df_standerd, title = 'Sewer Flow Rate vs Enviroment', x='Date', y='FlowRate (MGD)')
+# fig4.add_scatter(WW_df_standerd, x='Date',y='Discharge (ft^3/s)')
+# st.plotly_chart(fig4)
 # univariate graphs of pH of a system
 fig5 = px.scatter(WW_df, title = 'Sewer Water pH by site', x='Date', y='pH', color ='Code', render_mode='svg')
 st.plotly_chart(fig5)
@@ -225,6 +223,114 @@ st.write('''
          Model variables have already been determent but if you wish to see the models that are not further discussed feel free to come back and look at them here
 '''
 )
+
+# split the data into groups for local analysis
+splits = list(WW_df.groupby("Code")) 
+  
+# # view splitted dataframe 
+# print(splits[5][1])
+
+# CS
+CS_df = splits[0][1]
+CS_df = CS_df.reset_index()
+CS_df = CS_df.drop(columns = ['index'])
+
+# GG
+GG_df = splits[1][1]
+GG_df = GG_df.reset_index()
+GG_df = GG_df.drop(columns = ['index'])
+
+# GO
+GO_df = splits[2][1]
+GO_df = GO_df.reset_index()
+GO_df = GO_df.drop(columns = ['index'])
+
+# GR
+GR_df = splits[3][1]
+GR_df = GR_df.reset_index()
+GR_df = GR_df.drop(columns = ['index'])
+
+# WB
+WB_df = splits[4][1]
+WB_df = WB_df.reset_index()
+WB_df = WB_df.drop(columns = ['index'])
+
+# WK
+WK_df = splits[5][1]
+WK_df = WK_df.reset_index()
+WK_df = WK_df.drop(columns = ['index'])
+
+# WY
+WY_df = splits[6][1]
+WY_df = WY_df.reset_index()
+WY_df = WY_df.drop(columns = ['index'])
+
+local_dfs = [CS_df,GG_df, GO_df, GR_df, WB_df, WK_df, WY_df]
+
+# log PMMoV reggretion code
+def liner_regretion_map(df, columnx, columny):
+    if columnx not in df.columns or columny not in df.columns:
+        print(f"Column {columnx} or {columny} not found in DataFrame.")
+        return
+    
+    temp_df = df.dropna(subset=[f'{columnx}', f'{columny}','Date'])
+    
+    # Transform data into an array
+    X = np.array(temp_df[f'{columnx}'], dtype=float)
+    Y = np.array(temp_df[f'{columny}'], dtype=float)
+    # Transform Y value into Y magnitude (Log10)
+    Y = np.log10(Y)
+    # Calculate the predicted Y values using reggretion model peramiters w1 and w0
+    w1, w0, r, p, err = stats.linregress(X, Y)
+
+    # w0_range = np.linspace(w0*0.999, w0*1.001, 50)
+    # w1_range = np.linspace(w1*0.99, w1*1.01, 50)
+    return w1, w0, r, p, err, SSE, Y
+# Calculate the predicted Y values using reggretion model peramiters w1 and w0
+# w0_range = np.linspace(w0*0.999, w0*1.001, 50)
+# w1_range = np.linspace(w1*0.99, w1*1.01, 50)
+Y_predicted = w1 * temp_df[f'{columnx}'].astype(float) + w0
+# Provide an SSE reading
+SSE = np.sum((Y - Y_predicted) ** 2)
+# print stats
+print(f"Predicted vs Imputed results for {df['Code'].unique()}:")
+print(f"Predicted Slope w1 = {w1:.4e}")
+print(f"Predicted Intercept w0 = {w0:.4e}")
+print(f"Person correlation r {r:.4e}")
+print(f"p-value = {r:.4e}")
+print(f"Standerd Error = {r:.4e}")
+print(f"Square Sum Error = {SSE:.4e}")
+    
+
+user_input_2 = st.selectbox('Select A code', Codes)
+
+user_input_3 = st.text_input('Enter one variable name as it appers on the table:', 'Variable')
+# Discharge vs flow rate chart
+
+# Box for user input 1
+if user_input_2 in WW_df['Code'].values:
+    st.write(user_input_2, ': Found')
+    # change site code an int for data location
+    user_input_2 = {'CS': 0, 'GG': 1, 'GO': 2, 'GR': 3, 'WB': 4, 'WK': 5, 'WY': 6}
+
+    if user_input_3 in WW_df_int.columns:
+         st.write(user_input_3, ': Found')
+         
+         X = np.array(Code_data[columnx])
+         Y = np.array(Code_data[columny])
+                  # Genrate stats for the liner regretion model after imputaion
+         w1, w0, r, p, err = stats.linregress(Code_dis.astype(float),Code_fr.astype(float))
+
+         st.write(f"Slope w1 ={w1}")
+         st.write(f"Predicted Intercept w0 ={w0}")
+         st.write(f"Predicted Pearson correlation coefficient r value ={r}")
+         st.write(f"Predicted p-value ={p}")
+         st.write(f"Predicted Standard error value ={err}")
+
+    else:
+         st.write(user_input_3, ' : Variable.')
+else:
+    st.write(user_input_2, ' : Code Not Found')
 
 # Log multivariate liner regression code here
 
