@@ -344,16 +344,13 @@ def best_fit_line_slope(df, columnx, columny):
 # Call the function to calculate the best-fit line parameters and slope
 min_w0, max_w0, min_w1, max_w1, slope, intersept, w0, w1 = best_fit_line_slope(filtered_df, column_x1, column_y1)
 
-# Display the best-fit parameters and calculated slope
-if min_w0 is not None and min_w1 is not None:
-    st.write(f"The best-fit line parameters that minimize SSE are:")
-    st.write(f"The best-fit line Intersept (w0) = {w0}")   
-    st.write(f"Plosible w0 (Intercept) range (SSE*2 max): {min_w0} to {max_w0}")
-    st.write(f"The best-fit line Slpoe (w1) = {w1}")
-    st.write(f"Plosible w1 (Slope) range (SSE*2 max): {min_w1} to {max_w1}")
-    st.write(f"The slope and intersept of the surface plot for the reggretion line of variables x and y with endpoints of the surface plot SSE close to 2x minimum SSE is: {slope} {intersept}")
-else:
-    st.write("Please check the column selections and try again.")
+st.write(f"The best-fit line parameters that minimize SSE are:")
+st.write(f"The best-fit line Intersept (w0) = {w0}")   
+st.write(f"Plosible w0 (Intercept) range (SSE*2 max): {min_w0} to {max_w0}")
+st.write(f"The best-fit line Slpoe (w1) = {w1}")
+st.write(f"Plosible w1 (Slope) range (SSE*2 max): {min_w1} to {max_w1}")
+st.write(f"The slope and intersept of the surface plot for the reggretion line of variables x and y with endpoints of the surface plot SSE close to 2x minimum SSE is: {slope} {intersept}")
+
 
 
 
