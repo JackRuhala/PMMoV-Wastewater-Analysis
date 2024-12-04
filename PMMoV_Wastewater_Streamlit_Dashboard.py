@@ -295,10 +295,10 @@ def best_fit_line_slope(df, columnx, columny):
     # Initial linear regression to get w1 and w0
     w1, w0, r, p, err = stats.linregress(X, Y)
     Y_predicted_min = w1 * X + w0
-    SSE_min = np.sum((Y - Y_predicted_min)**2)
+    SSE_min = np.sum((Y - Y_predicted_min)**1.25)
          
     # Generate ranges for w0 and w1 to minimize SSE
-    w0_range = np.linspace(w0 * 0.25, w0 * 1.75, 100)
+    w0_range = np.linspace(w0 * 0.5, w0 * 1.5, 100)
     w1_range = np.linspace(w1 * -10, w1 * 10, 100)
 
     # Initialize grid to store the sum of least squares (SSE) values
@@ -308,7 +308,7 @@ def best_fit_line_slope(df, columnx, columny):
     for i_idx, i in enumerate(w0_range):
         for j_idx, j in enumerate(w1_range):
             Y_predicted = j * X + i  # Predicted Y values based on current w0 and w1
-            Sum_of_least_squares = np.sum((Y - Y_predicted)**2)  # SSE for the current w0, w1 pair
+            Sum_of_least_squares = np.sum((Y - Y_predicted)**1.25)  # SSE for the current w0, w1 pair
             SLS_grid[i_idx, j_idx] = Sum_of_least_squares
 
     # Find the index of the minimum SSE in the grid
@@ -316,10 +316,10 @@ def best_fit_line_slope(df, columnx, columny):
     best_w0 = w0_range[min_SSE_index[0]]
     best_w1 = w1_range[min_SSE_index[1]]
 
-    # The target SSE is 2 times the minimum SSE
-    target_SSE = 2 * SSE_min
+    # The target SSE is 1.25 times the minimum SSE
+    target_SSE = 1.25 * SSE_min
 
-    # Find the indices in the grid where SSE is approximately 2 times the minimum SSE
+    # Find the indices in the grid where SSE is approximately 1.25 times the minimum SSE
     tolerance = 0.05 * SSE_min  # Allow for small tolerance in SSE
     close_to_target_SSE = np.abs(SLS_grid - target_SSE) < tolerance
 
@@ -348,9 +348,9 @@ min_w0, max_w0, min_w1, max_w1, slope, intersept, w0, w1 = best_fit_line_slope(f
 
 st.write(f"The best-fit line parameters that minimize SSE are:")
 st.write(f"The best-fit line Intersept (w0) = {w0}")   
-st.write(f"Plosible w0 (Intercept) range (SSE*2 max): {min_w0} to {max_w0}")
+st.write(f"Plosible w0 (Intercept) range (SSE*1.25 max): {min_w0} to {max_w0}")
 st.write(f"The best-fit line Slpoe (w1) = {w1}")
-st.write(f"Plosible w1 (Slope) range (SSE*2 max): {min_w1} to {max_w1}")
+st.write(f"Plosible w1 (Slope) range (SSE*1.25 max): {min_w1} to {max_w1}")
 st.write(f"The slope and intersept of the surface plot for the reggretion line of variables x and y with endpoints of the surface plot SSE close to 2x minimum SSE is: {slope} {intersept}")
 
 if min_w0 is not None and min_w1 is not None:
