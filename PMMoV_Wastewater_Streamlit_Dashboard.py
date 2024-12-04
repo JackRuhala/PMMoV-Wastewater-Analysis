@@ -260,7 +260,7 @@ st.write('''
 
 # local_dfs = [CS_df,GG_df, GO_df, GR_df, WB_df, WK_df, WY_df]
 
-WW_df_y = WW_df[['PMMoV (gc/ 100mL)', 'Mean CT']]
+WW_df_y = WW_df[['PMMoV (gc/ 100mL)', 'PMMoV Mean CT']]
 
 Code2 = st.selectbox("Select a Site Code", WW_df['Code'].unique())
 column_y1 = st.selectbox("Select a Column for Y-axis", WW_df_y.columns)
