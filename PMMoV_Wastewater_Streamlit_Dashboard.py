@@ -204,10 +204,8 @@ fig5 = px.scatter(WW_df, title = 'Sewer Water pH by site', x='Date', y='pH', col
 st.plotly_chart(fig5)
 # univariate graphs of PMMoV recorded in a system
 
-
-
-# fig5 = px.scatter(WW_df, title = 'PMMoV Gene Copys recorded in 100ml Sewer Water sample', x='Date', y='PMMoV (gc/ 100mL)', color ='Code', render_mode='svg')
-# st.plotly_chart(fig5)
+fig5 = px.scatter(WW_df, title = 'PMMoV Gene Copys recorded in 100ml Sewer Water sample', x='Date', y='PMMoV (gc/ 100mL)', color ='Code', render_mode='svg')
+st.plotly_chart(fig5)
 
 ###-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------###
 # Building and environmental model for PMMoV
@@ -262,9 +260,10 @@ st.write('''
 
 # local_dfs = [CS_df,GG_df, GO_df, GR_df, WB_df, WK_df, WY_df]
 
+WW_df_y = WW_df[['PMMoV (gc/ 100mL)', 'Mean CT']]
 
 Code2 = st.selectbox("Select a Site Code", WW_df['Code'].unique())
-column_y1 = st.selectbox("Select a Column for Y-axis", WW_df.columns[WW_df.columns != 'Date'])
+column_y1 = st.selectbox("Select a Column for Y-axis", WW_df_y.columns)
 column_x1 = st.selectbox("Select a Column for X-axis", WW_df.columns[WW_df.columns != 'Date'])
 
 # Display selected site code and column choices
