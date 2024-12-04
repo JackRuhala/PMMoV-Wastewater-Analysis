@@ -374,7 +374,9 @@ if min_w0 is not None and min_w1 is not None:
 else:
     st.write("Please check the column selections and try again.")
 
-
+fig6 = px.scatter(filtered_df, x=column_x1, y=column_y1, title=f"PMMoV liner regression model {Code2}")
+fig6.add_trace(go.Scatter(x=column_x1, y=(column_x1 * w1_adjusted + w0_adjusted), mode='lines', name='Regression Line', line=dict(color='red', width=2)))
+st.plotly_chart(fig6)
 
 
 
