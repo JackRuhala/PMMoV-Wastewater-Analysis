@@ -355,13 +355,22 @@ st.write(f"Plosible w1 (Slope) range (SSE*2 max): {min_w1} to {max_w1}")
 st.write(f"The slope and intersept of the surface plot for the reggretion line of variables x and y with endpoints of the surface plot SSE close to 2x minimum SSE is: {slope} {intersept}")
 
 if min_w0 is not None and min_w1 is not None:
-    # Display interactive sliders for w0 and w1
-    w0_slider = st.slider("Select w0", min_value=float(min_w0), max_value=float(max_w0), value=float(w0))
-    w1_slider = st.slider("Select w1", min_value=float(min_w1), max_value=float(max_w1), value=float(w1))
-
-    # Display the current values of w0 and w1
-    st.write(f"Current w0 (Intercept): {w0_slider}")
-    st.write(f"Current w1 (Slope): {w1_slider}")
+    # Create a single slider for both w0 and w1
+    slider_value = st.slider(
+        "Adjust w0 and w1", 
+        min_value=0.0, 
+        max_value=100.0, 
+        value=50.0
+    )
+    
+    # Adjust w0 and w1 based on slider value
+    # Mapping the slider to w0 and w1
+    w0_adjusted = min_w0 + (slider_value / 100.0) * (max_w0 - min_w0)
+    w1_adjusted = min_w1 + (slider_value / 100.0) * (max_w1 - min_w1)
+    
+    # Display the adjusted w0 and w1
+    st.write(f"Adjusted w0 (Intercept): {w0_adjusted}")
+    st.write(f"Adjusted w1 (Slope): {w1_adjusted}")
 else:
     st.write("Please check the column selections and try again.")
 
