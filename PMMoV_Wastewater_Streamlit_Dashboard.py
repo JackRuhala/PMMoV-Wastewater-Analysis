@@ -23,7 +23,7 @@ scaler = StandardScaler()
 WW_df_int = WW_df.select_dtypes(include=['int'])
 WW_df_Standard = pd.DataFrame()
 WW_df_Standard = scaler.fit_transform(WW_df_int)
-WW_df_Standard['Date'] = WW_df['Date']
+WW_df_Standard = WW_df[['Date']].copy()
 # WW_df_Standard['Code'] = WW_df['Code']
 st.dataframe(WW_df_Standard)
 
