@@ -356,17 +356,22 @@ st.write(f"The slope and intersept of the surface plot for the reggretion line o
 
 if min_w0 is not None and min_w1 is not None:
     # Create a single slider for both w0 and w1
-    slider_value = st.slider(
+    slider_value1 = st.slider(
         "Adjust w0 and w1", 
         min_value=0.0, 
         max_value=100.0, 
         value=50.0
     )
-    
+    slider_value2 = st.slider(
+        "Adjust w0 and w1", 
+        min_value=0.0, 
+        max_value=100.0, 
+        value=50.0
+    )
     # Adjust w0 and w1 based on slider value
     # Mapping the slider to w0 and w1
-    w0_adjusted = min_w0 + (slider_value / 100.0) * (max_w0 - min_w0)
-    w1_adjusted = min_w1 + (slider_value / 100.0) * (max_w1 - min_w1)
+    w0_adjusted = min_w0 + (slider_value1 / 100.0) * (max_w0 - min_w0)
+    w1_adjusted = min_w1 + (slider_value2 / 100.0) * (max_w1 - min_w1)
     
     # Display the adjusted w0 and w1
     st.write(f"Adjusted w0 (Intercept): {w0_adjusted}")
