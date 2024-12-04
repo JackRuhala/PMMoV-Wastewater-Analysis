@@ -331,6 +331,9 @@ def best_fit_line_slope(df, columnx, columny):
     selected_w0 = w0_range[indices[0]]
     selected_w1 = w1_range[indices[1]]
 
+    if selected_w0.size == 0 or selected_w1.size == 0:
+        st.error(f"No valid w0 and w1 values found that satisfy the SSE condition.")
+        return None, None, None, None, None, None, None, None
     # Find the longest line (the endpoints with the smallest and largest w0/w1)
     min_w0, max_w0 = selected_w0.min(), selected_w0.max()
     min_w1, max_w1 = selected_w1.min(), selected_w1.max()
