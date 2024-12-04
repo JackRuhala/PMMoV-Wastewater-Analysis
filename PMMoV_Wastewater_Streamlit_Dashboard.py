@@ -382,14 +382,15 @@ x_values = filtered_df[column_x1]
 # Ensure w1_adjusted and w0_adjusted are scalars (if they're arrays, take the first element)
 w1_adjusted = float(w1_adjusted)  # Ensure it's a scalar
 w0_adjusted = float(w0_adjusted)  # Ensure it's a scalar
+
 # Calculate the y-values of the regression line using the adjusted w1 and w0
 y_values = (x_values * w1_adjusted) + w0_adjusted
 
-# Add the regression line as a new trace to the plot
-fig6.add_trace(go.Scatter(x=x_values, y=y_values, mode='lines', name='Regression Line', line=dict(color='red', width=2)))
+# # Add the regression line as a new trace to the plot
+# fig6.add_trace(go.Scatter(x=x_values, y=y_values, mode='lines', name='Regression Line', line=dict(color='red', width=2)))
 
-# Display the plot using Streamlit
-st.plotly_chart(fig6)
+# # Display the plot using Streamlit
+# st.plotly_chart(fig6)
 
 
 
