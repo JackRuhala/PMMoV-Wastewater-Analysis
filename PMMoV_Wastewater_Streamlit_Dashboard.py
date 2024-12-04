@@ -346,7 +346,7 @@ w0_adjusted = float(w0_adjusted)  # Ensure it's a scalar
 
 # Calculate the y-values of the regression line using the adjusted w1 and w0
 y_values = (x_values * w1_adjusted) + w0_adjusted
-SSE_adjusted = filtered_df[column_y1] - y_values
+SSE_adjusted = np.sum((filtered_df[column_y1] - y_values)**2)
 st.write(f"Adjusted SSE = {SSE_adjusted}")
 # Add the regression line as a new trace to the plot
 fig6.add_trace(go.Scatter(x=x_values, y=y_values, mode='lines', name='Regression Line', line=dict(color='red', width=2)))
