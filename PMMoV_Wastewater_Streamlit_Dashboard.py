@@ -19,6 +19,8 @@ st.set_page_config(page_title='Kent County Michigan Viral Wastewater Analysis')
 # Load in data
 
 WW_df = pd.read_csv(r'Wastewater data sheet')
+scaler = StandardScaler()
+WW_df_Standard = scaler.fit_transform(WW_df)
 
 ###-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------###
 
@@ -192,22 +194,32 @@ st.write('A sewer system is not isolated from the outside world, the system expe
 
 fig2 = px.scatter(WW_df, title = 'Kent County Sewer Water Tempature', x='Date', y='Temp', render_mode='svg')
 st.plotly_chart(fig2)
+
 # univariate graphs of grand river discharge vs flow rate vs precipitation and snow melt
 fig3 = px.scatter(WW_df, title = 'Sewer Flow Rate by site', x='Date', y='FlowRate (MGD)', color ='Code', render_mode='svg')
 st.plotly_chart(fig3)
-# univariate graphs of pH of a system
-fig4 = px.scatter(WW_df, title = 'Sewer Water pH by site', x='Date', y='pH', color ='Code', render_mode='svg')
+
+fig4 = px.scatter(WW_df_standerd, title = 'Sewer Flow Rate vs Enviroment', x='Date', y='FlowRate (MGD)')
+fig4.add_scatter(WW_df_standerd, x='Date',y='Discharge (ft^3/s)')
 st.plotly_chart(fig4)
-# univariate graphs of PMMoV recorded in a system
-fig5 = px.scatter(WW_df, title = 'PMMoV Gene Copys recorded in 100ml Sewer Water sample', x='Date', y='PMMoV (gc/ 100mL)', color ='Code', render_mode='svg')
+# univariate graphs of pH of a system
+fig5 = px.scatter(WW_df, title = 'Sewer Water pH by site', x='Date', y='pH', color ='Code', render_mode='svg')
 st.plotly_chart(fig5)
+# univariate graphs of PMMoV recorded in a system
+
+
+
+# fig5 = px.scatter(WW_df, title = 'PMMoV Gene Copys recorded in 100ml Sewer Water sample', x='Date', y='PMMoV (gc/ 100mL)', color ='Code', render_mode='svg')
+# st.plotly_chart(fig5)
 
 ###-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------###
 # Building and environmental model for PMMoV
 st.title('Building and environmental model for PMMoV')
-st.write('Below is an interactive figure of how our environmental data can be used to generate a model for PMMoV fluctuations'
-         'The interactive plot generates a liner regression model of PMMoV fited to the environmental variables of interest selected'
-         'Model variables have already been determent but if you wish to see the models that are not further discussed feel free to come back and look at them here'
+st.write('''
+         Below is an interactive figure of how our environmental data can be used to generate a model for PMMoV fluctuations
+         The interactive plot generates a liner regression model of PMMoV fitted to the environmental variables of interest selected
+         Model variables have already been determent but if you wish to see the models that are not further discussed feel free to come back and look at them here
+'''
 )
 
 # Log multivariate liner regression code here
@@ -216,17 +228,19 @@ st.write('Below is an interactive figure of how our environmental data can be us
 
 # Print values of weights, the intercept, the sum of least squares, and  r^2 correlation value
 
-st.write('Based on carful observation of the liner models the best liner regression model involves fitting the data to flow rate and precipitation'
-         'The variables used for liner regression were found to correlate with the method of sample collection'
-         'Samples collected using a composite collected are most affected by flow rate.'
-         'The flow rate of a system for composite samples is shown to be negatively correlated to the amount of PMMoV detected on a particular day.'
-         'Faster than normal moving water through a system is suspected to flush out a systems fecal mater and thus lower the PMMoV detected'
-         'Samples collected directly from the sewer were found to be grately affected by heavy rain fall.'
-         'The precipitation recorded over a 24 hour period positively correlates with PMMoV detected on the same day.'
-         'heavy rain fall is suspected to grately disturb a sewer environment causing lingering particulates to contaminate the grab sample more than normal, thus increasing the PMMoV detected'
-         'Although flow rate and precipitation affect sample collection differently the environmental variable that gratly affect one sample has very little effect on the other sample.'
-         'The effect each variable has on a sample site is reflected by the weights of the model given.'
-         'Because of the dominance one variable in a sample has over the other, depending on how the sample is collected, both variables are included in one model for simplification of the models use across different sites'
+st.write('''
+         Based on carful observation of the liner models the best liner regression model involves fitting the data to flow rate and precipitation
+         The variables used for liner regression were found to correlate with the method of sample collection
+         Samples collected using a composite collected are most affected by flow rate.
+         The flow rate of a system for composite samples is shown to be negatively correlated to the amount of PMMoV detected on a particular day.
+         Faster than normal moving water through a system is suspected to flush out a system’s fecal mater and thus lower the PMMoV detected'
+         Samples collected directly from the sewer were found to be greatly affected by heavy rainfall.
+         The precipitation recorded over a 24 hour period positively correlates with PMMoV detected on the same day.
+         heavy rainfall is suspected to greatly disturb a sewer environment causing lingering particulates to contaminate the grab sample more than normal, thus increasing the PMMoV detected
+         Although flow rate and precipitation affect sample collection differently the environmental variable that greatly affects one sample has very little effect on the other sample.
+         The effect each variable has on a sample site is reflected by the weights of the model given.
+         Because of the dominance one variable in a sample has over the other, depending on how the sample is collected, both variables are included in one model for simplification of the models used across different sites.
+'''
 )
 
 ###-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------###
