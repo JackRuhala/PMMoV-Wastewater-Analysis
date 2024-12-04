@@ -390,7 +390,7 @@ w0_adjusted = float(w0_adjusted)  # Ensure it's a scalar
 # fig6.add_trace(go.Scatter(x=x_values, y=y_values, mode='lines', name='Regression Line', line=dict(color='red', width=2)))
 
 # # Display the plot using Streamlit
-# st.plotly_chart(fig6)
+st.plotly_chart(fig6)
 
 
 
@@ -398,70 +398,6 @@ w0_adjusted = float(w0_adjusted)  # Ensure it's a scalar
 
 
 
-# # log PMMoV reggretion code
-# def liner_regretion_map(df, columnx, columny):
-#     if columnx not in df.columns or columny not in df.columns:
-#         print(f"Column {columnx} or {columny} not found in DataFrame.")
-#         return
-    
-#     temp_df = df.dropna(subset=[f'{columnx}', f'{columny}','Date'])
-    
-#     # Transform data into an array
-#     X = np.array(temp_df[f'{columnx}'], dtype=float)
-#     Y = np.array(temp_df[f'{columny}'], dtype=float)
-#     # Transform Y value into Y magnitude (Log10)
-#     Y = np.log10(Y)
-#     # Calculate the predicted Y values using reggretion model peramiters w1 and w0
-#     w1, w0, r, p, err = stats.linregress(X, Y)
-
-#     # w0_range = np.linspace(w0*0.999, w0*1.001, 50)
-#     # w1_range = np.linspace(w1*0.99, w1*1.01, 50)
-#     return w1, w0, r, p, err, SSE, Y
-# # Calculate the predicted Y values using reggretion model peramiters w1 and w0
-# # w0_range = np.linspace(w0*0.999, w0*1.001, 50)
-# # w1_range = np.linspace(w1*0.99, w1*1.01, 50)
-# Y_predicted = w1 * temp_df[f'{columnx}'].astype(float) + w0
-# # Provide an SSE reading
-# SSE = np.sum((Y - Y_predicted) ** 2)
-# # print stats
-# print(f"Predicted vs Imputed results for {df['Code'].unique()}:")
-# print(f"Predicted Slope w1 = {w1:.4e}")
-# print(f"Predicted Intercept w0 = {w0:.4e}")
-# print(f"Person correlation r {r:.4e}")
-# print(f"p-value = {r:.4e}")
-# print(f"Standerd Error = {r:.4e}")
-# print(f"Square Sum Error = {SSE:.4e}")
-    
-
-# user_input_2 = st.selectbox('Select A code', Codes)
-# user_input_3 = column_x = st.selectbox("Select a Column for X-axis", df.columns[df.columns != 'Date'])
-# user_input_4 = st.selectbox("Select a Column for Y-axis", df.columns[df.columns != 'Date'])
-# # Discharge vs flow rate chart
-
-# # Box for user input 1
-# if user_input_2 in WW_df['Code'].values:
-#     st.write(user_input_2, ': Found')
-#     # change site code an int for data location
-#     user_input_2 = {'CS': 0, 'GG': 1, 'GO': 2, 'GR': 3, 'WB': 4, 'WK': 5, 'WY': 6}
-
-#     if user_input_3 in WW_df_int.columns:
-#          st.write(user_input_3, ': Found')
-         
-#          X = np.array(Code_data[columnx])
-#          Y = np.array(Code_data[columny])
-#                   # Genrate stats for the liner regretion model after imputaion
-#          w1, w0, r, p, err = stats.linregress(Code_dis.astype(float),Code_fr.astype(float))
-
-#          st.write(f"Slope w1 ={w1}")
-#          st.write(f"Predicted Intercept w0 ={w0}")
-#          st.write(f"Predicted Pearson correlation coefficient r value ={r}")
-#          st.write(f"Predicted p-value ={p}")
-#          st.write(f"Predicted Standard error value ={err}")
-
-#     else:
-#          st.write(user_input_3, ' : Variable.')
-# else:
-#     st.write(user_input_2, ' : Code Not Found')
 
 # Log multivariate liner regression code here
 
