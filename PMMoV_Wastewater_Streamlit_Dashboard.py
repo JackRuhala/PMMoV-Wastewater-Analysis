@@ -273,7 +273,7 @@ st.write(f"X-axis Column: {column_x1}")
 
 # Filter the dataframe by selected site code
 filtered_df = WW_df[WW_df['Code'] == Code2]
-
+st.dataframe(filtered_df, use_container_width=True)
 # Function to perform linear regression and calculate the best-fit line (min SSE)
 def best_fit_line_slope(df, columnx, columny):
     if columnx not in df.columns or columny not in df.columns:
