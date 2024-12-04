@@ -295,10 +295,11 @@ def best_fit_line_slope(df, columnx, columny):
     # Initial linear regression to get w1 and w0
     w1, w0, r, p, err = stats.linregress(X, Y)
     Y_predicted_min = w1 * X + w0
-    SSE_min = np.sum((Y - Y_predicted_min)**1.5)
+    SSE_mutiplyer = 2
+    SSE_min = np.sum((Y - Y_predicted_min)**SSE_mutiplyer)
          
     # Generate ranges for w0 and w1 to minimize SSE
-    w0_range = np.linspace(w0 * 0.4, w0 * 1.6, 200)
+    w0_range = np.linspace(w0 * 0.25, w0 * 1.75, 200)
     w1_range = np.linspace(w1 * -10, w1 * 10, 200)
 
     # Initialize grid to store the sum of least squares (SSE) values
@@ -308,7 +309,7 @@ def best_fit_line_slope(df, columnx, columny):
     for i_idx, i in enumerate(w0_range):
         for j_idx, j in enumerate(w1_range):
             Y_predicted = j * X + i  # Predicted Y values based on current w0 and w1
-            Sum_of_least_squares = np.sum((Y - Y_predicted)**1.5)  # SSE for the current w0, w1 pair
+            Sum_of_least_squares = np.sum((Y - Y_predicted)**SSE_mutiplyer)  # SSE for the current w0, w1 pair
             SLS_grid[i_idx, j_idx] = Sum_of_least_squares
 
     # Find the index of the minimum SSE in the grid
@@ -317,10 +318,10 @@ def best_fit_line_slope(df, columnx, columny):
     best_w1 = w1_range[min_SSE_index[1]]
 
     # The target SSE is 1.5 times the minimum SSE
-    target_SSE = 1.5 * SSE_min
+    target_SSE = SSE_mutiplyer * SSE_min
 
     # Find the indices in the grid where SSE is approximately 1.25 times the minimum SSE
-    tolerance = 0.5 * SSE_min  # Allow for small tolerance in SSE
+    tolerance = 0.1 * SSE_min  # Allow for small tolerance in SSE
     close_to_target_SSE = np.abs(SLS_grid - target_SSE) < tolerance
 
     # Get the coordinates of the points that are close to the target SSE
