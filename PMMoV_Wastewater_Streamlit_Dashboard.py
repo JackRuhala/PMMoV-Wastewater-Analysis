@@ -23,8 +23,6 @@ scaler = StandardScaler()
 WW_df_int = WW_df.select_dtypes(include=['int'])
 WW_df_Standard = pd.DataFrame()
 WW_df_Standard = scaler.fit_transform(WW_df[['FlowRate (MGD)','SNOW', 'SNWD (Snow Depth)', 'Discharge (ft^3/s)']])
-WW_df_Standard.insert(2, 'Date', WW_df['Date'], True)
-# WW_df_Standard['Code'] = WW_df['Code']
 st.dataframe(WW_df_Standard)
 
 ###-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------###
