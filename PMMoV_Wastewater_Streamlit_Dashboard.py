@@ -372,7 +372,7 @@ if min_w0 is not None and min_w1 is not None:
     st.write(f"Adjusted w1 (Slope): {w1_adjusted}")
 else:
     st.write("Please check the column selections and try again.")
-y_temp = np.log(filtered[column_y1])
+y_temp = np.log(filtered_df[column_y1])
 fig6 = px.scatter(filtered_df, x=column_x1, y=y_temp, title=f"PMMoV liner regression model vs X {Code2}")
 fig7 = px.scatter(filtered_df, x='Date', y=y_temp, title=f"PMMoV liner regression model vs Time {Code2}")
 # Get the x-values from the filtered dataframe for plotting the regression line
