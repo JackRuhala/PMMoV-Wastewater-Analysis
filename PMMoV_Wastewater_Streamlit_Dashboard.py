@@ -522,25 +522,29 @@ SSE_N1_PMMoV_input_lag = np.sum(accuracy_test_df['N1 PMMoV scaled Residuals Lag 
 fig12 = px.line(accuracy_test_df, x='Date', y='N1 scaled Residuals Lag input', title = 'GR N1 data scaled Residuals to Lag input fitted to national COVID-19 death data')
 st.plotly_chart(fig12)
 
-
 st.write(f'SSE for N1 input lag: {SSE_N1_input_lag}')
 
-
-
 # Get the flow rate and discharge values as numpy arrays
-X = np.array(temp_df[f'{columnx}'])
-Y = np.array(temp_df[f'{columny}'])
-w1, w0, r, p, err = stats.linregress(X.astype(float), Y.astype(float))
-Y_predicted = w1 * temp_df[f'{columnx}'].astype(float) + w0
-residuals = ((Y - Y_predicted) ** 2).sum()
+X_Flow = np.array(accuracy_test_df['FlowRate scaled (MGD)'])
+X_PMMoV = np.array(accuracy_test_df['PMMoV scaled (gc/ 100mL)'])
+Y_N1 = np.array(accuracy_test_df['N1 scaled Residuals Lag input'])
+w1_PMMoV, w0_PMMoV, r_PMMoV, p_PMMoV, err_PMMoV = stats.linregress(X_PMMoV.astype(float), Y_N1.astype(float))
+w1_Flow, w0_Flow, r_Flow, p_Flow, err_Flow = stats.linregress(X_Flow.astype(float), Y_N1.astype(float))
+Y_predicted_PMMoV = w1 * X_PMMoV.astype(float) + w0
+Y_predicted_Flow = w1 * X_Flow.astype(float) + w0
+residuals_PMMoV = ((Y_N1 - Y_predicted_PMMoV) ** 2).sum()
+residuals_Flow = ((Y_N1 - Y_predicted_N1) ** 2).sum()
 
-print(f"Predicted vs Imputed results for {df['Code'].unique()}:")
-print(f"Predicted Slope w1 = {w1:.4e}")
-print(f"Predicted Intercept w0 = {w0:.4e}")
-print(f"Person correlation r {r:.4e}")
-print(f"square sum of residuals = {residuals:.4e}")
-sns.scatterplot(x=temp_df['Date'], y=temp_df[f'{columny}'], data=temp_df)
-sns.lineplot(x=temp_df['Date'], y=(Y_predicted), color = "red")
-ax = plt.gca()
-ax.set_xticklabels([])
-plt.show()
+st.write("Explained variance in GR input lag N1 residuals using PMMoV")
+print(f"Predicted Slope w1  = {w1_PMMoV:.4e}")
+print(f"Predicted Intercept w0 = {w0_PMMoV:.4e}")
+print(f"Person correlation r {r_PMMoV:.4e}")
+print(f"p_value = {p_PMMoV:.4e}")
+print(f"Standerd error = {err_PMMoV:.4e}")
+print(f"square sum of residuals with PMMoV= {residuals_PMMoV:.4e}")
+
+fig13 = px.scatter(accuracy_test_df, x='Date', y='N1 PMMoV scaled Residuals Lag input', title = 'liner reggretion of residual N1 lag to PMMoV')
+fig13.add_trace(go.Scatter(x='Date', y=Y_predicted_PMMoV, mode='lines', name='Regression Line', line=dict(color='red', width=2)))
+st.plotly_chart(fig13)
+
+
