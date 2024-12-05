@@ -591,7 +591,7 @@ st.write('''
 ''')
 
 ###-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------###
-st.title('Future Proposals for Exparaments')
+st.title('Future Proposals for Experiments')
 st.write('''
          Now that PMMoV is slightly better understood now that before the analysis of data, more data needs to be collected to fill in the gaps of knowledge.
          One problem found was PMMoV has more variation than expected.
