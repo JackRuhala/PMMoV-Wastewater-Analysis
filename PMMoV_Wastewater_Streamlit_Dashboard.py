@@ -395,20 +395,35 @@ Extractor_Preformance_df = WW_df.groupby('Extractor')['Log Residuals'].apply(lis
 fig8 = px.box(WW_df, x='Extractor', y='Log Residuals')
 st.plotly_chart(fig8)
 st.write('''
-         The Box plot tells us every extractors inate mean PMMoV recorded with flow rate influance removed.
-         There is an inherent imbalence in the box plot as each individual extractor could have extracted 300 samples or 3 samples.
-         Based on the box plot, no one extractor apperes to have a mean PMMoV reading far grater than zero, 'the ideal mean'.
-         We do not expect perfection in this metric as we dont know the normal variance of PMMoV in waste water, but we expect frequent extractors to all have simmiler means.
-         The box plot give the resaerchers confidance that PMMoV is not significantly skewed by individual extraction preformance.
-         The box plots also renforce the training and the SOP dictated by the lab dose provide consistent resalts between lab members.
+         The Box plot tells us every extractor innate mean PMMoV recorded with flow rate influence removed.
+         There is an inherent imbalance in the box plot as each individual extractor could have extracted 300 samples or 3 samples.
+         Based on the box plot, no one extractor appears to have a mean PMMoV reading far greater than zero, 'the ideal mean'.
+         We do not expect perfection in this metric as we don’t know the normal variance of PMMoV in wastewater, but we expect frequent extractors to all have similar means.
+         The box plot gives the researchers confidence that PMMoV is not significantly skewed by individual extraction performance.
+         The box plots also reinforce the training and the SOP dictated by the lab provide consistent results between lab members.
 ''')
 
 st.write('''
          Next we want to compare the variance in PMMoV given diffrent sample collection methods given the variation of PMMoV due to flow rate is removed.
 ''')
+
 fig9 = px.box(WW_df, x='Sample Type', y='Log Residuals')
 st.plotly_chart(fig9)
+
+st.write('''
+         Simmiler to what we see in the extractor box plots, no significant diffrence in detected PMMoV variation was found between grab and composite samples.
+         Again we are not expecting tight distributions in our PMMoV counts since PMMoV is not constent, but one collection method should not have significantly more variation in PMMoV then the other.
+         Both box plots conclude that variation in PMMoV when the influance of flow rate is removed is likely not caused by extractor preformance or sample type.
+''')
+
 ###-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------###
 # Time potential dependency of residuals
+st.title('Tempral analysis of PMMoV')
+
+st.write('''
+         One of the questions raised by the waste water lab was if PMMoV could be predicted.
+         To Predict what PMMoV might be in the future, a ACF and PACF was preformed.
+''')
+
 
 ###-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------###
