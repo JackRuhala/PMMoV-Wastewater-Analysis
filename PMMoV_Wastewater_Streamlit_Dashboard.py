@@ -389,12 +389,25 @@ st.write('''
          The theory is that there is either an environmental variable that has yet to be found causing fluctuations in the data, or there is a correlation between how the sample was collected or who was collecting it. 
          The given data has no information on environmental variables other than the variables recorded, could be causing a 10 fold change in PMMoV on a near daily basis. 
          What is provided is who was in the lab performing the extraction and how the sample was collected.
+         Below is every recoreded extractor variation in PMMoV with flow rate influance removed
 ''')
 Extractor_Preformance_df = WW_df.groupby('Extractor')['Log Residuals'].apply(list)
 fig8 = px.box(WW_df, x='Extractor', y='Log Residuals')
 st.plotly_chart(fig8)
+st.write('''
+         The Box plot tells us every extractors inate mean PMMoV recorded with flow rate influance removed.
+         There is an inherent imbalence in the box plot as each individual extractor could have extracted 300 samples or 3 samples.
+         Based on the box plot, no one extractor apperes to have a mean PMMoV reading far grater than zero, 'the ideal mean'.
+         We do not expect perfection in this metric as we dont know the normal variance of PMMoV in waste water, but we expect frequent extractors to all have simmiler means.
+         The box plot give the resaerchers confidance that PMMoV is not significantly skewed by individual extraction preformance.
+         The box plots also renforce the training and the SOP dictated by the lab dose provide consistent resalts between lab members.
+''')
 
-
+st.write('''
+         Next we want to compare the variance in PMMoV given diffrent sample collection methods given the variation of PMMoV due to flow rate is removed.
+''')
+fig9 = px.box(WW_df, x='Sample Type', y='Log Residuals')
+st.plotly_chart(fig9)
 ###-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------###
 # Time potential dependency of residuals
 
