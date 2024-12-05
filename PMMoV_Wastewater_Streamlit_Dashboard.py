@@ -13,6 +13,13 @@ from sklearn.linear_model import LinearRegression
 # from statsmodels.tsa.seasonal import seasonal_decompose
 ###-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------###
 
+# A good chunk of this code was troble shooteded by ChatGPT4.0 mini over the corase of development
+# The inital frame work was in a juniper notebook and then code was moved over into streamlit
+# I attempted to identify areas where ChatGPT was used in the comments but as of 12/5/2024, this app is in early develpoment and things might be changed or improved in the future.
+# All writen commentary was not AI genrated
+
+###-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------###
+
 st.set_page_config(page_title='Kent County Michigan Viral Wastewater Analysis')
 
 ###-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------###
@@ -411,9 +418,9 @@ fig9 = px.box(WW_df, x='Sample Type', y='Log Residuals')
 st.plotly_chart(fig9)
 
 st.write('''
-         Simmiler to what we see in the extractor box plots, no significant diffrence in detected PMMoV variation was found between grab and composite samples.
-         Again we are not expecting tight distributions in our PMMoV counts since PMMoV is not constent, but one collection method should not have significantly more variation in PMMoV then the other.
-         Both box plots conclude that variation in PMMoV when the influance of flow rate is removed is likely not caused by extractor preformance or sample type.
+         Like what we see in the extractor box plots, no significant difference in detected PMMoV variation was found between grab and composite samples.
+         Again, we are not expecting tight distributions in our PMMoV counts since PMMoV is not constant, but one collection method should not have significantly more variation in PMMoV then the other.
+         Both box plots conclude that variation in PMMoV when the influence of flow rate is removed is likely not caused by extractor performance or sample type.
 ''')
 
 ###-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------###
@@ -421,15 +428,15 @@ st.write('''
 st.title('Tempral analysis of PMMoV')
 
 st.write('''
-         One of the questions raised by the waste water lab was if PMMoV could be predicted.
-         To Predict what PMMoV might be in the future, a ACF and PACF was preformed or PMMoV with the influance of flow rate removed.
+         One of the questions raised by the wastewater lab was if PMMoV could be predicted.
+         To Predict what PMMoV might be in the future, a ACF and PACF was preformed or PMMoV with the influence of flow rate removed.
 ''')
 st.image('PMMoV_ACF_PACF.png')
 st.write('''
-         The ACF and PACF show that the PMMoV can not be predicted using an autocorilation function.
-         The ACF and PACF suggest that ether tempral PMMoV is independent from one another where p=0 or a tempral prediction can be made where 0>p>1.
-         If the autocorilation of PMMoV is 0>p>1 then the requency of sampling from bi-weekly to weekly is required.
-         PMMoV data could be oversampled to artifishaly increase the sampling frequency to check for daily or weekly PMMoV cycles, but the sampling distribution of a single time point is needed to make a decent model.
+         The ACF and PACF show that the PMMoV cannot be predicted using an autocorrelation function.
+         The ACF and PACF suggest that either temporal PMMoV is independent from one another where p=0 or a temporal prediction can be made where 0>p>1.
+         If the autocorrelation of PMMoV is 0>p>1 then the frequency of sampling from bi-weekly to weekly is required.
+         PMMoV data could be oversampled to artificially increase the sampling frequency to check for daily or weekly PMMoV cycles, but the sampling distribution of a single time point is needed to make a decent model.
 ''')
 
 ###-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------###
@@ -482,21 +489,22 @@ fig11.data[1].name = 'N1_Lagged_scaled'
 st.plotly_chart(fig11)
 
 st.write('''
-         While an optimal amount of lags can be determaned through cross-corilation, that dose not mean the optimal lag is the best lag for the model.
-         After testing a few lag models on diffrent sites, the best global lag for N1 is 8, 9, or 10.
-         A lag of 8 or 10 is aproximently 1 month of time, so the data suggest that the N1 data can predict deaths due to COVID-19 one month in advance.
-         Once a lag has been chosen, the N1 data has to be fit to the deaths data.
+         While an optimal number of lags can be determined through cross-correlation, that does not mean the optimal lag is the best lag for the model.
+         After testing a few lag models on different sites, the best global lag for N1 is 8, 9, or 10.
+         A lag of 8 or 10 is approximately 1 month of time, so the data suggest that the N1 data can predict deaths due to COVID-19 one month in advance.
+         Once a lag has been chosen, the N1 data must be fit to the deaths data.
          After fitting N1 to deaths we test to see if PMMoV can improve our model residuals.
-         As a reminder, to create an accurate model we need local COVID-19 related data so we expect our PMMoV model to only slighly improve our predictive power.
-         We must also take into account the limitaions of N1 dettection using ddPCR.
+         As a reminder, to create an accurate model we need local COVID-19 related data so we expect our PMMoV model to only slightly improve our predictive power.
+         We must also consider the limitations of N1 detection using ddPCR.
          The N1 data stagnates as COVID-19 infections fall below 'a significant threshold'.
-         N1 can only be called present in a sample if the 100ml sample count is aproximenly 2000 gc or above.
+         N1 can only be called present in a sample if the 100ml sample count is approximately 2000 gc or above.
          If the N1 count data is below 2000 gc then we assume the sample has no N1.
-         Because of the detection limitaions we can only use data where N1 is consistently above 2000.
+         Because of the detection limitations we can only use data where N1 is consistently above 2000.
          The data range for the scaled N1 graphs is limited to September 2023 and April 2024.
-         The data for model fiting will also be limited to only site GR as GR is the only site that can be accuratly represented by the national COVID-19 data
+         The data for model fitting will also be limited to only site GR as GR is the only site that can be accurately represented by the national COVID-19 data
          ''')
 
+# Cross correlation code was written by ChatGPT4.0 mini but manually changed and checked over time to fit the streamlit app
 accuracy_test_df = WW_df[WW_df['Code'] == 'GR']
 # user inputs number of lag steps for plot
 user_input_GR_lag = st.text_input('Enter a number of lags for site GR', '8')
@@ -552,11 +560,11 @@ st.write(f"p_value = {p_PMMoV}")
 st.write(f"Standerd error = {err_PMMoV}")
 st.write(f"square sum of residuals with PMMoV= {residuals_PMMoV}")
 
-fig13 = px.scatter(accuracy_test_df, x='Date', y='N1 scaled Residuals Lag input', title = 'liner reggretion of residual N1 lag to PMMoV')
+fig13 = px.scatter(accuracy_test_df, x='Date', y='N1 scaled Residuals Lag input', title = 'liner regression of residual N1 lag to PMMoV')
 fig13.add_trace(go.Scatter(x=accuracy_test_df['Date'], y=Y_predicted_PMMoV, mode='lines', name='Regression Line', line=dict(color='red', width=2)))
 st.plotly_chart(fig13)
 
-st.write("Explained variance in GR input lag N1 residuals using Flowrate")
+st.write("Explained variance in GR input lag N1 residuals using Flow rate")
 st.write(f"Predicted Slope w1  = {w1_Flow}")
 st.write(f"Predicted Intercept w0 = {w0_Flow}")
 st.write(f"Person correlation r = {r_Flow}")
@@ -564,6 +572,9 @@ st.write(f"p_value = {p_Flow}")
 st.write(f"Standerd error = {err_Flow}")
 st.write(f"square sum of residuals with PMMoV= {residuals_Flow}")
 
-fig14 = px.scatter(accuracy_test_df, x='Date', y='N1 scaled Residuals Lag input', title = 'liner reggretion of residual N1 lag to Flowrate')
+fig14 = px.scatter(accuracy_test_df, x='Date', y='N1 scaled Residuals Lag input', title = 'liner regression of residual N1 lag to Flow rate')
 fig14.add_trace(go.Scatter(x=accuracy_test_df['Date'], y=Y_predicted_Flow, mode='lines', name='Regression Line', line=dict(color='red', width=2)))
 st.plotly_chart(fig14)
+
+###-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------###
+st.title('Conclusion. What is the Story of the Data')
