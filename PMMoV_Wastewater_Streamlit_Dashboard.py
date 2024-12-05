@@ -519,7 +519,7 @@ SSE_N1_input_lag =(accuracy_test_df['N1 scaled Residuals Lag input']**2).sum()
 SSE_N1_flow_input_lag = np.sum(accuracy_test_df['N1 flowrate scaled Residuals Lag input']**2)
 SSE_N1_PMMoV_input_lag = np.sum(accuracy_test_df['N1 PMMoV scaled Residuals Lag input']**2)
 
-fig12 = px.line(accuracy_test_df, x='Date', y='N1 scaled Residuals Lag input', title = 'N1 scaled Residuals Lag input')
+fig12 = px.line(accuracy_test_df, x='Date', y='N1 scaled Residuals Lag input', title = 'GR N1 data scaled Residuals to Lag input fitted to national COVID-19 death data')
 st.plotly_chart(fig12)
 
 
