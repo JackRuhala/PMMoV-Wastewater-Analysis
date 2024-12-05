@@ -451,16 +451,16 @@ st.write('''
 # set lag range
 Code3 = st.selectbox("Select a Site Code", WW_df['Code'].unique(), key="Lag_box")
 st.write(f"Selected Site Code: {Code3}")
-filtered_lag_df = WW_df[WW_df['Code'] == Code3]
+filtered_lag_df1 = WW_df[WW_df['Code'] == Code3]
 
 max_lag = 20
-cross_corr = np.correlate(filtered_lag_df['BiWeekly Deaths'], filtered_lag_df['N1'], mode='full')
+cross_corr = np.correlate(filtered_lag_df1['BiWeekly Deaths'], filtered_lag_df1['N1'], mode='full')
 lags = np.arange(-max_lag, max_lag + 1)
-start_idx = len(filtered_lag_df) - 1 - max_lag
-end_idx = len(filtered_lag_df) - 1 + max_lag + 1
+start_idx = len(filtered_lag_df1) - 1 - max_lag
+end_idx = len(filtered_lag_df1) - 1 + max_lag + 1
 cross_corr_lagged = cross_corr[start_idx:end_idx]
 
-fig10 = px.line(filtered_lag_df, x=lags, y=cross_corr_lagged)
+fig10 = px.line(filtered_lag_df1, x=lags, y=cross_corr_lagged)
 st.plotly_chart(fig10)
 # pull the lag with the highest corrilation
 optimal_p = lags[np.argmax(cross_corr_lagged)]
@@ -468,16 +468,35 @@ st.write(f'The sugested lag is {optimal_p}')
 
 user_input_lag = st.text_input('Enter a number of lags', '0')
 user_input_lag = int(user_input_lag)
-filtered_lag_df['N1_Lagged'] = filtered_lag_df['N1'].shift(user_input_lag)
+filtered_lag_df1['N1_Lagged'] = filtered_lag_df1['N1'].shift(user_input_lag)
 scaler = StandardScaler()
 
 # Fit and transform the 'BiWeekly Deaths' and 'N1_Lagged' columns
-filtered_lag_df['BiWeekly Deaths scaled'] = scaler.fit_transform(filtered_lag_df[['BiWeekly Deaths']])
-filtered_lag_df['N1_Lagged_scaled'] = scaler.fit_transform(filtered_lag_df[['N1_Lagged']])
+filtered_lag_df1['BiWeekly Deaths scaled'] = scaler.fit_transform(filtered_lag_df1[['BiWeekly Deaths']])
+filtered_lag_df1['N1_Lagged_scaled'] = scaler.fit_transform(filtered_lag_df1[['N1_Lagged']])
 
-fig11 = px.scatter(filtered_lag_df, x='Date', y='BiWeekly Deaths scaled', color_discrete_sequence=['blue'])
-fig11.add_scatter(x=filtered_lag_df['Date'], y=filtered_lag_df['N1_Lagged_scaled'], mode='markers', marker=dict(color='red'), name='N1_Lagged_scaled')
+fig11 = px.scatter(filtered_lag_df1, x='Date', y='BiWeekly Deaths scaled', color_discrete_sequence=['blue'], name='BiWeekly Deaths scaled')
+fig11.add_scatter(x=filtered_lag_df1['Date'], y=filtered_lag_df1['N1_Lagged_scaled'], mode='markers', marker=dict(color='red'), name='N1_Lagged_scaled')
 st.plotly_chart(fig11)
 
+st.write('''
+         While an optimal amount of lags can be determaned through cross-corilation, that dose not mean the optimal lag is the best lag for the model.
+         After testing a few lag models on diffrent sites, the best global lag for N1 is 8, 9, or 10.
+         A lag of 8 or 10 is aproximently 1 month of time, so the data suggest that the N1 data can predict deaths due to COVID-19 one month in advance.
+         Once a lag has been chosen, the N1 data has to be fit to the deaths data.
+         After fitting N1 to deaths we test to see if PMMoV can improve our model residuals.
+         As a reminder, to create an accurate model we need local COVID-19 related data so we expect our PMMoV model to only slighly improve our predictive power.
+         We must also take into account the limitaions of N1 dettection using ddPCR.
+         The N1 data stagnates as COVID-19 infections fall below 'a significant threshold'.
+         N1 can only be called present in a sample if the 100ml sample count is aproximenly 2000 gc or above.
+         If the N1 count data is below 2000 gc then we assume the sample has no N1.
+         Because of the detection limitaions we can only use data where N1 is consistently above 2000.
+         The data range for the scaled N1 graphs is limited to September 2023 and April 2024.
+         The data for model fiting will also be limited to only site GR as GR is the only site that can be accuratly represented by the national COVID-19 data
+         ''')
 
+user_input_GR_lag = st.text_input('Enter a number of lags for site GR', '8')
+accuracy_test_df = filtered_lag_df
+accuracy_test_df = accuracy_test_df.loc[(accuracy_test_df['Date'] >= '2023-09-01') & (accuracy_test_df['Date'] <= '2024-04-01')]
+accuracy_test_df['BiWeekly Deaths scaled Opt'] = accuracy_test_df['BiWeekly Deaths scaled'].shift(-1*(user_input_GR_lag))
 
