@@ -564,6 +564,6 @@ st.write(f"p_value = {p_Flow}")
 st.write(f"Standerd error = {err_Flow}")
 st.write(f"square sum of residuals with PMMoV= {residuals_Flow}")
 
-fig14 = px.scatter(accuracy_test_df, x='Date', y='N1 scaled Residuals Lag input', title = 'liner reggretion of residual N1 lag to Flowrate)
+fig14 = px.scatter(accuracy_test_df, x='Date', y='N1 scaled Residuals Lag input', title = 'liner reggretion of residual N1 lag to Flowrate')
 fig14.add_trace(go.Scatter(x=accuracy_test_df['Date'], y=Y_predicted_Flow, mode='lines', name='Regression Line', line=dict(color='red', width=2)))
 st.plotly_chart(fig14)
