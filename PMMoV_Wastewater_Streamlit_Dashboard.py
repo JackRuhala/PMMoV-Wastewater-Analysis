@@ -504,7 +504,6 @@ user_input_GR_lag = int(user_input_GR_lag)
 accuracy_test_df = accuracy_test_df.loc[(accuracy_test_df['Date'] >= '2023-09-01') & (accuracy_test_df['Date'] <= '2024-04-01')]
 # remove columns with missing data
 accuracy_test_df = accuracy_test_df.dropna(subset=['PMMoV (gc/ 100mL)', 'FlowRate (MGD)', 'N1','BiWeekly Deaths', 'Date'])
-st.dataframe(accuracy_test_df)
 accuracy_test_df['BiWeekly Deaths scaled'] = scaler.fit_transform(accuracy_test_df[['BiWeekly Deaths']])
 accuracy_test_df['N1 Lagged scaled'] = scaler.fit_transform(accuracy_test_df[['N1']])
 accuracy_test_df['FlowRate scaled (MGD)'] = scaler.fit_transform(accuracy_test_df[['FlowRate (MGD)']])
@@ -520,4 +519,28 @@ SSE_N1_input_lag =(accuracy_test_df['N1 scaled Residuals Lag input']**2).sum()
 SSE_N1_flow_input_lag = np.sum(accuracy_test_df['N1 flowrate scaled Residuals Lag input']**2)
 SSE_N1_PMMoV_input_lag = np.sum(accuracy_test_df['N1 PMMoV scaled Residuals Lag input']**2)
 
+fig12 = px.line(accuracy_test_df, x='Date', y='N1 scaled Residuals Lag input', title = 'N1 scaled Residuals Lag input')
+st.plotly_chart(fig12)
+
+
 st.write(f'SSE for N1 input lag: {SSE_N1_input_lag}')
+
+
+
+# Get the flow rate and discharge values as numpy arrays
+X = np.array(temp_df[f'{columnx}'])
+Y = np.array(temp_df[f'{columny}'])
+w1, w0, r, p, err = stats.linregress(X.astype(float), Y.astype(float))
+Y_predicted = w1 * temp_df[f'{columnx}'].astype(float) + w0
+residuals = ((Y - Y_predicted) ** 2).sum()
+
+print(f"Predicted vs Imputed results for {df['Code'].unique()}:")
+print(f"Predicted Slope w1 = {w1:.4e}")
+print(f"Predicted Intercept w0 = {w0:.4e}")
+print(f"Person correlation r {r:.4e}")
+print(f"square sum of residuals = {residuals:.4e}")
+sns.scatterplot(x=temp_df['Date'], y=temp_df[f'{columny}'], data=temp_df)
+sns.lineplot(x=temp_df['Date'], y=(Y_predicted), color = "red")
+ax = plt.gca()
+ax.set_xticklabels([])
+plt.show()
