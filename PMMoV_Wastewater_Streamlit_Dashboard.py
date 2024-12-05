@@ -427,9 +427,35 @@ st.write('''
 st.image('PMMoV_ACF_PACF.png')
 st.write('''
          The ACF and PACF show that the PMMoV can not be predicted using an autocorilation function.
-         The ACF and PACF suggest that tempral PMMoV is independent from one another.
+         The ACF and PACF suggest that ether tempral PMMoV is independent from one another where p=0 or a tempral prediction can be made where 0>p>1.
+         If the autocorilation of PMMoV is 0>p>1 then the requency of sampling from bi-weekly to weekly is required.
+         PMMoV data could be oversampled to artifishaly increase the sampling frequency to check for daily or weekly PMMoV cycles, but the sampling distribution of a single time point is needed to make a decent model.
 ''')
 
-
-
 ###-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------###
+st.title('Tempral analysis of N1 controled for PMMoV')
+
+st.write('''
+         All the analysis on PMMoV and the environment is needed to tell us something about the fecal contamination of a sample.
+         The idea is that the more fecal contaminated the sample, the more fecal pathogens will be detected.
+         One such fecal pathogen is COVID-19. 
+         The detection of COVID-19 gene N1 and N2 in fecal matter has given public health officials a way to predict COVID-19 infections before signs of an outbreak appear in the population.
+         The N1 and N2 counts collected from wastewater closely follow the reported infections of COVID-19 a few weeks before they are reported.
+         To gauge how well fecal N1 predicts COVID-19 infections, the locally known number of infected people is needed to make an accurate prediction, however, since March of 2023, many of the COVID-19 dashboards stopped reporting data.
+         Instead of using locally known COVID-19 infections to compare to our N1 data, we will use the National reported deaths due to COVID-19.
+         While national data is not the best to use for this type of data, if we look at data from a site with a large population and service area the site N1 should come close to the nationally reported number.
+''')
+st.write('''
+         To compare how well N1 compares to deaths due to COVID-19, first the lag between N1 and deaths has to be found.
+         ''')
+# set lag range
+max_lag = 20
+cross_corr = np.correlate(WW_df['BiWeekly Deaths'], WW_df['N1'], mode='full')
+lags = np.arange(-max_lag, max_lag + 1)
+start_idx = len(WW_df) - 1 - max_lag
+end_idx = len(WW_df) - 1 + max_lag + 1
+cross_corr_lagged = cross_corr[start_idx:end_idx]
+fig10 = px.line(x=lags, y=cross_corr_lagged)
+fst.plotly_chart(fig10)
+st.write('''
+         ''')
