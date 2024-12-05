@@ -465,3 +465,19 @@ st.plotly_chart(fig10)
 # pull the lag with the highest corrilation
 optimal_p = lags[np.argmax(cross_corr_lagged)]
 st.write(f'The sugested lag is {optimal_p}')
+
+user_input_lag = st.text_input('Enter a number of lags', '0')
+
+filtered_lag_df['N1_Lagged'] = filtered_lag_df['N1'].shift(user_input_lag)
+scaler = StandardScaler()
+
+# Fit and transform the 'BiWeekly Deaths' and 'N1_Lagged' columns
+filtered_lag_df['BiWeekly Deaths scaled'] = scaler.fit_transform(filtered_lag_df[['BiWeekly Deaths']])
+filtered_lag_df['N1_Lagged_scaled'] = scaler.fit_transform(filtered_lag_df[['N1_Lagged']])
+
+fig11 = px.scatter(filtered_lag_df x='Date' y='BiWeekly Deaths scaled', color='blue')
+fig11.add_trace(go.Scatter(x=filtered_df['Date'], y=y_values, mode='lines', name='Regression Line', line=dict(color='red', width=2)))
+st.plotly_chart(fig11)
+
+
+
