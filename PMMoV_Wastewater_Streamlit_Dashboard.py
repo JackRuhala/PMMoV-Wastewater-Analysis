@@ -449,14 +449,18 @@ st.write('''
          To compare how well N1 compares to deaths due to COVID-19, first the lag between N1 and deaths has to be found.
          ''')
 # set lag range
+Code3 = st.selectbox("Select a Site Code", WW_df['Code'].unique())
+st.write(f"Selected Site Code: {Code3}")
+filtered_lag_df = WW_df[WW_df['Code'] == Code3]
+
 max_lag = 20
-cross_corr = np.correlate(WW_df['BiWeekly Deaths'], WW_df['N1'], mode='full')
+cross_corr = np.correlate(filtered_lag_df['BiWeekly Deaths'], filtered_lag_df['N1'], mode='full')
 lags = np.arange(-max_lag, max_lag + 1)
-start_idx = len(WW_df) - 1 - max_lag
-end_idx = len(WW_df) - 1 + max_lag + 1
+start_idx = len(filtered_lag_df) - 1 - max_lag
+end_idx = len(filtered_lag_df) - 1 + max_lag + 1
 cross_corr_lagged = cross_corr[start_idx:end_idx]
 
-fig10 = px.line(WW_df, x=lags, y=cross_corr_lagged)
+fig10 = px.line(filtered_lag_df, x=lags, y=cross_corr_lagged)
 st.plotly_chart(fig10)
 
 st.write('''
