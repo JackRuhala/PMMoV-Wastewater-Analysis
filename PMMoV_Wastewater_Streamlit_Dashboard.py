@@ -462,6 +462,6 @@ cross_corr_lagged = cross_corr[start_idx:end_idx]
 
 fig10 = px.line(filtered_lag_df, x=lags, y=cross_corr_lagged)
 st.plotly_chart(fig10)
-
-st.write('''
-         ''')
+# pull the lag with the highest corrilation
+optimal_p = lags[np.argmax(cross_corr_lagged)]
+st.write(f'The sugested lag is {optimal_p}')
