@@ -449,7 +449,7 @@ st.write('''
          To compare how well N1 compares to deaths due to COVID-19, first the lag between N1 and deaths has to be found.
          ''')
 # set lag range
-Code3 = st.selectbox("Select a Site Code", WW_df['Code'].unique())
+Code3 = st.selectbox("Select a Site Code", WW_df['Code'].unique(), key="Lag_box")
 st.write(f"Selected Site Code: {Code3}")
 filtered_lag_df = WW_df[WW_df['Code'] == Code3]
 
