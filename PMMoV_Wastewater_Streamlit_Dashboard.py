@@ -497,8 +497,24 @@ st.write('''
          The data for model fiting will also be limited to only site GR as GR is the only site that can be accuratly represented by the national COVID-19 data
          ''')
 
+accuracy_test_df = WW_df[WW_df['Code'] == 'GR']
+# user inputs number of lag steps for plot
 user_input_GR_lag = st.text_input('Enter a number of lags for site GR', '8')
-accuracy_test_df = filtered_lag_df
 accuracy_test_df = accuracy_test_df.loc[(accuracy_test_df['Date'] >= '2023-09-01') & (accuracy_test_df['Date'] <= '2024-04-01')]
-accuracy_test_df['BiWeekly Deaths scaled Opt'] = accuracy_test_df['BiWeekly Deaths scaled'].shift(-1*(user_input_GR_lag))
+accuracy_test_df['BiWeekly Deaths scaled'] = scaler.fit_transform(accuracy_test_df[['BiWeekly Deaths']])
+accuracy_test_df['N1 Lagged scaled'] = scaler.fit_transform(accuracy_test_df[['N1']])
+accuracy_test_df['FlowRate scaled (MGD)'] = scaler.fit_transform(accuracy_test_df[['FlowRate (MGD)']])
+accuracy_test_df['PMMoV scaled (gc/ 100mL)'] = scaler.fit_transform(np.log10(accuracy_test_df[['PMMoV (gc/ 100mL)']]))
+# Inverse lag the Biweekly lag data to reduce the amount of data that need to be shifted for the liner reggretion to work.
+accuracy_test_df['BiWeekly Deaths scaled input'] = accuracy_test_df['BiWeekly Deaths scaled'].shift(-1*(user_input_GR_lag))
 
+ccuracy_test_df['N1 scaled Residuals Lag input'] = accuracy_test_df['N1 Lagged scaled']-accuracy_test_df['BiWeekly Deaths scaled input']
+# add flowrate to 'N1 scaled Residuals Lag input' because flowrate is inverly corralated to N1
+accuracy_test_df['N1 flowrate scaled Residuals Lag input'] = accuracy_test_df['N1 scaled Residuals Lag input'] + accuracy_test_df['FlowRate scaled (MGD)']
+accuracy_test_df['N1 PMMoV scaled Residuals Lag input'] = accuracy_test_df['N1 scaled Residuals Lag input'] - accuracy_test_df['PMMoV scaled (gc/ 100mL)']
+
+SSE_N1_input_lag =(accuracy_test_df['N1 scaled Residuals Lag_Opt']**2).sum()
+SSE_N1_flow_input_lag = np.sum(accuracy_test_df['N1 flowrate scaled Residuals Lag_Opt']**2)
+SSE_N1_PMMoV_input_lag = np.sum(accuracy_test_df['N1 PMMoV scaled Residuals Lag_Opt']**2)
+
+st.write(f'SSE for N1 Opt lag: {SSE_N1_input_lag}')
