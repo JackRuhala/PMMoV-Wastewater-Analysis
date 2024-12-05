@@ -475,8 +475,10 @@ scaler = StandardScaler()
 filtered_lag_df1['BiWeekly Deaths scaled'] = scaler.fit_transform(filtered_lag_df1[['BiWeekly Deaths']])
 filtered_lag_df1['N1_Lagged_scaled'] = scaler.fit_transform(filtered_lag_df1[['N1_Lagged']])
 
-fig11 = px.scatter(filtered_lag_df1, x='Date', y='BiWeekly Deaths scaled', color_discrete_sequence=['blue'], name='BiWeekly Deaths scaled')
-fig11.add_scatter(x=filtered_lag_df1['Date'], y=filtered_lag_df1['N1_Lagged_scaled'], mode='markers', marker=dict(color='red'), name='N1_Lagged_scaled')
+fig11 = px.scatter(filtered_lag_df1, x='Date', y='BiWeekly Deaths scaled', color_discrete_sequence=['blue'])
+fig11.add_scatter(x=filtered_lag_df1['Date'], y=filtered_lag_df1['N1_Lagged_scaled'], mode='markers', marker=dict(color='red'))
+fig11.data[0].name = 'BiWeekly Deaths scaled'
+fig11.data[1].name = 'N1_Lagged_scaled'
 st.plotly_chart(fig11)
 
 st.write('''
