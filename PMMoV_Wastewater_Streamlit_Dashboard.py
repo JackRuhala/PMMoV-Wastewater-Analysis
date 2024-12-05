@@ -500,6 +500,7 @@ st.write('''
 accuracy_test_df = WW_df[WW_df['Code'] == 'GR']
 # user inputs number of lag steps for plot
 user_input_GR_lag = st.text_input('Enter a number of lags for site GR', '8')
+user_input_GR_lag = int(user_input_GR_lag)
 accuracy_test_df = accuracy_test_df.loc[(accuracy_test_df['Date'] >= '2023-09-01') & (accuracy_test_df['Date'] <= '2024-04-01')]
 accuracy_test_df['BiWeekly Deaths scaled'] = scaler.fit_transform(accuracy_test_df[['BiWeekly Deaths']])
 accuracy_test_df['N1 Lagged scaled'] = scaler.fit_transform(accuracy_test_df[['N1']])
