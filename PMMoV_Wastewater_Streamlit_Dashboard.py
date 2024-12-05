@@ -424,6 +424,6 @@ st.write('''
          One of the questions raised by the waste water lab was if PMMoV could be predicted.
          To Predict what PMMoV might be in the future, a ACF and PACF was preformed.
 ''')
-
+st.image('PMMoV_ACF_PACF.png')
 
 ###-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------###
