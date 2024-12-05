@@ -533,7 +533,7 @@ w1_Flow, w0_Flow, r_Flow, p_Flow, err_Flow = stats.linregress(X_Flow.astype(floa
 Y_predicted_PMMoV = w1 * X_PMMoV.astype(float) + w0
 Y_predicted_Flow = w1 * X_Flow.astype(float) + w0
 residuals_PMMoV = ((Y_N1 - Y_predicted_PMMoV) ** 2).sum()
-residuals_Flow = ((Y_N1 - Y_predicted_N1) ** 2).sum()
+residuals_Flow = ((Y_N1 - Y_predicted_Flow) ** 2).sum()
 
 st.write("Explained variance in GR input lag N1 residuals using PMMoV")
 print(f"Predicted Slope w1  = {w1_PMMoV:.4e}")
