@@ -467,7 +467,7 @@ optimal_p = lags[np.argmax(cross_corr_lagged)]
 st.write(f'The sugested lag is {optimal_p}')
 
 user_input_lag = st.text_input('Enter a number of lags', '0')
-
+user_input_lag = int(user_input_lag)
 filtered_lag_df['N1_Lagged'] = filtered_lag_df['N1'].shift(user_input_lag)
 scaler = StandardScaler()
 
