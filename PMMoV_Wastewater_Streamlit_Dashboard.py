@@ -536,9 +536,7 @@ X_Flow = X_Flow.astype(float)
 X_PMMoV = np.array(accuracy_test_df['PMMoV scaled (gc/ 100mL)'])[mask]
 X_PMMoV = X_PMMoV.astype(float)
 
-
-
-st.write(f'{Y_N1}')
+# generate liner reggretion stats
 w1_PMMoV, w0_PMMoV, r_PMMoV, p_PMMoV, err_PMMoV = stats.linregress(X_PMMoV, Y_N1)
 w1_Flow, w0_Flow, r_Flow, p_Flow, err_Flow = stats.linregress(X_Flow, Y_N1)
 Y_predicted_PMMoV = w1_PMMoV * X_PMMoV + w0_PMMoV
@@ -558,4 +556,14 @@ fig13 = px.scatter(accuracy_test_df, x='Date', y='N1 scaled Residuals Lag input'
 fig13.add_trace(go.Scatter(x=accuracy_test_df['Date'], y=Y_predicted_PMMoV, mode='lines', name='Regression Line', line=dict(color='red', width=2)))
 st.plotly_chart(fig13)
 
+st.write("Explained variance in GR input lag N1 residuals using Flowrate")
+st.write(f"Predicted Slope w1  = {w1_Flow}")
+st.write(f"Predicted Intercept w0 = {w0_Flow}")
+st.write(f"Person correlation r = {r_Flow}")
+st.write(f"p_value = {p_Flow}")
+st.write(f"Standerd error = {err_Flow}")
+st.write(f"square sum of residuals with PMMoV= {residuals_Flow}")
 
+fig14 = px.scatter(accuracy_test_df, x='Date', y='N1 scaled Residuals Lag input', title = 'liner reggretion of residual N1 lag to Flowrate)
+fig14.add_trace(go.Scatter(x=accuracy_test_df['Date'], y=Y_predicted_Flow, mode='lines', name='Regression Line', line=dict(color='red', width=2)))
+st.plotly_chart(fig14)
