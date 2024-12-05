@@ -511,7 +511,7 @@ accuracy_test_df['FlowRate scaled (MGD)'] = scaler.fit_transform(accuracy_test_d
 accuracy_test_df['PMMoV scaled (gc/ 100mL)'] = scaler.fit_transform(np.log10(accuracy_test_df[['PMMoV (gc/ 100mL)']]))
 # Inverse lag the Biweekly lag data to reduce the amount of data that need to be shifted for the liner reggretion to work.
 accuracy_test_df['BiWeekly Deaths scaled input'] = accuracy_test_df['BiWeekly Deaths scaled'].shift(-1*(user_input_GR_lag))
-accuracy_test_df['N1 scaled Residuals Lag input'] = accuracy_test_df['N1 Lagged scaled'] - accuracy_test_df['BiWeekly Deaths scaled input']
+
 # add flowrate to 'N1 scaled Residuals Lag input' because flowrate is inverly corralated to N1
 accuracy_test_df['N1 flowrate scaled Residuals Lag input'] = accuracy_test_df['N1 scaled Residuals Lag input'] + accuracy_test_df['FlowRate scaled (MGD)']
 accuracy_test_df['N1 PMMoV scaled Residuals Lag input'] = accuracy_test_df['N1 scaled Residuals Lag input'] - accuracy_test_df['PMMoV scaled (gc/ 100mL)']
