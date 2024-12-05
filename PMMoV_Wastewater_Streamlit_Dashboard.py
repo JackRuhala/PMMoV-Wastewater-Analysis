@@ -544,7 +544,7 @@ print(f"Standerd error = {err_PMMoV:.4e}")
 print(f"square sum of residuals with PMMoV= {residuals_PMMoV:.4e}")
 
 fig13 = px.scatter(accuracy_test_df, x='Date', y='N1 PMMoV scaled Residuals Lag input', title = 'liner reggretion of residual N1 lag to PMMoV')
-fig13.add_trace(go.Scatter(x='Date', y=Y_predicted_PMMoV, mode='lines', name='Regression Line', line=dict(color='red', width=2)))
+fig13.add_trace(go.Scatter(x=accuracy_test_df['Date'], y=Y_predicted_PMMoV, mode='lines', name='Regression Line', line=dict(color='red', width=2)))
 st.plotly_chart(fig13)
 
 
