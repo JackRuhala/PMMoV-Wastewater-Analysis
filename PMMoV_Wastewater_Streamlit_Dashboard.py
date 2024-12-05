@@ -535,8 +535,8 @@ w1_PMMoV, w0_PMMoV, r_PMMoV, p_PMMoV, err_PMMoV = stats.linregress(X_PMMoV, Y_N1
 w1_Flow, w0_Flow, r_Flow, p_Flow, err_Flow = stats.linregress(X_Flow, Y_N1)
 Y_predicted_PMMoV = w1_PMMoV * X_PMMoV + w0_PMMoV
 Y_predicted_Flow = w1_Flow * X_Flow + w0_Flow
-residuals_PMMoV = ((Y_N1 - Y_predicted_PMMoV) ** 2).sum()
-residuals_Flow = ((Y_N1 - Y_predicted_Flow) ** 2).sum()
+residuals_PMMoV = np.sum((Y_N1 - Y_predicted_PMMoV) ** 2)
+residuals_Flow = np.sum((Y_N1 - Y_predicted_Flow) ** 2).sum()
 
 st.write("Explained variance in GR input lag N1 residuals using PMMoV")
 st.write(f"Predicted Slope w1  = {w1_PMMoV}")
