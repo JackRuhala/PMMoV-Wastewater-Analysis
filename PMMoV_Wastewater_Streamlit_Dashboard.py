@@ -516,8 +516,8 @@ accuracy_test_df['N1 scaled Residuals Lag input'] = accuracy_test_df['N1 Lagged 
 accuracy_test_df['N1 flowrate scaled Residuals Lag input'] = accuracy_test_df['N1 scaled Residuals Lag input'] + accuracy_test_df['FlowRate scaled (MGD)']
 accuracy_test_df['N1 PMMoV scaled Residuals Lag input'] = accuracy_test_df['N1 scaled Residuals Lag input'] - accuracy_test_df['PMMoV scaled (gc/ 100mL)']
 
-SSE_N1_input_lag =(accuracy_test_df['N1 scaled Residuals Lag_Opt']**2).sum()
-SSE_N1_flow_input_lag = np.sum(accuracy_test_df['N1 flowrate scaled Residuals Lag_Opt']**2)
-SSE_N1_PMMoV_input_lag = np.sum(accuracy_test_df['N1 PMMoV scaled Residuals Lag_Opt']**2)
+SSE_N1_input_lag =(accuracy_test_df['N1 scaled Residuals Lag input']**2).sum()
+SSE_N1_flow_input_lag = np.sum(accuracy_test_df['N1 flowrate scaled Residuals Lag input']**2)
+SSE_N1_PMMoV_input_lag = np.sum(accuracy_test_df['N1 PMMoV scaled Residuals Lag input']**2)
 
-st.write(f'SSE for N1 Opt lag: {SSE_N1_input_lag}')
+st.write(f'SSE for N1 input lag: {SSE_N1_input_lag}')
