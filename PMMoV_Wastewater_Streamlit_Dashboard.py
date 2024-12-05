@@ -525,12 +525,19 @@ st.plotly_chart(fig12)
 st.write(f'SSE for N1 input lag: {SSE_N1_input_lag}')
 
 # Get the flow rate and discharge values as numpy arrays
-X_Flow = np.array(accuracy_test_df['FlowRate scaled (MGD)'])
-X_Flow = X_Flow.astype(float)
-X_PMMoV = np.array(accuracy_test_df['PMMoV scaled (gc/ 100mL)'])
-X_PMMoV = X_PMMoV.astype(float)
 Y_N1 = np.array(accuracy_test_df['N1 scaled Residuals Lag input'])
 Y_N1 = Y_N1.astype(float)
+# remove missing values from the Y array
+mask = ~np.isnan(Y_N1)
+Y_N1 = Y_N1[mask]
+# ajust the shape of the X arrays to match the Y
+X_Flow = np.array(accuracy_test_df['FlowRate scaled (MGD)'])[mask]
+X_Flow = X_Flow.astype(float)
+X_PMMoV = np.array(accuracy_test_df['PMMoV scaled (gc/ 100mL)'])[mask]
+X_PMMoV = X_PMMoV.astype(float)
+
+
+
 st.write(f'{Y_N1}')
 w1_PMMoV, w0_PMMoV, r_PMMoV, p_PMMoV, err_PMMoV = stats.linregress(X_PMMoV, Y_N1)
 w1_Flow, w0_Flow, r_Flow, p_Flow, err_Flow = stats.linregress(X_Flow, Y_N1)
