@@ -422,8 +422,14 @@ st.title('Tempral analysis of PMMoV')
 
 st.write('''
          One of the questions raised by the waste water lab was if PMMoV could be predicted.
-         To Predict what PMMoV might be in the future, a ACF and PACF was preformed.
+         To Predict what PMMoV might be in the future, a ACF and PACF was preformed or PMMoV with the influance of flow rate removed.
 ''')
 st.image('PMMoV_ACF_PACF.png')
+st.write('''
+         The ACF and PACF show that the PMMoV can not be predicted using an autocorilation function.
+         The ACF and PACF suggest that tempral PMMoV is independent from one another.
+''')
+
+
 
 ###-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------###
