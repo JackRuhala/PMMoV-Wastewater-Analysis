@@ -457,7 +457,7 @@ end_idx = len(WW_df) - 1 + max_lag + 1
 cross_corr_lagged = cross_corr[start_idx:end_idx]
 
 fig10 = px.line(WW_df, x=lags, y=cross_corr_lagged)
-fst.plotly_chart(fig10)
+st.plotly_chart(fig10)
 
 st.write('''
          ''')
