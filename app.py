@@ -5,8 +5,9 @@ from apps import home, data_stats # import your app modules here
 app = MultiApp()
 
 # Add all your application here
-app.add_app("Home", home.app)
-app.add_app("Data Stats", data_stats.app)
+app.add_app("Home", Home.app)
+app.add_app("Basic Intro", Basic Intro.app)
+app.add_app("Extensive Intro", Extensive intro.app)
 
 # The main app
 app.run()
