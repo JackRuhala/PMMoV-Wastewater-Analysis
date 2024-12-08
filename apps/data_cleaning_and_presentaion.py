@@ -1,7 +1,16 @@
 import streamlit as st
 
 def app():
-         st.title('The Data')
+         st.title('The Avalible Data')
+         st.markdown('''
+            If you have not already please read the introduction on wastewater epidemiology and PMMoV. If you dont have time to read the into or dont understand the context of what it means, here is a gross oversimplification of some of the more complicated data variables
+            - PMMoV, Pi6, N1, N2, are all viruses.
+            - gc/100ml = number of viruses per 100ml of collected sample.
+            - gc/100ml = f(ct^-1).
+            - PMMoV = Human fecal contamination.
+            - Pi6 = Extraction control virus for N1 and N2.
+            - N1 = N2 = COVID-19 (no specific variant) .
+            '''
          st.dataframe(WW_df, use_container_width=True)
          
          st.title('The Sorce of Data')
