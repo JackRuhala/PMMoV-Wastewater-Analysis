@@ -66,29 +66,30 @@ def app():
          # Filter the dataframe by selected site code
          filtered_df = WW_df[WW_df['Code'] == Code2]
          # Function to perform linear regression and calculate the best-fit line (min SSE)
-         # def best_fit_line_slope(df, columnx, columny):
-         #     if columnx not in df.columns or columny not in df.columns:
-         #         st.error(f"Column {columnx} or {columny} not found in DataFrame.")
-         #         return None, None
+         def best_fit_line_slope(df, columnx, columny):
+             if columnx not in df.columns or columny not in df.columns:
+                 st.error(f"Column {columnx} or {columny} not found in DataFrame.")
+                 return None, None
                       
-         #     # Drop NaN values from specified columns
-         #     temp_df = df.dropna(subset=[columnx, columny, 'Date'])
-             
-         #     if temp_df.empty:
-         #         st.error(f"Data after removing NaN values is empty. Please check the data.")
-         #         return None, None
+             # Drop NaN values from specified columns
+             temp_df = df.dropna(subset=[columnx, columny, 'Date'])
+             # check to make sure temp_df is not empty
+             if temp_df.empty:
+                 st.error(f"Data after removing NaN values is empty. Please check the data.")
+                 return None, None
                       
-         #     # Get the X and Y values as numpy arrays
-         #     X = np.array(temp_df[columnx], dtype=float)
-         #     Y = np.array(temp_df[columny], dtype=float)
-         #     Y = np.log10(Y)
+             # Get the X and Y values as numpy arrays
+             # change array data type to a float
+             X = np.array(temp_df[columnx], dtype=float)
+             Y = np.array(temp_df[columny], dtype=float)
+             # Take log 10 of PMMoV gc counts per 100ml sample for right skew data adjustment of normaly distributed data fond by QQ-ploting
+             Y = np.log10(Y)
             
-             
-         #     # Initial linear regression to get w1 and w0
-         #     w1, w0, r, p, err = stats.linregress(X, Y)
-         #     Y_predicted_min = w1 * X + w0
-         #     SSE_mutiplyer = 2
-         #     SSE_min = np.sum((Y - Y_predicted_min)**SSE_mutiplyer)
+             # calculate w1 and w0 of the regression
+             w1, w0, r, p, err = stats.linregress(X, Y)
+             Y_predicted_min = w1 * X + w0
+             SSE_mutiplyer = 2
+             SSE_min = np.sum((Y - Y_predicted_min)**SSE_mutiplyer)
                   
          #     # Generate ranges for w0 and w1 to minimize SSE
          #     w0_range = np.linspace(w0 * 0.25, w0 * 1.75, 200)
