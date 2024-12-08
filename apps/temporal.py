@@ -7,6 +7,7 @@ import seaborn as sns
 import plotly.graph_objects as go
 from scipy import stats
 from sklearn.preprocessing import LabelEncoder
+from sklearn.preprocessing import StandardScaler
 
 def app():
 # Performance of laboratory extractions
