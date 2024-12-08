@@ -57,7 +57,7 @@ def app():
                   To minimize the SSE, the w1 and w0 for minimum loss must be found.
                   To find the best w1 and w0 for the minimum SSE we use the sumrized formula...
          ''')
-         st.letex(r'''Y = XW ''')
+         st.latex(r'''Y = XW ''')
          st.write('''
                   Where X and Y are matries of our x and y variable data respectivly, and W is a matrix containing w0 and w1.
                   Once w0 and w1 are applyed to our data, we cant garentie that the best fit line is the line that represents the variable relationship in reality.
