@@ -186,7 +186,7 @@ def app():
          else:
              st.write("Please check the column selections and try again.")
          y_temp = np.log10(filtered_df[column_y1])
-         fig6 = px.scatter(filtered_df, x=column_x1, y=y_temp, title=f"PMMoV liner regression model vs X {Code2}")
+         fig6 = px.scatter(filtered_df, x=column_x1, y=y_temp, title=f"PMMoV liner regression model vs {columnx} {Code2}")
          fig7 = px.scatter(filtered_df, x='Date', y=y_temp, title=f"PMMoV liner regression model vs Time {Code2}")
          # Get the x-values from the filtered dataframe for plotting the regression line
          x_values = filtered_df[column_x1].astype(float)
