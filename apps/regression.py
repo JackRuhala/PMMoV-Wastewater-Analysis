@@ -160,7 +160,7 @@ def app():
              )
              # Adjust w0 and w1 based on slider value
              # Mapping the slider to w0 and w1
-             w0_adjusted = min_w0 + (slider_value / 100.0) * (max_w0 - min_w0)
+             w0_adjusted = max_w0 + (slider_value / 100.0) * (max_w0 - min_w0) # w0 is inversly related to w1 so change the value of the ad
              w1_adjusted = min_w1 + (slider_value / 100.0) * (max_w1 - min_w1)
              
              # Display the adjusted w0 and w1
