@@ -212,17 +212,17 @@ def app():
          st.write('''
                   Based on carful observation of the liner models the best liner regression model involves fitting the data to flow rate and precipitation.
                   The variables used for liner regression were found to correlate with the method of sample collection.
-                  Samples collected using a composite collected are most affected by flow rate.
+                  Samples collected using composite collection are most affected by the flow rate.
                   The flow rate of a system for composite samples is shown to be negatively correlated to the amount of PMMoV detected on a particular day.
-                  Faster than normal moving water through a system is suspected to flush out a system’s fecal mater and thus lower the PMMoV detected.
+                  Faster than normal moving water through a system is suspected to flush out a system’s fecal matter and thus lower the PMMoV detected.
                   Samples collected directly from the sewer were found to be greatly affected by heavy rainfall.
-                  The precipitation recorded over a 24 hour period positively correlates with PMMoV detected on the same day.
+                  The precipitation recorded over a 24-hour period positively correlates with PMMoV detected on the same day.
                   heavy rainfall is suspected to greatly disturb a sewer environment causing lingering particulates to contaminate the grab sample more than normal, thus increasing the PMMoV detected.
                   Although flow rate and precipitation affect sample collection differently the environmental variable that greatly affects one sample has very little effect on the other sample.
                   The effect each variable has on a sample site is reflected by the weights of the model given.
-                  Moving forward, all site log10 PMMoV gc/100ml data is fited to the optimal regression line of flow rate given to a site.
-                  While preciption is worth considering using to fit some spific site data, the precipition itself is not suspected of impaecting PMMoV directly and is not well understoded from the data why this relationship occurs.
-                  The fited data for each site is stored and pre loaded in the data table as "Log residuals" under the data presentaion tab.
+                  Moving forward, all site log10 PMMoV gc/100ml data is fitted to the optimal regression line of flow rate given to a site.
+                  While preciption is worth considering using to fit some specific site data, the prescription itself is not suspected of impacting PMMoV directly and is not well understood from the data why this relationship occurs.
+                  The fitted data for each site is stored and pre-loaded in the data table as "Log residuals" under the data presentation tab.
          ''')
          st.write('''
                   Note: For the few wondering why mutivariable liner regression was not used is because the univariable regression is not well understode yet, and we want to avoid overfiting our data.
