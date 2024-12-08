@@ -9,3 +9,5 @@ I would like to thank the Grand Valley State University Molecular monitoring tea
 I would also like to acknowledge the Michigan wastewater surveillance dashboard for keeping up to date information on COVID-19 wastewater data.
 https://www.michigan.gov/coronavirus/stats/wastewater-surveillance/wastewater-surveillance-for-covid-19/dashboard but no download is available
 
+To navigate the code for the app, all pages are a single file contained in the apps folder.
+The main streamlit app is to run through app.py and uses the mutiapp code to connect the app dependency files together
