@@ -25,7 +25,7 @@ def app():
          # impute bianary wther data to 1s and 0s
          
          # Select a site
-         Code1 = st.selectbox("Select a Site Code", WW_df['Code'].unique())
+         Code1 = st.selectbox("Select a Site Code", WW_df['Code'].unique(), key="cov_box")
          # filter out site spicifc data
          filtered_df1 = WW_df[WW_df['Code'] == Code1]
          
