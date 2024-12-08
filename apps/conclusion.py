@@ -1,9 +1,9 @@
 import streamlit as st
 
 def app():
-         st.title('Conclusion. What is the Story of the Data')
+         st.title('What is the Story of the Data')
          st.write('''
-                  Our PMMoV data gives insight into the sewer microenvironment.
+                  The PMMoV data gives insight into the sewer microenvironment.
                   The data tells us that sewer systems all exhibit different and unique properties that make global modeling of sewer data challenging.
                   PMMoV was found to be much more resilient to changes in temperature and pH than initially though.
                   PMMoV was found to be impacted by environmental flowrate (explains low count outliers) and may exist dormant in the sludge layer of the sewer only to be kicked up when heavy rain is present (explains a Bayesian event that can cause a high outlier).
@@ -11,7 +11,7 @@ def app():
                   PMMoV variation is likely not caused by known environmental factors, sampling methodology, or laboratory personnel.
                   Bi-weekly PMMoV measurements do not suggest any temporal dependents, suggesting possible temporal correlations are weekly or daily if they exist.
                   Detection of N1 in a sewer system can predict the deaths due to COVID-19 about a month in advance.
-                  PMMoV seemingly preforms slightly better than flowrate as a normalizer of N1 lag adjusted residuals, but more data is needed to make any claims.
+                  PMMoV seemingly performs slightly better than flowrate as a normalizer of N1 lag adjusted residuals, but more data is needed to make any claims.
          ''')
          
          ###-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------###
