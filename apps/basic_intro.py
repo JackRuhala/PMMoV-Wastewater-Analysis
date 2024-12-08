@@ -14,7 +14,7 @@ def app():
         Americans are lucky enough to have a sewer system that carries away the waste we don’t like to think about, but there’s valuable information about disease in that sewer water.
         Wastewater epidemiology targets the collective fecal matter in the sewer system and tests the water for specific diseases.
         Wastewater epidemiology provides a way to gain valuable knowledge about a disease in an environment without needing to test all individuals in a population.
-          ''')
+        ''')
     st.title('The Problem With Wastewater Epidemiology')
     st.write ('''
         One question people want to know about disease tracking is, how many people have a particuler disease?
@@ -34,3 +34,4 @@ def app():
         Whats importent to know is the more PMMoV is detected, the more poop is in the water, the more likely we find a disease in the water.
         The corilation between PMMoV to poop to disease has not been relably shown in sciance yet and is the main focus of this analysis.
         Can we use PMMoV to tell us somthing about the water we are testing, and if we can, dose using PMMoV help us get a more accurate prediction of a disease in a population.
+        ''')
