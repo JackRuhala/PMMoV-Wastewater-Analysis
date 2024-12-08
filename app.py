@@ -8,6 +8,7 @@ app = MultiApp()
 app.add_app("Home", home.app)
 app.add_app("Basic Intro", basic_intro.app)
 app.add_app("Extensive Intro", extensive_intro.app)
+app.add_app("Avalible Data", data_cleaning_and_presentaion.app)
 
 # The main app
 app.run()
