@@ -51,7 +51,25 @@ def app():
                   PMMoV (gc/100ml) is presented in log10 form for two reasons, one its much easier to see changes in PMMoV in log form, and two, PMMoV is normally distributed around the regression line in log form as was determined by QQ-plots.
                   The reggertion line is inishaly calculated using formula...
                   ''')
-         st.latex (r'''Loss = \sum^n_{t=1} (y_t - (w_1x_t + w_0))^2''')
+         st.latex(r'''SSE = \sum^n_{t=1} (y_t - (w_1x_t + w_0))^2''')
+         st.write('''
+                  Where the goal is to minimize the value of SSE (sum of least squres) to get the line that fits the data the "best".
+                  To minimize the SSE, the w1 and w0 for minimum loss must be found.
+                  To find the best w1 and w0 for the minimum SSE we use the sumrized formula...
+         ''')
+         st.letex(r'''Y = XW ''')
+         st.write('''
+                  Where X and Y are matries of our x and y variable data respectivly, and W is a matrix containing w0 and w1.
+                  Once w0 and w1 are applyed to our data, we cant garentie that the best fit line is the line that represents the variable relationship in reality.
+                  Our data has meny unexplored variances, so we need to find combinations of w0 and w1 that genrate SSE with close to minimal loss and compare the lines of minimal loss to each other.
+                  Below, select an site location and an enviromental variable.
+                  The application will use the data avalibe to genrate an optimal regression line using the SSE loss formula.
+                  Once the optimal SSE is found, the app will look for sets of w1 and w0 with SSEs close to the minimum SSE, this is called genrating a surface map.
+                  Once pairs of w0 and w1 are found, the app will find the most "significant" w0 and w1 pairs and load them onto the slider bar below.
+                  To adjust the regression line move the slider back and forth.
+                  The origanl, optiomaly best fit line is set in the middle of the slider at 50 and its values are recorded below.
+                  There is no one best fit line for this data and more research needs to be done to narrow down the options for best fit line.
+         ''')
          WW_df_y = WW_df[['PMMoV (gc/ 100mL)']]
          WW_df_x = WW_df[['Discharge (ft^3/s)', 'FlowRate (MGD)','Temp', 'pH', 'Pellet Volume (ml)', 'PRCP (Rain fall in)']]
          Code2 = st.selectbox("Select a Site Code for regretion", WW_df['Code'].unique(), key="reg_box")
