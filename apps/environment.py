@@ -16,8 +16,13 @@ def app():
          # scaler = StandardScaler()
          # Understanding the environment of Kent Countys sewers
          st.title('Understanding the Environment of Kent Countys sewers')
-         st.write('A sewer system is not isolated from the outside world, the system experiences dramatic changes along with the environment outside the environment'
-                  'Below, take some time to look at how the environment of a sewer system changes with the environment outside.'
+         st.write('''
+                  A sewer system is not isolated from the outside world, the system experiences dramatic changes along with the environment outside the environment. 
+                  The effect the enviroment has on the sewer enviroment is mostly determend by the design of the sewer itself.
+                  Sewers are build as a network of pipes that feed into incresingly larger pipes, the larger the pipe the larger the sample population of an area.
+                  Sewers can also be combined with storm water and older sewer systems show cracks in the pipes that let ground water infiltrate the system.
+                  Below, take some time to look at how the environment of a sewer system changes with the environment outside.
+                  '''
          )
          
          fig2 = px.scatter(WW_df, title = 'Kent County Sewer Water Tempature', x='Date', y='Temp', render_mode='svg')
