@@ -15,15 +15,14 @@ def app():
          # Building and environmental model for PMMoV
          st.title('Building and environmental model for PMMoV')
          st.write('''
-                  Below is an interactive figure of how our environmental data can be used to generate a model for PMMoV fluctuations
-                  The interactive plot generates a liner regression model of PMMoV fitted to the environmental variables of interest selected
-                  Model variables have already been determent but if you wish to see the models that are not further discussed feel free to come back and look at them here
-         '''
-         )
-         
+                  Below is a figure of correlation variables within the table. 
+                  The correlations are determined using a correlation matrix of normally scaled data.
+                  For those who might not understand correlation matrixes, a 1 or -1 means the two intersecting columns are correlated and a 0 means the two intersecting columns are not correlated.
+                  The negative and positive values determine the type of correlation. 
+                  Negative values are negatively correlated and positive values are positively correlated.
+                  The correlation matrix only estimates the correlation between two variables and becomes less accurate, the more a variable is impacted by other variables, so take the estimated correlations with a grain of salt.
+                  ''')
          # Generate a Cov matrix
-         # impute bianary wther data to 1s and 0s
-         
          # Select a site
          Code1 = st.selectbox("Select a Site Code for the corrilation matrix", WW_df['Code'].unique(), key="cov_box")
          # filter out site spicifc data
@@ -45,14 +44,14 @@ def app():
          plt.title('Corrilation matrix heatmap')
          st.pyplot(fig)
          
-         
-         
-         
-         # Note The folowing code below calculates the optimal regretion line for the variables chosen.
+         # Note The folowing code below calculates the optimal regretion line for the variables chosen above, from the select boxs.
          # A function was added to allow the user to change the weights of the reggretion line which was supported by code writen by ChatGPT4.0 mini (12/4/2024)
-         # Appaun reveiew the code "works" but not as intended and any chage to the code will brake the whole streamlit page
-         # As of this comment(12/4/2024) I do not have time spend trouble shooting the code and need to focus on including more data.
-         
+         st.write('''
+                  Here we are trying to find the liner relationship between our PMMoV gene counts (gc) per 100ml sample and our environmental variables.
+                  PMMoV (gc/100ml) is presented in log10 form for two reasons, one its much easier to see changes in PMMoV in log form, and two, PMMoV is normally distributed around the regression line in log form as was determined by QQ-plots.
+                  The reggertion line is inishaly calculated using formula...
+                  ''')
+         st.latex (r'''Loss = \sum^n_{t=1} (y_t - (w_1x_t + w_0))^2''')
          WW_df_y = WW_df[['PMMoV (gc/ 100mL)']]
          WW_df_x = WW_df[['Discharge (ft^3/s)', 'FlowRate (MGD)','Temp', 'pH', 'Pellet Volume (ml)', 'PRCP (Rain fall in)']]
          Code2 = st.selectbox("Select a Site Code for regretion", WW_df['Code'].unique(), key="reg_box")
@@ -188,12 +187,6 @@ def app():
          # # Display the plot using Streamlit
          st.plotly_chart(fig6)
          st.plotly_chart(fig7)
-         
-         
-         
-         
-         
-         
          
          # Log multivariate liner regression code here
          
