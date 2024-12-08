@@ -35,20 +35,20 @@ def app():
          
          # local Precipitaion graph
          fig3 = px.scatter(WW_df, title = 'local Precipitaion in inches', x='Date', y='PRCP (Rain fall in)', render_mode='svg')
-         st.plotly_chart(fig2)
+         st.plotly_chart(fig3)
          
          # Grand River graph
          fig4 = px.scatter(WW_df, title = 'Discharge of the Grand River (ft^3/s)', x='Date', y='Discharge (ft^3/s)')
-         st.plotly_chart(fig3)
+         st.plotly_chart(fig4)
          
          # Sewer flow rate graph
          fig5 = px.scatter(WW_df, title = 'Sewer Flow Rate by site', x='Date', y='FlowRate (MGD)', color ='Code', render_mode='svg')
-         st.plotly_chart(fig4)
+         st.plotly_chart(fig5)
          
          # pH of a system graph
          fig6 = px.scatter(WW_df, title = 'Sewer Water pH by site', x='Date', y='pH', color ='Code', render_mode='svg')
-         st.plotly_chart(fig5)
+         st.plotly_chart(fig6)
          
          # graphs of PMMoV recorded in a system
          fig7 = px.scatter(WW_df, title = 'PMMoV Gene Copys recorded in 100ml Sewer Water sample', x='Date', y='PMMoV (gc/ 100mL)', color ='Code', render_mode='svg')
-         st.plotly_chart(fig6)
+         st.plotly_chart(fig7)
