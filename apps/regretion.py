@@ -30,7 +30,8 @@ def app():
          filtered_df1 = WW_df[WW_df['Code'] == Code1]
          
          filtered_df1 = filtered_df1.drop(columns= ['Date','Code','BiWeekly Deaths','qPCR Operator','Date tested','Lag date','Sample Type'])
-         filtered_df1 = filtered_df1.dropna(subset=['pH'])
+         if  filtered_df1['pH'].isna().sum() > 10:
+                  filtered_df1 = filtered_df1.drop(columns= ['pH'])
          filtered_df1 = filtered_df1.dropna()
          
          # Scale the remaining data
