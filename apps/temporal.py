@@ -62,7 +62,7 @@ def app():
          optimal_p = lags[np.argmax(cross_corr_lagged)]
          st.write(f'The sugested lag is {optimal_p}')
          
-         user_input_lag = st.text_input('Enter a number of lags', '0')
+         user_input_lag = slider_value = st.slider("Select a value", min_value=-20, max_value=20, step=1)
          user_input_lag = int(user_input_lag)
          filtered_lag_df1['N1_Lagged'] = filtered_lag_df1['N1'].shift(user_input_lag)
          scaler = StandardScaler()
