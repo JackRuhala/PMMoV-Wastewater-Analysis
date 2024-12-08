@@ -53,7 +53,7 @@ def app():
          # Appaun reveiew the code "works" but not as intended and any chage to the code will brake the whole streamlit page
          # As of this comment(12/4/2024) I do not have time spend trouble shooting the code and need to focus on including more data.
          
-         WW_df_y = WW_df[['PMMoV (gc/ 100mL)', 'PMMoV Mean CT']]
+         WW_df_y = WW_df[['PMMoV (gc/ 100mL)']]
          WW_df_x = WW_df[['Discharge (ft^3/s)', 'FlowRate (MGD)','Temp', 'pH', 'Pellet Volume (ml)', 'PRCP (Rain fall in)']]
          Code2 = st.selectbox("Select a Site Code for regretion", WW_df['Code'].unique(), key="reg_box")
          column_y1 = st.selectbox("Select a Column for X-axis", WW_df_y.columns)
