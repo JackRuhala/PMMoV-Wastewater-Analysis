@@ -13,7 +13,7 @@ from sklearn.preprocessing import LabelEncoder
 
 WW_df = pd.read_csv(r'Wastewater data sheet')
 WW_df = WW_df.drop(columns = 'Unnamed: 0')
-scaler = StandardScaler()
+# scaler = StandardScaler()
 
 def app():
          st.title('The Avalible Data')
