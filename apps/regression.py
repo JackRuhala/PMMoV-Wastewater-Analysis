@@ -89,7 +89,7 @@ def app():
              w1, w0, r, p, err = stats.linregress(X, Y)
              Y_predicted_min = w1 * X + w0
              SSE_range_mutiplyer = 2
-             SSE_min = np.sum((Y - Y_predicted_min)**SSE_mutiplyer)
+             SSE_min = np.sum((Y - Y_predicted_min)**2)
                   
              # run a grid search for posible w0 and w1 to
              w0_range = np.linspace(w0 * 0.25, w0 * 1.75, 100)
@@ -111,7 +111,7 @@ def app():
              best_w1 = w1_range[min_SSE_index[1]]
          
              # Identify a target SSE to limit our grid search
-             target_SSE = SSE_mutiplyer * SSE_min
+             target_SSE = SSE_range_mutiplyer * SSE_min
          
              # Find the point in the grid where the SSE is 'SSE_range_mutiplyer' times the minimum SSE
              tolerance = 0.05 * SSE_min  # Allow for small tolerance in SSE
