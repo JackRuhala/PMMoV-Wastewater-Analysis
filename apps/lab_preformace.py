@@ -22,7 +22,7 @@ def app():
                   Below is every recoreded extractor variation in PMMoV with flow rate influance removed
          ''')
          Extractor_Preformance_df = WW_df.groupby('Extractor')['Log Residuals'].apply(list)
-         fig8 = px.box(WW_df, x='Extractor', y='Log Residuals')
+         fig8 = px.box(WW_df, x='Extractor', y='Log Residuals', title = 'Extraction Performance Box Plot')
          st.plotly_chart(fig8)
          st.write('''
                   The Box plot tells us every extractor innate mean PMMoV recorded with flow rate influence removed.
@@ -37,7 +37,7 @@ def app():
                   Next we want to compare the variance in PMMoV given diffrent sample collection methods given the variation of PMMoV due to flow rate is removed.
          ''')
          
-         fig9 = px.box(WW_df, x='Sample Type', y='Log Residuals')
+         fig9 = px.box(WW_df, x='Sample Type', y='Log Residuals', title = 'Sample Collection Box Plot')
          st.plotly_chart(fig9)
          
          st.write('''
