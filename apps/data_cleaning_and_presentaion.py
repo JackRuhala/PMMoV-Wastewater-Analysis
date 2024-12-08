@@ -39,7 +39,7 @@ def app():
                   - Daily discharge data can be downloaded from USGS grand rapids grand river monitoring station
                            : https://waterdata.usgs.gov/monitoring-location/04119000/#parameterCode=00065&period=P7D&showMedian=false
                   - Publicly known deaths due to COVID-19 are published on the CDC website
-                           : Place holder for link
+                           : https://covid.cdc.gov/covid-data-tracker/#trends_weeklydeaths_select_00
                   
                   The remaining data presented in this dashboard was provided directly from the Grand Valley State University molecular monitoring lab.
                   The lab data Is not found online but a link to the data used for this dashboard will be available on github
