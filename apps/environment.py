@@ -10,7 +10,6 @@ from sklearn.preprocessing import LabelEncoder
 def app():
          WW_df = pd.read_csv(r'Wastewater data sheet')
          WW_df = WW_df.drop(columns = 'Unnamed: 0')
-         # scaler = StandardScaler()
          # Understanding the environment of Kent Countys sewers
          st.title('Understanding the Environment of Kent Countys sewers')
          st.write('''
