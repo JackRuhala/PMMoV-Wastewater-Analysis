@@ -61,7 +61,6 @@ def app():
          
          # Display selected site code and column choices
          st.write(f"Selected Site Code: {Code2}")
-         st.write(f"Y-axis Column: {column_y1}")
          st.write(f"X-axis Column: {column_x1}")
          
          # Filter the dataframe by selected site code
