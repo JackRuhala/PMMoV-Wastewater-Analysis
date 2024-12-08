@@ -41,7 +41,7 @@ def app():
          # re introduce column names since they got lost after scaling the data
          filtered_cov_heatmap = pd.DataFrame(filtered_cov, columns = filtered_df1.columns)
          fig = plt.figure(figsize=(20,20))
-         sns.heatmap(filtered_cov_heatmap, annot=True, cmap = 'magma', xticklabels=filtered_cov_heatmap.columns, yticklabels=filtered_cov_heatmap.columns)
+         sns.heatmap(filtered_cov_heatmap, annot=True, cmap = 'icefire', xticklabels=filtered_cov_heatmap.columns, yticklabels=filtered_cov_heatmap.columns)
          plt.title('Corrilation matrix heatmap')
          st.pyplot(fig)
          
