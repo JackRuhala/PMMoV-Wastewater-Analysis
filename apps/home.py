@@ -25,4 +25,5 @@ def app():
     st.write('''
     On the left side menu, go to the ether the basic introduction or the extensive introducton to learn more about the data.
     Click on the data tabs to see spicifc analysis of the data.
+    If you encounter an error while navigating, please re-run the app page to fix the issue.
     ''')
