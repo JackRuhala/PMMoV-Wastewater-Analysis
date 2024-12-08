@@ -34,7 +34,7 @@ def app():
          filtered_df1 = filtered_df1.dropna()
          
          # Scale the remaining data
-         filtered_scaled = StandardScaler().fit_transform(CS_NO_Objects_NONA)
+         filtered_scaled = StandardScaler().fit_transform(filtered_df1)
          filtered_cov = np.cov(filtered_scaled.T)
          
          # re introduce column names since they got lost after scaling the data
