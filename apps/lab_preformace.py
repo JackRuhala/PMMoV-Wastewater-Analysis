@@ -9,6 +9,9 @@ from scipy import stats
 from sklearn.preprocessing import LabelEncoder
 
 # Performance of laboratory extractions
+WW_df = pd.read_csv(r'Wastewater data sheet')
+         WW_df = WW_df.drop(columns = 'Unnamed: 0')
+
 st.title('Variation of data explained by labritory factors')
 st.write('''
          After an exploration of the PMMoV data, and possible environmental variables, it was found that a lot of “noise” was present.
