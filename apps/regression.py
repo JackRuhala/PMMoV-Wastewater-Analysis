@@ -8,7 +8,7 @@ import plotly.graph_objects as go
 from scipy import stats
 from sklearn.preprocessing import LabelEncoder
 from sklearn.preprocessing import StandardScaler
-# from sklearn.linear_model import LinearRegression
+
 def app():
          WW_df = pd.read_csv(r'Wastewater data sheet')
          WW_df = WW_df.drop(columns = 'Unnamed: 0')
