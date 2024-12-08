@@ -25,7 +25,7 @@ def app():
          # impute bianary wther data to 1s and 0s
          
          # Select a site
-         Code1 = st.selectbox("Select a Site Code for the corrilation matrix", WW_df['Code'].unique(), key="cov_box")
+         Code1 = st.selectbox("Select a Site Code for the corrilation matrix", WW_df['Code'].unique(), key=f"cov_box_{Code1}")
          # filter out site spicifc data
          filtered_df1 = WW_df[WW_df['Code'] == Code1]
          
@@ -55,7 +55,7 @@ def app():
          
          WW_df_y = WW_df[['PMMoV (gc/ 100mL)', 'PMMoV Mean CT']]
          WW_df_x = WW_df[['Discharge (ft^3/s)', 'FlowRate (MGD)','Temp', 'pH', 'Pellet Volume (ml)', 'PRCP (Rain fall in)']]
-         Code2 = st.selectbox("Select a Site Code for regretion", WW_df['Code'].unique(), key="reg_box")
+         Code2 = st.selectbox("Select a Site Code for regretion", WW_df['Code'].unique(), key=f"reg_box_{Code1}")
          column_y1 = st.selectbox("Select a Column for X-axis", WW_df_y.columns)
          column_x1 = st.selectbox("Select a Column for X-axis", WW_df_x.columns)
          
