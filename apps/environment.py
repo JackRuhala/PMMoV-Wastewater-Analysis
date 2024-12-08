@@ -32,7 +32,9 @@ def app():
          # local snow depth graph
          fig2 = px.scatter(WW_df, title = 'local Snow depth in inches', x='Date', y='SNWD (Snow Depth)', render_mode='svg')
          st.plotly_chart(fig2)
-         
+         st.write('''
+                  Note: A lot if snow data from winter 2023 was cut to fit the rest of the data table.
+                  ''')
          # local Precipitaion graph
          fig3 = px.scatter(WW_df, title = 'local Precipitaion in inches', x='Date', y='PRCP (Rain fall in)', render_mode='svg')
          st.plotly_chart(fig3)
@@ -40,7 +42,10 @@ def app():
          # Grand River graph
          fig4 = px.scatter(WW_df, title = 'Discharge of the Grand River (ft^3/s)', x='Date', y='Discharge (ft^3/s)')
          st.plotly_chart(fig4)
-         
+         st.write('''
+                  Note: When looking at how discharge of the Grand River is affected by weather patterns, remember the grand river spans well outside the local area of intrest. 
+                  Because of the grand rivers vast area, imagine how much more water enters the river when snow melts on frozen ground compred to a hevey storm on dry ground.
+                  ''')
          # Sewer flow rate graph
          fig5 = px.scatter(WW_df, title = 'Sewer Flow Rate by site', x='Date', y='FlowRate (MGD)', color ='Code', render_mode='svg')
          st.plotly_chart(fig5)
