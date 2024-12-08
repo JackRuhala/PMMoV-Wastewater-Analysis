@@ -98,11 +98,11 @@ def app():
 # Genrate stats for the liner regretion model after imputaion
          w1, w0, r, p, err = stats.linregress(Code_dis.astype(float),Code_fr.astype(float))
          
-         st.write(f"Slope w1 ={w1}")
-         st.write(f"Predicted Intercept w0 ={w0}")
-         st.write(f"Predicted Pearson correlation coefficient r value ={r}")
-         st.write(f"Predicted p-value ={p}")
-         st.write(f"Predicted Standard error value ={err}")
+         st.write(f"Slope w1 = {w1}")
+         st.write(f"Predicted Intercept w0 = {w0}")
+         st.write(f"Predicted Pearson correlation coefficient r value = {r}")
+         st.write(f"Predicted p-value = {p}")
+         st.write(f"Predicted Standard error value = {err}")
          
          fig1 = px.scatter(Code_data, x='Discharge (ft^3/s)', y='FlowRate (MGD)', title=f"Discharge vs FlowRate for {user_input_1}")
          fig1.add_trace(go.Scatter(x=Code_dis, y=(Code_dis * w1 + w0), mode='lines', name='Regression Line', line=dict(color='red', width=2)))
