@@ -30,7 +30,7 @@ def app():
          st.plotly_chart(fig1)
 
          # local snow depth graph
-         fig2 = px.scatter(WW_df, title = 'local Snow depth in inches', x='Date', y='SNDW (Snow Depth)', render_mode='svg')
+         fig2 = px.scatter(WW_df, title = 'local Snow depth in inches', x='Date', y='SNWD (Snow Depth)', render_mode='svg')
          st.plotly_chart(fig2)
          
          # local Precipitaion graph
