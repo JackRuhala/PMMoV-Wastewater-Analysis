@@ -202,26 +202,33 @@ def app():
          # Add the regression line as a new trace to the plot
          fig6.add_trace(go.Scatter(x=x_values, y=y_values, mode='lines', name='Regression Line', line=dict(color='red', width=2)))
          fig7.add_trace(go.Scatter(x=filtered_df['Date'], y=y_values, mode='lines', name='Regression Line', line=dict(color='red', width=2)))
+         st.write('''
+         The two graphs below, fundamentally, the same graph. The difference is what PMMoV is being compared to on the x-axis.
+         ''')
          # # Display the plot using Streamlit
          st.plotly_chart(fig6)
          st.plotly_chart(fig7)
          
-         # Log multivariate liner regression code here
-         
-         # Optional display of regression residual maps for w1 and w0 for univariate regression
-         
-         # Print values of weights, the intercept, the sum of least squares, and  r^2 correlation value
-         
          st.write('''
-                  Based on carful observation of the liner models the best liner regression model involves fitting the data to flow rate and precipitation
-                  The variables used for liner regression were found to correlate with the method of sample collection
+                  Based on carful observation of the liner models the best liner regression model involves fitting the data to flow rate and precipitation.
+                  The variables used for liner regression were found to correlate with the method of sample collection.
                   Samples collected using a composite collected are most affected by flow rate.
                   The flow rate of a system for composite samples is shown to be negatively correlated to the amount of PMMoV detected on a particular day.
-                  Faster than normal moving water through a system is suspected to flush out a system’s fecal mater and thus lower the PMMoV detected'
+                  Faster than normal moving water through a system is suspected to flush out a system’s fecal mater and thus lower the PMMoV detected.
                   Samples collected directly from the sewer were found to be greatly affected by heavy rainfall.
                   The precipitation recorded over a 24 hour period positively correlates with PMMoV detected on the same day.
-                  heavy rainfall is suspected to greatly disturb a sewer environment causing lingering particulates to contaminate the grab sample more than normal, thus increasing the PMMoV detected
+                  heavy rainfall is suspected to greatly disturb a sewer environment causing lingering particulates to contaminate the grab sample more than normal, thus increasing the PMMoV detected.
                   Although flow rate and precipitation affect sample collection differently the environmental variable that greatly affects one sample has very little effect on the other sample.
                   The effect each variable has on a sample site is reflected by the weights of the model given.
-                  Because of the dominance one variable in a sample has over the other, depending on how the sample is collected, both variables are included in one model for simplification of the models used across different sites.
+                  Moving forward, all site log10 PMMoV gc/100ml data is fited to the optimal regression line of flow rate given to a site.
+                  While preciption is worth considering using to fit some spific site data, the precipition itself is not suspected of impaecting PMMoV directly and is not well understoded from the data why this relationship occurs.
+                  The fited data for each site is stored and pre loaded in the data table as "Log residuals" under the data presentaion tab.
          ''')
+         st.write('''
+                  Note: For the few wondering why mutivariable liner regression was not used is because the univariable regression is not well understode yet, and we want to avoid overfiting our data.
+         ''')
+
+
+
+
+
