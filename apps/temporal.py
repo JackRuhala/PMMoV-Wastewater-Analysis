@@ -9,7 +9,6 @@ from sklearn.preprocessing import LabelEncoder
 from sklearn.preprocessing import StandardScaler
 
 def app():
-# Performance of laboratory extractions
          WW_df = pd.read_csv(r'Wastewater data sheet')
          WW_df = WW_df.drop(columns = 'Unnamed: 0')
 
