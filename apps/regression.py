@@ -88,103 +88,106 @@ def app():
              # calculate w1 and w0 of the regression
              w1, w0, r, p, err = stats.linregress(X, Y)
              Y_predicted_min = w1 * X + w0
-             SSE_mutiplyer = 2
+             SSE_range_mutiplyer = 2
              SSE_min = np.sum((Y - Y_predicted_min)**SSE_mutiplyer)
                   
-         #     # Generate ranges for w0 and w1 to minimize SSE
-         #     w0_range = np.linspace(w0 * 0.25, w0 * 1.75, 200)
-         #     w1_range = np.linspace(w1 * -10, w1 * 10, 200)
+             # run a grid search for posible w0 and w1 to
+             w0_range = np.linspace(w0 * 0.25, w0 * 1.75, 100)
+             w1_range = np.linspace(w1 * -10, w1 * 10, 100)
          
-         #     # Initialize grid to store the sum of least squares (SSE) values
-         #     SLS_grid = np.zeros((len(w0_range), len(w1_range)))
+             # Initialize a zero array to store the sum of least squares (SSE) values for w0, w1, values
+             SLS_grid = np.zeros((len(w0_range), len(w1_range)))
          
-         #     # Loop through the range of w0 and w1 values to calculate SSE for each pair
-         #     for i_idx, i in enumerate(w0_range):
-         #         for j_idx, j in enumerate(w1_range):
-         #             Y_predicted = j * X + i  # Predicted Y values based on current w0 and w1
-         #             Sum_of_least_squares = np.sum((Y - Y_predicted)**SSE_mutiplyer)  # SSE for the current w0, w1 pair
-         #             SLS_grid[i_idx, j_idx] = Sum_of_least_squares
+             # Loop through the range of w0 and w1 values to calculate SSE for each pair
+             for i_idx, i in enumerate(w0_range):
+                 for j_idx, j in enumerate(w1_range):
+                     Y_predicted = j * X + i  # Predicted Y values based on current w0 and w1
+                     Sum_of_least_squares = np.sum((Y - Y_predicted)**2)  # SSE for the current w0, w1 pair
+                     SLS_grid[i_idx, j_idx] = Sum_of_least_squares # store SSE into a grid
          
-         #     # Find the index of the minimum SSE in the grid
-         #     min_SSE_index = np.unravel_index(np.argmin(SLS_grid), SLS_grid.shape)
-         #     best_w0 = w0_range[min_SSE_index[0]]
-         #     best_w1 = w1_range[min_SSE_index[1]]
+             # Find the index of the minimum SSE in the grid
+             min_SSE_index = np.unravel_index(np.argmin(SLS_grid), SLS_grid.shape)
+             best_w0 = w0_range[min_SSE_index[0]]
+             best_w1 = w1_range[min_SSE_index[1]]
          
-         #     # The target SSE is 1.5 times the minimum SSE
-         #     target_SSE = SSE_mutiplyer * SSE_min
+             # Identify a target SSE to limit our grid search
+             target_SSE = SSE_mutiplyer * SSE_min
          
-         #     # Find the indices in the grid where SSE is approximately 2 times the minimum SSE
-         #     tolerance = 0.05 * SSE_min  # Allow for small tolerance in SSE
-         #     close_to_target_SSE = np.abs(SLS_grid - target_SSE) < tolerance
+             # Find the point in the grid where the SSE is 'SSE_range_mutiplyer' times the minimum SSE
+             tolerance = 0.05 * SSE_min  # Allow for small tolerance in SSE
+             close_to_target_SSE = np.abs(SLS_grid - target_SSE) < tolerance
          
-         #     # Get the coordinates of the points that are close to the target SSE
-         #     indices = np.where(close_to_target_SSE)
+             # Get the coordinates of the points that are close to the target SSE
+             indices = np.where(close_to_target_SSE)
          
-         #     # Extract the corresponding w0 and w1 values
-         #     selected_w0 = w0_range[indices[0]]
-         #     selected_w1 = w1_range[indices[1]]
+             # Extract the corresponding w0 and w1 values
+             selected_w0 = w0_range[indices[0]]
+             selected_w1 = w1_range[indices[1]]
+
+             # rule out any null w0 and w1 values if they occure
+             if selected_w0.size == 0 or selected_w1.size == 0:
+                 st.error(f"No valid slope (w1) and intersept (w0) values found that satisfy the SSE condition.")
+                 return None, None, None, None, None, None, None, None
+                      
+             # with in the list of value pairs on the grid with the target SSE value extract the largest and smallest w0 and w1
+             min_w0, max_w0 = selected_w0.min(), selected_w0.max()
+             min_w1, max_w1 = selected_w1.min(), selected_w1.max()
          
-         #     if selected_w0.size == 0 or selected_w1.size == 0:
-         #         st.error(f"No valid slope (w1) and intersept (w0) values found that satisfy the SSE condition.")
-         #         return None, None, None, None, None, None, None, None
-         #     # Find the longest line (the endpoints with the smallest and largest w0/w1)
-         #     min_w0, max_w0 = selected_w0.min(), selected_w0.max()
-         #     min_w1, max_w1 = selected_w1.min(), selected_w1.max()
+             # Calculate the relationship 'slope' between w0 and w1 (rise over run).
+             slope = (max_w1 - min_w1) / (max_w0 - min_w0)
+             intercept = min_w1 - slope * min_w0
+                  
+             return min_w0, max_w0, min_w1, max_w1, slope, intercept, w0, w1
          
-         #     # Calculate the slope of the line connecting the endpoints with the target SSE
-         #     slope = (max_w1 - min_w1) / (max_w0 - min_w0)
+         # Call the function to calculate the best-fit line parameters and slope
+         min_w0, max_w0, min_w1, max_w1, slope, intersept, w0, w1 = best_fit_line_slope(filtered_df, column_x1, column_y1)
          
-         #     intercept = min_w1 - slope * min_w0
-         #     return min_w0, max_w0, min_w1, max_w1, slope, intercept, w0, w1
-         
-         # # Call the function to calculate the best-fit line parameters and slope
-         # min_w0, max_w0, min_w1, max_w1, slope, intersept, w0, w1 = best_fit_line_slope(filtered_df, column_x1, column_y1)
-         
-         # st.write(f"The best-fit line parameters that minimize SSE are:")
-         # st.write(f"The best-fit line Intersept (w0) = {w0}")   
-         # # st.write(f"Plosible w0 (Intercept) range (SSE*2 max): {min_w0} to {max_w0}")
-         # st.write(f"The best-fit line Slpoe (w1) = {w1}")
-         # # st.write(f"Plosible w1 (Slope) range (SSE*2 max): {min_w1} to {max_w1}")
-         # # st.write(f"The slope and intersept of the surface plot for the reggretion line of variables x and y with endpoints of the surface plot SSE close to 2x minimum SSE is: {slope} {intersept}")
-         
-         # if min_w0 is not None and min_w1 is not None:
-         #     # Create a single slider for both w0 and w1
-         #     slider_value = st.slider(
-         #         "Adjust w0 and w1", 
-         #         min_value=0.0, 
-         #         max_value=100.0, 
-         #         value=50.0
-         #     )
-         #     # Adjust w0 and w1 based on slider value
-         #     # Mapping the slider to w0 and w1
-         #     w0_adjusted = min_w0 + (slider_value / 100.0) * (max_w0 - min_w0)
-         #     w1_adjusted = min_w1 + (slider_value / 100.0) * (max_w1 - min_w1)
+         st.write(f"The best-fit line parameters that minimize SSE are:")
+         st.write(f"The best-fit line Intersept (w0) = {w0}")   
+         st.write(f"Most likly w0 (Intercept) range: {min_w0} to {max_w0}")
+         st.write(f"The best-fit line Slpoe (w1) = {w1}")
+         st.write(f"Most likly w1 (Slope) range: {min_w1} to {max_w1}")
+         st.write(f"The slope and intersept of the surface plot for the reggretion line of variables x and y with endpoints of the surface plot SSE close to 2x minimum SSE is: {slope} {intersept}")
+
+         # create a tool that alows users to adjust the w0, w1 of the regretion along an optimal path determand by SSE grid searching
+         if min_w0 is not None and min_w1 is not None:
+             # Create a single slider for both w0 and w1
+             slider_value = st.slider(
+                 "Adjust w0 and w1", 
+                 min_value=0.0, 
+                 max_value=100.0, 
+                 value=50.0
+             )
+             # Adjust w0 and w1 based on slider value
+             # Mapping the slider to w0 and w1
+             w0_adjusted = min_w0 + (slider_value / 100.0) * (max_w0 - min_w0)
+             w1_adjusted = min_w1 + (slider_value / 100.0) * (max_w1 - min_w1)
              
-         #     # Display the adjusted w0 and w1
-         #     st.write(f"Adjusted w0 (Intercept): {w0_adjusted}")
-         #     st.write(f"Adjusted w1 (Slope): {w1_adjusted}")
-         # else:
-         #     st.write("Please check the column selections and try again.")
-         # y_temp = np.log10(filtered_df[column_y1])
-         # fig6 = px.scatter(filtered_df, x=column_x1, y=y_temp, title=f"PMMoV liner regression model vs X {Code2}")
-         # fig7 = px.scatter(filtered_df, x='Date', y=y_temp, title=f"PMMoV liner regression model vs Time {Code2}")
-         # # Get the x-values from the filtered dataframe for plotting the regression line
-         # x_values = filtered_df[column_x1].astype(float)
+             # Display the adjusted w0 and w1
+             st.write(f"Adjusted w0 (Intercept): {w0_adjusted}")
+             st.write(f"Adjusted w1 (Slope): {w1_adjusted}")
+         else:
+             st.write("Please check the column selections and try again.")
+         y_temp = np.log10(filtered_df[column_y1])
+         fig6 = px.scatter(filtered_df, x=column_x1, y=y_temp, title=f"PMMoV liner regression model vs X {Code2}")
+         fig7 = px.scatter(filtered_df, x='Date', y=y_temp, title=f"PMMoV liner regression model vs Time {Code2}")
+         # Get the x-values from the filtered dataframe for plotting the regression line
+         x_values = filtered_df[column_x1].astype(float)
          
-         # # Ensure w1_adjusted and w0_adjusted are scalars (if they're arrays, take the first element)
-         # w1_adjusted = float(w1_adjusted)  # Ensure it's a scalar
-         # w0_adjusted = float(w0_adjusted)  # Ensure it's a scalar
+         # Ensure w1_adjusted and w0_adjusted are scalars (if they're arrays, take the first element)
+         w1_adjusted = float(w1_adjusted)  # Ensure it's a scalar
+         w0_adjusted = float(w0_adjusted)  # Ensure it's a scalar
          
-         # # Calculate the y-values of the regression line using the adjusted w1 and w0
-         # y_values = (x_values * w1_adjusted) + w0_adjusted
-         # SSE_adjusted = np.sum((np.log10(filtered_df[column_y1]) - y_values)**2)
-         # st.write(f"Adjusted SSE = {SSE_adjusted}")
-         # # Add the regression line as a new trace to the plot
-         # fig6.add_trace(go.Scatter(x=x_values, y=y_values, mode='lines', name='Regression Line', line=dict(color='red', width=2)))
-         # fig7.add_trace(go.Scatter(x=filtered_df['Date'], y=y_values, mode='lines', name='Regression Line', line=dict(color='red', width=2)))
-         # # # Display the plot using Streamlit
-         # st.plotly_chart(fig6)
-         # st.plotly_chart(fig7)
+         # Calculate the y-values of the regression line using the adjusted w1 and w0
+         y_values = (x_values * w1_adjusted) + w0_adjusted
+         SSE_adjusted = np.sum((np.log10(filtered_df[column_y1]) - y_values)**2)
+         st.write(f"Adjusted SSE = {SSE_adjusted}")
+         # Add the regression line as a new trace to the plot
+         fig6.add_trace(go.Scatter(x=x_values, y=y_values, mode='lines', name='Regression Line', line=dict(color='red', width=2)))
+         fig7.add_trace(go.Scatter(x=filtered_df['Date'], y=y_values, mode='lines', name='Regression Line', line=dict(color='red', width=2)))
+         # # Display the plot using Streamlit
+         st.plotly_chart(fig6)
+         st.plotly_chart(fig7)
          
          
          
