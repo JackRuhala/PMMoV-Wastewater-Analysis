@@ -70,8 +70,9 @@ def app():
                  Because trends in flow rate closely followed trends in discharge, the discharge of the Grand river was used to model what the flow rate would be on any given day.
                  The model values of discharge vs flow rate are presented below.
                   ''')
-         st.image('Imputed_GR_reggretion_map.png', caption= 'Example of how recoreded flowrate of a system corrilates with discharge of the Grand River before imputaion. 
-                  A small anount of noise was added to the imputed data so the imputed flow rate dose not completly corrilate with discharge')
+         st.image('Imputed_GR_reggretion_map.png', caption= 'Example of how recoreded flowrate of a system corrilates with discharge of the Grand River before imputaion.' 
+                  'A small anount of noise was added to the imputed data so the imputed flow rate dose not completly corrilate with discharge')
+         
          st.markdown(''' Sample stats of reggretion before imputaion
          
          - Slope w1 = 0.00228
@@ -79,8 +80,7 @@ def app():
          - Pearson correlation coefficient r value = 0.871
          - p-value = 8.071e-37
          - Standard error value = 0.000121
-         '''
-         ) # numbers pre imputed data were pre calculated before imputaion as only imputed data is avalible
+         ''') # numbers pre imputed data were pre calculated before imputaion as only imputed data is avalible
          Codes = WW_df['Code'].unique()
          user_input_1 = st.selectbox('Select A code', Codes)
          
